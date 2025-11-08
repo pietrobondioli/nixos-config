@@ -61,7 +61,7 @@ input {
 
     // Focus windows and outputs automatically when moving the mouse into them.
     // Setting max-scroll-amount="0%" makes it work only on windows already fully on screen.
-    focus-follows-mouse max-scroll-amount="100%"
+    // focus-follows-mouse max-scroll-amount="100%"
 }
 
 output "HDMI-A-1" {
@@ -246,6 +246,7 @@ window-rule {
     match app-id=r#".*blueman.*"#
     match title=r#"^Sign in - Google Accounts.*"#
     match app-id=r#".*copyq.*"#
+    match app-id=r#".*pwvucontrol"# title=".*Volume Control.*"
 
     open-floating true
     default-column-width {
@@ -293,6 +294,7 @@ binds {
     Mod+Backspace hotkey-overlay-title="Open a Web Browser: firefox" { spawn "firefox"; }
     Mod+Return hotkey-overlay-title="Open a Terminal: alacritty" { spawn "alacritty"; }
     Mod+B hotkey-overlay-title="Bluetooth Manager: blueman-manager" { spawn "blueman-manager"; }
+    Mod+M hotkey-overlay-title="Audio Device Manager: pwvucontrol" { spawn "pwvucontrol"; }
     Mod+Space hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
     Mod+V hotkey-overlay-title="Clipboard History" { spawn "copyq" "toggle"; }
