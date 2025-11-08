@@ -54,6 +54,7 @@
     # IDEs / Editors
     vscode
     neovim
+    tree-sitter
     #jetbrains.rider
 
     # CLI Tools
@@ -86,6 +87,8 @@
     jdk
     python3
     lua
+    gcc
+    gnumake
 
     # Cloud tools
     awscli2
@@ -157,6 +160,11 @@
 
   xdg.configFile."satty" = {
     source = ./dotfiles/satty;
+    recursive = true;
+  };
+
+  xdg.configFile."nvim" = {
+    source = ./dotfiles/nvim;
     recursive = true;
   };
 
