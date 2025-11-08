@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 # Rofi clipboard history selector using cliphist
-cliphist list | rofi -dmenu -p "Clipboard" | cliphist decode | wl-copy
+cliphist list | rofi -dmenu -p "Clipboard" | cliphist decode | wl-copy && wtype -M ctrl -M shift v -m shift -m ctrl

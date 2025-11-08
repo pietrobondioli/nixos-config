@@ -23,6 +23,7 @@
     waybar
     slurp
     grim
+    wtype
 
     # Browsers
     firefox
