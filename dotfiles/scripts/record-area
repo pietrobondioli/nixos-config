@@ -1,24 +1,45 @@
 #!/usr/bin/env bash
 
-# Toggle screen recording of selected area
+# Toggle screen recording with options
 PIDFILE="/tmp/wf-recorder.pid"
 
 if [ -f "$PIDFILE" ]; then
-    # Stop recording
-    PID=$(cat "$PIDFILE")
-    if kill -0 "$PID" 2>/dev/null; then
-        kill -INT "$PID"
-        wait "$PID" 2>/dev/null
-    fi
-    rm "$PIDFILE"
-    notify-send "Recording stopped" "Video saved to ~/Videos/"
+  # Stop recording
+  PID=$(cat "$PIDFILE")
+  if kill -0 "$PID" 2>/dev/null; then
+    kill -INT "$PID"
+    wait "$PID" 2>/dev/null
+  fi
+  rm "$PIDFILE"
+  notify-send "Recording stopped" "Video saved to ~/Videos/"
 else
-    # Start recording
+  # Choose recording mode
+  MODE=$(echo -e "Select Area\nFull Screen" | rofi -dmenu -p "Recording Mode")
+  [ -z "$MODE" ] && exit 0
+
+  # Choose audio
+  AUDIO=$(echo -e "With Audio\nNo Audio" | rofi -dmenu -p "Audio")
+  [ -z "$AUDIO" ] && exit 0
+
+  # Set audio args
+  if [ "$AUDIO" = "With Audio" ]; then
+    AUDIO_ARGS="-a"
+  else
+    AUDIO_ARGS=""
+  fi
+
+  # Set geometry args
+  if [ "$MODE" = "Select Area" ]; then
     GEOMETRY=$(slurp)
-    if [ -n "$GEOMETRY" ]; then
-        OUTPUT_FILE="$HOME/Videos/recording-$(date +%Y%m%d-%H%M%S).mp4"
-        wf-recorder -g "$GEOMETRY" -f "$OUTPUT_FILE" -a &
-        echo $! > "$PIDFILE"
-        notify-send "Recording started" "Press Super+Shift+A again to stop"
-    fi
+    [ -z "$GEOMETRY" ] && exit 0
+    GEOMETRY_ARGS="-g $GEOMETRY"
+  else
+    GEOMETRY_ARGS=""
+  fi
+
+  # Start recording
+  OUTPUT_FILE="$HOME/Videos/recording-$(date +%Y%m%d-%H%M%S).mp4"
+  wf-recorder $GEOMETRY_ARGS $AUDIO_ARGS -f "$OUTPUT_FILE" &
+  echo $! >"$PIDFILE"
+  notify-send "Recording started" "Press Super+Shift+A again to stop"
 fi
