@@ -73,10 +73,14 @@
     packages = with pkgs; [
       tree
     ];
+    shell = pkgs.zsh;
   };
+
+  environment.shells = with pkgs; [ zsh ];
 
   programs.firefox.enable = true;
   programs.niri.enable = true;
+  programs.zsh.enable = true;
 
   nixpkgs.config.allowUnfree = true;
 
