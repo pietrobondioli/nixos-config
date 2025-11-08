@@ -113,9 +113,11 @@
     curl
     vim
     unzip
-    
+    eza
+
     # Build essentials (needed for system operations)
     gcc
+    papirus-icon-theme
   ];
 
   hardware.graphics = {

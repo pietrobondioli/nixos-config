@@ -18,7 +18,7 @@
     kitty
 
     # Wayland utilities
-    fuzzel
+    rofi
     waybar
     slurp
 
@@ -96,6 +96,24 @@
     vesktop
     teams-for-linux
     spotify
+
+    wlr-randr
+
+    # Notifications
+    mako
+    libnotify
+
+    # System monitor
+    btop
+
+    # Brightness
+    brightnessctl
+
+    # Portal for screen sharing
+    xdg-desktop-portal-wlr
+
+    # PDF reader
+    zathura
   ];
 
   programs.git = {
@@ -111,6 +129,16 @@
 
   xdg.configFile."zellij" = {
     source = ./dotfiles/zellij;
+    recursive = true;
+  };
+
+  xdg.configFile."waybar" = {
+    source = ./dotfiles/waybar;
+    recursive = true;
+  };
+
+  xdg.configFile."rofi" = {
+    source = ./dotfiles/rofi;
     recursive = true;
   };
 
@@ -236,7 +264,6 @@
       WantedBy = ["graphical-session.target"];
     };
   };
-
 
   # Dark mode for all apps
   gtk = {
