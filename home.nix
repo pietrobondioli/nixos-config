@@ -1,79 +1,104 @@
 { config, pkgs, ... }:
 
 {
-	home.username = "pietro";
-	home.homeDirectory = "/home/pietro";
-	home.stateVersion = "25.05";
-	programs.bash = {
-		enable = true;
-		shellAliases = {
-			hi = "echo hello";
-		};
-	};
+  home.username = "pietro";
+  home.homeDirectory = "/home/pietro";
+  home.stateVersion = "25.05";
+  programs.bash = {
+      enable = true;
+      shellAliases = {
+          hi = "echo hello";
+      };
+  };
 
-	home.packages = with pkgs; [
+  home.packages = with pkgs; [
+    # Terminal emulators
     alacritty
+    foot
+    kitty
+
+    # Wayland utilities
     fuzzel
+    waybar
+    slurp
+
+    # Browsers
     firefox
+
+    # File manager
+    xfce.thunar
+    xfce.thunar-volman
+    xfce.thunar-archive-plugin
+
+    # Media
+    mpv
+    pwvucontrol
 
     # Clipboard manager
     copyq
     wl-clipboard
 
-    # Screen recording
-    kooha
+    # Screenshot and screen recording
+    satty
+    gpu-screen-recorder
 
+    # Security
     _1password-cli
     _1password-gui
 
-    # --- IDEs / Editors ---
+    # IDEs / Editors
     vscode
     neovim
-    #jetbrains.rider # For .NET (use rider-fhs for better compatibility)
+    #jetbrains.rider
 
-    # --- Common CLI Tools ---
-    ripgrep  # Fast search
-    fzf      # Fuzzy finder
-    htop     # Process monitor
+    # CLI Tools
+    ripgrep
+    fzf
+    htop
+    direnv
+    nixpkgs-fmt
 
     # AI
     github-copilot-cli
 
+    # Container/K8s tools
     lazydocker
     lazygit
+    kubectl
+    helm
+    minikube
+    k9s
 
-    # bin
+    # Development languages & tools
     nodejs_24
     go
     go-tools
     rustc
     cargo
-    kubectl
-    helm
-    minikube
-    k9s
     zellij
-    gcc
     dotnet-sdk_8
     dotnet-aspnetcore_8
     jdk
     python3
     lua
 
+    # Cloud tools
     awscli2
     aws-vault
 
+    # Fun stuff
     fortune
     cowsay
     lolcat
     neofetch
 
-    discord
-    teams
+    # Communication
+    vesktop
+    teams-for-linux
     spotify
-	];
+  ];
 
-	programs.git = {
+  programs.git = {
     enable = true;
     userName = "Pietro Bondioli";
     userEmail = "email@pietrobondioli.com.br";
@@ -239,15 +264,33 @@
     style.name = "adwaita-dark";
   };
 
-  # Environment variables for dark mode
+  # Environment variables for dark mode and Wayland apps
   home.sessionVariables = {
     GTK_THEME = "Adwaita:dark";
     QT_STYLE_OVERRIDE = "adwaita-dark";
+    NIXOS_OZONE_WL = "1";  # Enable Wayland for Electron apps
   };
 
   dconf.settings = {
     "org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";
+    };
+  };
+
+  # Gammastep (redshift for Wayland)
+  services.gammastep = {
+    enable = true;
+    provider = "manual";
+    latitude = -23.5;  # São Paulo coordinates
+    longitude = -46.6;
+    temperature = {
+      day = 6500;
+      night = 3500;
+    };
+    settings = {
+      general = {
+        adjustment-method = "wayland";
+      };
     };
   };
 }
