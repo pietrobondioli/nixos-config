@@ -53,6 +53,7 @@
 
     # IDEs / Editors
     vscode
+    neovim
     tree-sitter
     #jetbrains.rider
 
@@ -170,58 +171,6 @@
   home.file."scripts" = {
     source = ./dotfiles/scripts;
     recursive = true;
-  };
-
-# In your home-manager configuration
-  programs.neovim = {
-    enable = true;
-    plugins = with pkgs.vimPlugins; [
-      lazy-nvim
-      # Install treesitter with all grammars pre-compiled
-      nvim-treesitter.withAllGrammars
-      # or specific grammars only:
-      # (nvim-treesitter.withPlugins (p: with p; [ 
-      #   bash c cpp go javascript lua nix python rust typescript
-      # ]))
-    ];
-
-    extraLuaConfig = let
-      # Create symlink to all grammars
-      grammarsPath = pkgs.symlinkJoin {
-        name = "nvim-treesitter-grammars";
-        paths = pkgs.vimPlugins.nvim-treesitter.withAllGrammars.dependencies;
-      };
-    in ''
-      -- Add treesitter grammars to runtimepath
-      vim.opt.runtimepath:append("${pkgs.vimPlugins.nvim-treesitter}")
-      vim.opt.runtimepath:append("${grammarsPath}")
-
-      -- Configure lazy.nvim
-      require("lazy").setup({
-        spec = {
-          { import = "plugins" },
-        },
-        performance = {
-          reset_packpath = false,
-          rtp = {
-            reset = false,
-          }
-        },
-        dev = {
-          path = "${pkgs.vimUtils.packDir config.programs.neovim.finalPackage.passthru.packpathDirs}/pack/myNeovimPackages/start",
-        },
-        install = {
-          missing = false,
-        },
-      })
-
-      -- Disable treesitter auto-install since Nix manages it
-      require("nvim-treesitter.configs").setup({
-        auto_install = false,
-        highlight = { enable = true },
-        indent = { enable = true },
-      })
-    '';
   };
 
   programs.zsh = {
