@@ -76,8 +76,7 @@
   };
 
   programs.firefox.enable = true;
-  programs.firefox.enable = true;
-
+  programs.niri.enable = true;
 
   nixpkgs.config.allowUnfree = true;
 

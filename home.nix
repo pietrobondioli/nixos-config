@@ -11,15 +11,6 @@
 		};
 	};
 
-  programs.niri = {
-    settings = {
-      outputs."HDML-A-1" = {
-        scale = 2.0;
-      };
-    };
-  };
-
-
 	home.packages = with pkgs; [
     alacritty
     fuzzel
@@ -58,9 +49,23 @@
     userEmail = "email@pietrobondioli.com.br";
   };
 
-  programs.zsh = {
-    enable = true;
+  xdg.configFile."niri" = {
+    source = ./dotfiles/niri;
+    recursive = true;
   };
+
+  xdg.configFile."zellij" = {
+    source = ./dotfiles/zellij;
+    recursive = true;
+  };
+
+  home.file.".zshrc" = {
+    source = ./dotfiles/.zshrc;
+  };
+
+  # programs.zsh = {
+  #   enable = true;
+  # };
 
   # 3. AUTOMATIC DEV SHELLS (This is the magic!)
   # This configures direnv to automatically load the

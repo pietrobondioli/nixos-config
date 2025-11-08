@@ -1,0 +1,82 @@
+#!/usr/bin/zsh
+
+#######
+# Navigation Functions
+#######
+
+log_file_name="nav.log"
+
+# Change directory to the root of the git repository
+cdtoroot() {
+  cd "$(git rev-parse --show-toplevel)"
+}
+
+# Creating and moving to directory
+take() {
+  mylog "Creating and moving to directory: $1" "$log_file_name"
+  mkdir -p "$1"
+  if cd "$1"; then
+    mylog "Changed directory to $1" "$log_file_name"
+  else
+    mylog "Failed to change directory to $1" "$log_file_name"
+  fi
+}
+
+# Finding and navigating to directory
+ffd() {
+  local dir dirs
+  local exclude_dirs=(
+    "gdrive"
+    "node_modules"
+    ".git"
+    "__pycache__"
+    "venv"
+    ".venv"
+    "env"
+    "bin"
+    "obj"
+    "build"
+    "dist"
+    "target"
+    ".next"
+    ".nuxt"
+    "vendor"
+    "packages"
+    ".cache"
+    ".npm"
+  )
+  mylog "Finding and navigating to directory" "$log_file_name"
+
+  # Check if we're explicitly targeting an excluded directory
+  local skip_exclusions=0
+  if [ -n "$1" ]; then
+    for dir in "${exclude_dirs[@]}"; do
+      if [[ "$1" == *"$dir"* ]]; then
+        skip_exclusions=1
+        break
+      fi
+    done
+  fi
+
+  # Build fd command arguments
+  local fd_args=(-t d --max-depth 5 --min-depth 1)
+
+  # Add exclusion parameters if not skipping
+  if [ "$skip_exclusions" -eq 0 ]; then
+    for dir in "${exclude_dirs[@]}"; do
+      fd_args+=(--exclude "$dir")
+    done
+  fi
+
+  if [ -z "$1" ]; then
+    # Default search paths
+    dirs=$(fd "${fd_args[@]}" . ~/personal ~/work ~/mack-ads ~/)
+  else
+    # Specific search path
+    dirs=$(fd "${fd_args[@]}" . "$1")
+  fi
+
+  dir="$(echo "$dirs" | fzf)"
+
+  [ -n "$dir" ] && cd "$dir"
+}
