@@ -13,6 +13,7 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.systemd-boot.configurationLimit = 3;
 
   networking.hostName = "pc"; # Define your hostname.
   # Pick only one of the below networking options.
@@ -69,7 +70,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.pietro = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "networkmanager" "docker" ]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
       tree
     ];
@@ -77,6 +78,12 @@
   };
 
   environment.shells = with pkgs; [ zsh ];
+
+  virtualisation.docker.enable = true;
+  virtualisation.docker.rootless = {
+    enable = true;
+    setSocketVariable = true; # Automatically sets DOCKER_HOST for your user
+  };
 
   programs.firefox.enable = true;
   programs.niri.enable = true;
@@ -100,6 +107,7 @@
     wget
     direnv
     nixpkgs-fmt # For formatting .nix files
+    unzip
   ];
 
 	

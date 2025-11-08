@@ -38,12 +38,28 @@
     # bin
     nodejs_24
     go
+    go-tools
     rustc
+    cargo
     kubectl
-    npm
+    helm
+    minikube
+    k9s
     zellij
-    # dotnetCorePackages.sdk_9_0_1xx-bin
-    # dotnetCorePackages.aspnetcore_9_0-bin
+    gcc
+    dotnet-sdk_8
+    dotnet-aspnetcore_8
+    jdk
+    python3
+    lua
+
+    awscli2
+    aws-vault
+
+    fortune
+    cowsay
+    lolcat
+    neofetch
 	];
 
 	programs.git = {
@@ -62,7 +78,7 @@
     recursive = true;
   };
 
-  xdg.configFile."scripts" = {
+  home.file."scripts" = {
     source = ./dotfiles/scripts;
     recursive = true;
   };
@@ -78,11 +94,17 @@
       update = "sudo nixos-rebuild switch";
     };
 
-    # histSize = 10000;
-    # histFile = "$HOME/.zsh_history";
-    # setOptions = [
-    #   "HIST_IGNORE_ALL_DUPS"
-    # ];
+    history = {
+      size = 10000;
+      path = "$HOME/.zsh_history";
+    };
+
+    sessionVariables = {
+      EDITOR = "vim";
+      TERMINAL = "/usr/bin/kitty";
+      USER_LOG_DIR = "$HOME/logs";
+      SSH_AUTH_SOCK = "\${XDG_RUNTIME_DIR}/gcr/ssh";
+    };
 
     # Using antidote plugin manager
     antidote = {
@@ -92,35 +114,56 @@
         "zsh-users/zsh-syntax-highlighting"
         "zsh-users/zsh-completions"
         "zsh-users/zsh-history-substring-search"
-        "MichaelAquilina/zsh-auto-notify"
         "wfxr/forgit"
         "hlissner/zsh-autopair"
+        "romkatv/powerlevel10k"
       ];
     };
 
-    # Replaces your Oh My Zsh section
     oh-my-zsh = {
       enable = true;
-      plugins = [ "git" "fzf" ]; # Add your OMZ plugins
+      plugins = [ "git" "fzf" ];
     };
 
-    # This replaces `eval $(zoxide init zsh)`
-    # initExtraBeforeCompInit = ''
-    #   eval "$(zoxide init zsh)"
-    # '';
-
-    # This is for everything else
     initExtra = ''
-      # Source your custom files
+      # Disable corrections
+      # unsetopt correct_all
+
+      # Source custom configuration files
       source $HOME/scripts/vars
       source $HOME/scripts/utils
       source $HOME/scripts/aliases
 
-      # Run your startup command
+      # Additional scripts
+      local -a SOURCE_FILES=(
+        "$HOME/scripts/dev"
+        "$HOME/scripts/fzf"
+        "$HOME/scripts/git"
+        "$HOME/scripts/history"
+        "$HOME/scripts/mix"
+        "$HOME/scripts/nav"
+        "$HOME/scripts/tmux"
+        "$HOME/scripts/zellij"
+        "$HOME/scripts/zellij_autostart_config"
+        "$HOME/scripts/zellij_tab_name_update"
+        "$HOME/scripts/secrets"
+      )
+
+      for config in $SOURCE_FILES; do
+        if [[ -f "$config" ]]; then 
+          source "$config"
+        fi
+      done
+
+      # Zellij configuration
+      zellij_tab_name_update
+      chpwd_functions+=(zellij_tab_name_update)
+      zellij_autostart_config
+
+      # Display system info at startup
       neofetch --ascii "$(fortune | cowsay -W 40)" | lolcat
 
-      # Source your p10k config
-      # We will manage this file with Nix!
+      # Source Powerlevel10k config
       [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
     '';
   };
