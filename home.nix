@@ -60,6 +60,10 @@
     cowsay
     lolcat
     neofetch
+
+    discord
+    teams
+    spotify
 	];
 
 	programs.git = {

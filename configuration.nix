@@ -41,15 +41,15 @@
   # Configure keymap in X11
   
   services.xserver = {
-	enable = true;
-	displayManager.autoLogin.enable = false;
-	displayManager.autoLogin.user = "pietro";
-	displayManager.defaultSession = "niri";
+    enable = true;
+    displayManager.autoLogin.enable = false;
+    displayManager.autoLogin.user = "pietro";
+    displayManager.defaultSession = "niri";
 
-	xkb = {
-		layout = "us";
-		variant = "altgr-intl";
-	};
+    xkb = {
+      layout = "us";
+      variant = "altgr-intl";
+    };
   };
   # services.xserver.xkb.options = "eurosign:e,caps:escape";
 
@@ -77,6 +77,12 @@
     shell = pkgs.zsh;
   };
 
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+  };
+
   environment.shells = with pkgs; [ zsh ];
 
   virtualisation.docker.enable = true;
@@ -90,6 +96,7 @@
   programs.zsh.enable = true;
 
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowUnsupportedSystem = true;
 
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
