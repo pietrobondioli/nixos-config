@@ -16,6 +16,13 @@
     fuzzel
     firefox
 
+    # Clipboard manager
+    copyq
+    wl-clipboard
+
+    # Screen recording
+    kooha
+
     _1password-cli
     _1password-gui
 
@@ -187,6 +194,61 @@
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
+  };
+
+  # CopyQ clipboard manager service
+  systemd.user.services.copyq = {
+    Unit = {
+      Description = "CopyQ clipboard manager";
+      After = ["graphical-session.target"];
+      PartOf = ["graphical-session.target"];
+    };
+    Service = {
+      ExecStart = "${pkgs.copyq}/bin/copyq";
+      Restart = "on-failure";
+      RestartSec = 3;
+    };
+    Install = {
+      WantedBy = ["graphical-session.target"];
+    };
+  };
+
+
+  # Dark mode for all apps
+  gtk = {
+    enable = true;
+    theme = {
+      name = "Adwaita-dark";
+      package = pkgs.gnome-themes-extra;
+    };
+    iconTheme = {
+      name = "Adwaita";
+      package = pkgs.adwaita-icon-theme;
+    };
+    gtk3.extraConfig = {
+      gtk-application-prefer-dark-theme = 1;
+    };
+    gtk4.extraConfig = {
+      gtk-application-prefer-dark-theme = 1;
+    };
+  };
+
+  qt = {
+    enable = true;
+    platformTheme.name = "gtk3";
+    style.name = "adwaita-dark";
+  };
+
+  # Environment variables for dark mode
+  home.sessionVariables = {
+    GTK_THEME = "Adwaita:dark";
+    QT_STYLE_OVERRIDE = "adwaita-dark";
+  };
+
+  dconf.settings = {
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
+    };
   };
 }
 
