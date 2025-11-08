@@ -297,8 +297,8 @@ binds {
     Mod+M hotkey-overlay-title="Audio Device Manager: pwvucontrol" { spawn "pwvucontrol"; }
     Mod+Space hotkey-overlay-title="Run an Application: rofi -show drun" { spawn "rofi" "-show" "drun"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
-    Mod+V hotkey-overlay-title="Clipboard History" { spawn "copyq" "toggle"; }
     Mod+0 hotkey-overlay-title="Power Menu: rofi-power-menu" { spawn "rofi" "-show" "p" "-modi" "p:'rofi-power-menu'"; }
+    Mod+V { spawn "sh" "-c" "$HOME/scripts/rofi-cliphist"; }
 
     // open thunar mod + /
     Mod+Slash hotkey-overlay-title="Open File Manager: thunar" { spawn "thunar"; }
@@ -528,11 +528,12 @@ binds {
     // Mod+Space       { switch-layout "next"; }
     // Mod+Shift+Space { switch-layout "prev"; }
 
-    Print { screenshot; }
-    Ctrl+Print { screenshot-screen; }
-    Alt+Print { screenshot-window; }
-    Mod+Shift+R { spawn "sh" "-c" "wf-recorder -g \"$(slurp)\" -f ~/Videos/recording-$(date +%Y%m%d-%H%M%S).mp4"; }
-    Mod+Shift+S { spawn "pkill" "-SIGINT" "wf-recorder"; }
+    // Print { screenshot; }
+    // Ctrl+Print { screenshot-screen; }
+    // Alt+Print { screenshot-window; }
+    Shift+Print { spawn "sh" "-c" "$HOME/scripts/screenshot-satty"; }
+    // Mod+Shift+R { spawn "sh" "-c" "wf-recorder -g \"$(slurp)\" -f ~/Videos/recording-$(date +%Y%m%d-%H%M%S).mp4"; }
+    // Mod+Shift+S { spawn "pkill" "-SIGINT" "wf-recorder"; }
 
 
     // Applications such as remote-desktop clients and software KVM switches may

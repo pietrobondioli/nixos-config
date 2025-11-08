@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+# Take a screenshot with selection and open in satty for annotation
+grim -g "$(slurp)" - | satty --filename - --output-filename ~/Pictures/screenshot-$(date +%Y%m%d-%H%M%S).png

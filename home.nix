@@ -264,23 +264,6 @@
     nix-direnv.enable = true;
   };
 
-  # CopyQ clipboard manager service
-  # systemd.user.services.copyq = {
-  #   Unit = {
-  #     Description = "CopyQ clipboard manager";
-  #     After = ["graphical-session.target"];
-  #     PartOf = ["graphical-session.target"];
-  #   };
-  #   Service = {
-  #     ExecStart = "${pkgs.copyq}/bin/copyq";
-  #     Restart = "on-failure";
-  #     RestartSec = 3;
-  #   };
-  #   Install = {
-  #     WantedBy = ["graphical-session.target"];
-  #   };
-  # };
-
   systemd.user.services.cliphist = {
     Unit = {
       Description = "Clipboard history daemon";
