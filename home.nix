@@ -45,6 +45,7 @@
     # Screenshot and screen recording
     satty
     gpu-screen-recorder
+    wf-recorder
 
     # Security
     _1password-cli

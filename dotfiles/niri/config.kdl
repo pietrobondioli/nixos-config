@@ -532,8 +532,7 @@ binds {
     // Ctrl+Print { screenshot-screen; }
     // Alt+Print { screenshot-window; }
     Print { spawn "sh" "-c" "$HOME/scripts/screenshot-satty"; }
-    // Mod+Shift+R { spawn "sh" "-c" "wf-recorder -g \"$(slurp)\" -f ~/Videos/recording-$(date +%Y%m%d-%H%M%S).mp4"; }
-    // Mod+Shift+S { spawn "pkill" "-SIGINT" "wf-recorder"; }
+    Mod+Shift+A { spawn "sh" "-c" "$HOME/scripts/record-area"; }
 
 
     // Applications such as remote-desktop clients and software KVM switches may

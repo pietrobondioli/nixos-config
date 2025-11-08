@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+# Toggle screen recording of selected area
+PIDFILE="/tmp/wf-recorder.pid"
+
+if [ -f "$PIDFILE" ]; then
+    # Stop recording
+    PID=$(cat "$PIDFILE")
+    if kill -0 "$PID" 2>/dev/null; then
+        kill -INT "$PID"
+        wait "$PID" 2>/dev/null
+    fi
+    rm "$PIDFILE"
+    notify-send "Recording stopped" "Video saved to ~/Videos/"
+else
+    # Start recording
+    GEOMETRY=$(slurp)
+    if [ -n "$GEOMETRY" ]; then
+        OUTPUT_FILE="$HOME/Videos/recording-$(date +%Y%m%d-%H%M%S).mp4"
+        wf-recorder -g "$GEOMETRY" -f "$OUTPUT_FILE" -a &
+        echo $! > "$PIDFILE"
+        notify-send "Recording started" "Press Super+Shift+A again to stop"
+    fi
+fi
