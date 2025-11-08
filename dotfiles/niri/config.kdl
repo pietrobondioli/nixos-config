@@ -242,9 +242,16 @@ animations {
 // Open apps as floating by default.
 window-rule {
     match app-id=r#"firefox$"# title="^Picture-in-Picture$"
-    match app-id=r#"1password"#
+    match app-id=r#".*1password.*"#
+    match app-id=r#".*blueman.*"#
 
     open-floating true
+    default-column-width {
+        fixed 800;
+    }
+    default-window-height {
+        fixed 600;
+    }
 }
 
 // block screen capture for password managers
@@ -262,7 +269,7 @@ window-rule {
 // Example: enable rounded corners for all windows.
 // (This example rule is commented out with a "/-" in front.)
 window-rule {
-    geometry-corner-radius 12
+    geometry-corner-radius 4
     clip-to-geometry true
 }
 
