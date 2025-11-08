@@ -19,8 +19,10 @@
 
     # Wayland utilities
     rofi
+    rofi-power-menu
     waybar
     slurp
+    grim
 
     # Browsers
     firefox
@@ -36,6 +38,7 @@
 
     # Clipboard manager
     copyq
+    cliphist
     wl-clipboard
 
     # Screenshot and screen recording
@@ -114,6 +117,14 @@
 
     # PDF reader
     zathura
+
+    # Fonts
+    jetbrains-mono
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.fira-code
+    nerd-fonts.hack
+    nerd-fonts.meslo-lg
+    nerd-fonts.symbols-only
   ];
 
   programs.git = {
@@ -139,6 +150,11 @@
 
   xdg.configFile."rofi" = {
     source = ./dotfiles/rofi;
+    recursive = true;
+  };
+
+  xdg.configFile."satty" = {
+    source = ./dotfiles/satty;
     recursive = true;
   };
 
@@ -249,19 +265,35 @@
   };
 
   # CopyQ clipboard manager service
-  systemd.user.services.copyq = {
+  # systemd.user.services.copyq = {
+  #   Unit = {
+  #     Description = "CopyQ clipboard manager";
+  #     After = ["graphical-session.target"];
+  #     PartOf = ["graphical-session.target"];
+  #   };
+  #   Service = {
+  #     ExecStart = "${pkgs.copyq}/bin/copyq";
+  #     Restart = "on-failure";
+  #     RestartSec = 3;
+  #   };
+  #   Install = {
+  #     WantedBy = ["graphical-session.target"];
+  #   };
+  # };
+
+  systemd.user.services.cliphist = {
     Unit = {
-      Description = "CopyQ clipboard manager";
-      After = ["graphical-session.target"];
-      PartOf = ["graphical-session.target"];
+      Description = "Clipboard history daemon";
+      After = [ "graphical-session-pre.target" ];
+      PartOf = [ "graphical-session.target" ];
     };
-    Service = {
-      ExecStart = "${pkgs.copyq}/bin/copyq";
-      Restart = "on-failure";
-      RestartSec = 3;
-    };
+
     Install = {
-      WantedBy = ["graphical-session.target"];
+      WantedBy = [ "graphical-session.target" ];
+    };
+
+    Service = {
+      ExecStart = "${pkgs.wl-clipboard}/bin/wl-paste --watch ${pkgs.cliphist}/bin/cliphist store";
     };
   };
 

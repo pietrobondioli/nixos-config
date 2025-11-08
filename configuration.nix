@@ -114,6 +114,7 @@
     vim
     unzip
     eza
+    fd
 
     # Build essentials (needed for system operations)
     gcc

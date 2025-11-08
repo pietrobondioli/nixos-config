@@ -4,6 +4,3 @@ copy-command = "wl-copy"
 
 # Exit after copying
 early-exit = true
-
-# Actions to perform on copy (Ctrl+C)
-action-on-copy = ["save-to-clipboard"]

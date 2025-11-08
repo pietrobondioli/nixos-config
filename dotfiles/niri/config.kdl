@@ -298,6 +298,7 @@ binds {
     Mod+Space hotkey-overlay-title="Run an Application: rofi -show drun" { spawn "rofi" "-show" "drun"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
     Mod+V hotkey-overlay-title="Clipboard History" { spawn "copyq" "toggle"; }
+    Mod+0 hotkey-overlay-title="Power Menu: rofi-power-menu" { spawn "rofi" "-show" "p" "-modi" "p:'rofi-power-menu'"; }
 
     // open thunar mod + /
     Mod+Slash hotkey-overlay-title="Open File Manager: thunar" { spawn "thunar"; }

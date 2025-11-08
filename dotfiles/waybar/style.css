@@ -1,127 +1,16 @@
 * {
     border: none;
     border-radius: 0;
-    font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free", monospace;
+    font-family: monospace;
     font-size: 13px;
     min-height: 0;
 }
 
 window#waybar {
-    background: transparent;
-}
-
-#workspaces,
-#window,
-#clock,
-#cpu,
-#memory,
-#battery,
-#network,
-#pulseaudio,
-#tray {
     background: rgba(30, 30, 46, 0.9);
-    padding: 0 12px;
-    margin: 0 2px;
-    border-radius: 12px;
-    color: #cdd6f4;
-}
-
-#workspaces {
-    padding: 0 4px;
-}
-
-#workspaces button {
-    padding: 0 8px;
-    color: #7f849c;
-    background: transparent;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-}
-
-#workspaces button:hover {
-    background: rgba(203, 166, 247, 0.2);
-    color: #cba6f7;
-}
-
-#workspaces button.active {
-    background: linear-gradient(45deg, #89b4fa, #cba6f7);
-    color: #1e1e2e;
-    font-weight: bold;
-}
-
-#window {
-    color: #89b4fa;
-    font-weight: 500;
 }
 
 #clock {
-    background: linear-gradient(90deg, rgba(137, 180, 250, 0.9), rgba(203, 166, 247, 0.9));
-    color: #1e1e2e;
-    font-weight: bold;
-    padding: 0 16px;
-}
-
-#cpu {
-    color: #89dceb;
-}
-
-#memory {
-    color: #a6e3a1;
-}
-
-#battery {
-    color: #f9e2af;
-}
-
-#battery.warning {
-    color: #fab387;
-}
-
-#battery.critical {
-    color: #f38ba8;
-    animation: blink 1s linear infinite;
-}
-
-@keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
-}
-
-#network {
-    color: #94e2d5;
-}
-
-#network.disconnected {
-    color: #f38ba8;
-}
-
-#pulseaudio {
-    color: #cba6f7;
-}
-
-#pulseaudio.muted {
-    color: #585b70;
-}
-
-#tray {
-    padding: 0 8px;
-}
-
-#tray > .passive {
-    -gtk-icon-effect: dim;
-}
-
-#tray > .needs-attention {
-    -gtk-icon-effect: highlight;
-}
-
-tooltip {
-    background: rgba(30, 30, 46, 0.95);
-    border: 2px solid #89b4fa;
-    border-radius: 8px;
+    padding: 0 12px;
     color: #cdd6f4;
-}
-
-tooltip label {
-    padding: 4px;
 }
