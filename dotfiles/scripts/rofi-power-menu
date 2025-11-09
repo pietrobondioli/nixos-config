@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+
+## Rofi Power Menu Script for Wayland/Niri
+## Dependencies: rofi, systemd (for loginctl/systemctl), swaylock or similar (for locking), niri (for quitting)
+
+# -----------------
+# 1. Define Commands
+# -----------------
+
+# Niri Quit Command
+LOGOUT_CMD="niri msg action quit"
+
+# Systemd Commands (These require proper permissions, which is standard on most Linux installs)
+REBOOT_CMD="systemctl reboot"
+SHUTDOWN_CMD="systemctl poweroff"
+
+# Lock Command (Customize this to your preferred Wayland locker, e.g., swaylock, waylock, or gtklock)
+LOCK_CMD="swaylock -f -c 000000"
+
+# -----------------
+# 2. Rofi Configuration
+# -----------------
+
+# Rofi Prompt and Theme settings
+ROFI_CMD="rofi -dmenu -i -p 'Power Actions' -config ~/.config/rofi/config.rasi"
+
+# Check if the config file exists, otherwise use a minimal command
+if [[ ! -f "$HOME/.config/rofi/config.rasi" ]]; then
+    ROFI_CMD="rofi -dmenu -i -p 'Power Actions'"
+fi
+
+# -----------------
+# 3. Define Menu Options
+# -----------------
+
+OPTIONS="Shutdown\nReboot\nLogout\nLock"
+
+# -----------------
+# 4. Execute Rofi and Process Selection
+# -----------------
+
+CHOICE=$(echo -e "$OPTIONS" | $ROFI_CMD)
+
+case "$CHOICE" in
+    "Logout")
+        # Niri specific command to quit the session
+        $LOGOUT_CMD
+        ;;
+    "Lock")
+        # Execute the screen locker
+        $LOCK_CMD
+        ;;
+    "Reboot")
+        # Execute system reboot command
+        $REBOOT_CMD
+        ;;
+    "Shutdown")
+        # Execute system shutdown command
+        $SHUTDOWN_CMD
+        ;;
+    *)
+        # Do nothing on escape or cancel
+        exit 0
+        ;;
+esac

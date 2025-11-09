@@ -215,7 +215,7 @@ binds {
     Mod+M hotkey-overlay-title="Audio Device Manager: pwvucontrol" { spawn "pwvucontrol"; }
     Mod+Space hotkey-overlay-title="Run an Application: rofi -show drun" { spawn "rofi" "-show" "drun"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
-    Mod+0 hotkey-overlay-title="Power Menu: rofi-power-menu" { spawn "rofi" "-show" "p" "-modi" "p:'rofi-power-menu'"; }
+    Mod+0 hotkey-overlay-title="Power Menu: rofi-power-menu" { spawn-sh "$HOME/scripts/rofi-power-menu"; }
     Mod+Y { spawn "sh" "-c" "$HOME/scripts/rofi-cliphist"; }
 
     // open thunar mod + /
