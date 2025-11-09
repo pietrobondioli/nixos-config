@@ -335,8 +335,8 @@
     latitude = -23.5;  # São Paulo coordinates
     longitude = -46.6;
     temperature = {
-      day = 6500;
-      night = 3500;
+      day = 3000;
+      night = 3000;
     };
     settings = {
       general = {
