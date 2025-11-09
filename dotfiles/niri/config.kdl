@@ -213,10 +213,11 @@ binds {
     Mod+Return hotkey-overlay-title="Open a Terminal: alacritty" { spawn "alacritty"; }
     Mod+B hotkey-overlay-title="Bluetooth Manager: blueman-manager" { spawn "blueman-manager"; }
     Mod+M hotkey-overlay-title="Audio Device Manager: pwvucontrol" { spawn "pwvucontrol"; }
-    Mod+Space hotkey-overlay-title="Run an Application: rofi -show drun" { spawn "rofi" "-show" "drun"; }
+    Mod+Space hotkey-overlay-title="Run an Application: rofi -show drun" { spawn-sh "rofi -show drun"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
-    Mod+0 hotkey-overlay-title="Power Menu: rofi-power-menu" { spawn-sh "$HOME/scripts/rofi-power-menu"; }
-    Mod+Y { spawn "sh" "-c" "$HOME/scripts/rofi-cliphist"; }
+    Mod+0 hotkey-overlay-title="Power Menu: rofi" { spawn-sh "$HOME/scripts/rofi-power-menu"; }
+    Mod+Y hotkey-overlay-title="Clipboard history: rofi" { spawn-sh "$HOME/scripts/rofi-cliphist"; }
+    Mod+E hotkey-overlay-title="Emoji Selector: rofi" { spawn-sh "rofi -show emoji --action clipboard --files all"; }
 
     // open thunar mod + /
     Mod+Slash hotkey-overlay-title="Open File Manager: thunar" { spawn "thunar"; }

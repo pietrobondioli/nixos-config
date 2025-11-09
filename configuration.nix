@@ -65,6 +65,8 @@
     alsa.enable = true;
   };
 
+  security.pam.services.swaylock = {};
+
   # Enable touchpad support (enabled default in most desktopManager).
   # services.libinput.enable = true;
 

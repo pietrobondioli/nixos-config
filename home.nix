@@ -18,13 +18,12 @@
     kitty
 
     # Wayland utilities
-    rofi
-    rofi-power-menu
     waybar
     slurp
     grim
     wtype
     swaybg
+    swaylock
 
     # Browsers
     firefox
@@ -178,6 +177,19 @@
   home.file."scripts" = {
     source = ./dotfiles/scripts;
     recursive = true;
+  };
+
+  programs.waybar = {
+    enable = true;
+    package = pkgs.waybar.override {
+      niriSupport = true;
+    };
+    systemd.enable = true;
+  };
+
+  programs.rofi = {
+    enable = true;
+    plugins = with pkgs; [ rofi-emoji ];
   };
 
   programs.zsh = {
