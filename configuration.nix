@@ -13,7 +13,7 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.systemd-boot.configurationLimit = 3;
+  boot.loader.systemd-boot.configurationLimit = 5;
 
   networking.hostName = "pc"; # Define your hostname.
   # Pick only one of the below networking options.
@@ -39,19 +39,25 @@
   # services.xserver.enable = true;
 
   # Configure keymap in X11
-  
+
   services.xserver = {
     enable = true;
-    displayManager.autoLogin.enable = false;
-    displayManager.autoLogin.user = "pietro";
-    displayManager.defaultSession = "niri";
-
+    dpi = 196; # Increase DPI for larger UI scaling
+    displayManager = {
+      defaultSession = "niri";
+    };
     xkb = {
       layout = "us";
       variant = "altgr-intl";
     };
   };
-  # services.xserver.xkb.options = "eurosign:e,caps:escape";
+
+  services.displayManager.ly = {
+    enable = true;
+  };
+
+  # If you want to set a default session for ly
+  services.displayManager.defaultSession = "niri";
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;
@@ -68,12 +74,12 @@
   security.pam.services.swaylock = {};
 
   # Enable touchpad support (enabled default in most desktopManager).
-  # services.libinput.enable = true;
+  services.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.pietro = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "docker" "input" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "networkmanager" "docker" "input" "video" ]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
       tree
     ];
@@ -128,6 +134,10 @@
 
     # Build essentials (needed for system operations)
     gcc
+    libinput
+
+    # Themes
+    adwaita-icon-theme
     papirus-icon-theme
   ];
 
