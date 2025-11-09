@@ -135,6 +135,11 @@
     # Themes
     adwaita-icon-theme
     papirus-icon-theme
+
+    yubikey-manager      # CLI tool for YubiKey management
+    yubikey-personalization  # For configuring YubiKey slots
+    yubico-pam           # For PAM authentication
+    yubioath-flutter   # Optional: GUI tool
   ];
 
   hardware.graphics = {
@@ -201,6 +206,27 @@
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
 
+  # Enable smartcard daemon for YubiKey
+  services.pcscd.enable = true;
+  # Enable U2F support (for 2FA in browsers, etc.)
+  services.udev.packages = [ pkgs.yubikey-personalization ];
+  security.pam.u2f = {
+    enable = true;
+    control = "sufficient";  # Allows password OR YubiKey
+    # control = "required";  # Use this if you want to ENFORCE YubiKey
+  };
+  security.pam.services.sudo.u2fAuth = true;
+  security.pam.services.login.u2fAuth = true;
+
+  security.pam.services.sudo.text = lib.mkAfter ''
+    auth sufficient ${pkgs.pam_u2f}/lib/security/pam_u2f.so cue cue_prompt="🔑 Please tap your YubiKey to continue..."
+  '';
+
+  # You can also add it to login if desired
+  security.pam.services.login.text = lib.mkAfter ''
+    auth sufficient ${pkgs.pam_u2f}/lib/security/pam_u2f.so cue cue_prompt="🔑 Tap YubiKey to login..."
+  '';
+
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
   # accidentally delete configuration.nix.
@@ -226,5 +252,6 @@
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "25.05"; # Did you read the comment?
+
 }
 
