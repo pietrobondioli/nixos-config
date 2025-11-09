@@ -30,8 +30,19 @@ if [[ ! -f "$HOME/.config/rofi/config.rasi" ]]; then
 fi
 
 # -----------------
-# 3. Define Menu Options
+# 3. Define Menu Options & Confirmation Helper
 # -----------------
+
+# Confirmation function to prevent accidental power actions
+confirm() {
+    local prompt="Confirm $1?"
+    local cmd="rofi -dmenu -i -p '$prompt'"
+    if [[ -f "$HOME/.config/rofi/config.rasi" ]]; then
+        cmd+=" -config ~/.config/rofi/config.rasi"
+    fi
+    local selection=$(echo -e "Yes\nNo" | eval "$cmd")
+    [[ "$selection" == "Yes" ]]
+}
 
 OPTIONS="Shutdown\nReboot\nLogout\nLock"
 
@@ -43,20 +54,20 @@ CHOICE=$(echo -e "$OPTIONS" | $ROFI_CMD)
 
 case "$CHOICE" in
     "Logout")
-        # Niri specific command to quit the session
-        $LOGOUT_CMD
+        # Niri specific command to quit the session (with confirmation)
+        if confirm "Logout"; then $LOGOUT_CMD; fi
         ;;
     "Lock")
-        # Execute the screen locker
+        # Execute the screen locker (no confirmation to keep it quick)
         $LOCK_CMD
         ;;
     "Reboot")
-        # Execute system reboot command
-        $REBOOT_CMD
+        # Execute system reboot command (with confirmation)
+        if confirm "Reboot"; then $REBOOT_CMD; fi
         ;;
     "Shutdown")
-        # Execute system shutdown command
-        $SHUTDOWN_CMD
+        # Execute system shutdown command (with confirmation)
+        if confirm "Shutdown"; then $SHUTDOWN_CMD; fi
         ;;
     *)
         # Do nothing on escape or cancel
