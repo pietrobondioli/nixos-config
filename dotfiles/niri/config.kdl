@@ -150,8 +150,9 @@ spawn-at-startup "waybar"
 // Delayed autostart apps (workspace assignment handled via window-rules)
 spawn-sh-at-startup "sleep 1; kitty";
 spawn-sh-at-startup "sleep 2; firefox";
+spawn-sh-at-startup "sleep 4; 1password";
 // VPN reminder notification
-spawn-sh-at-startup "sleep 15; notify-send \"VPN\" \"Don't forget to start VPN!\" --urgency=critical";
+spawn-sh-at-startup "sleep 15; notify-send \"VPN\" \"Don\\'t forget to start VPN!\" --urgency=critical";
 
 spawn-sh-at-startup "$HOME/scripts/wallpaper random";
 
