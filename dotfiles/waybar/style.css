@@ -1,16 +1,127 @@
 * {
     border: none;
     border-radius: 0;
-    font-family: monospace;
+    font-family: "JetBrainsMono Nerd Font", monospace;
     font-size: 13px;
     min-height: 0;
 }
 
 window#waybar {
-    background: rgba(30, 30, 46, 0.9);
+    background: rgba(30, 30, 46, 0.95);
+    color: #cdd6f4;
 }
 
-#clock {
-    padding: 0 12px;
+tooltip {
+    background: rgba(30, 30, 46, 0.95);
+    border: 1px solid rgba(137, 180, 250, 0.3);
+    border-radius: 8px;
+}
+
+tooltip label {
     color: #cdd6f4;
+}
+
+/* Niri Workspaces */
+#workspaces {
+    padding: 0 5px;
+}
+
+#workspaces button {
+    padding: 0 8px;
+    color: #6c7086;
+    background: transparent;
+    transition: all 0.3s ease;
+}
+
+#workspaces button.active {
+    color: #89b4fa;
+    background: rgba(137, 180, 250, 0.15);
+}
+
+#workspaces button:hover {
+    background: rgba(205, 214, 244, 0.1);
+    color: #cdd6f4;
+}
+
+/* Window title */
+#window {
+    padding: 0 12px;
+    color: #a6adc8;
+    font-weight: 500;
+}
+
+/* Clock */
+#clock {
+    padding: 0 16px;
+    color: #f5e0dc;
+    font-weight: 600;
+}
+
+/* Common module styling */
+#pulseaudio,
+#network,
+#memory,
+#cpu,
+#battery,
+#tray {
+    padding: 0 12px;
+}
+
+#pulseaudio {
+    color: #89b4fa;
+}
+
+#pulseaudio.muted {
+    color: #6c7086;
+}
+
+#network {
+    color: #a6e3a1;
+}
+
+#network.disconnected {
+    color: #f38ba8;
+}
+
+#memory {
+    color: #f9e2af;
+}
+
+#cpu {
+    color: #fab387;
+}
+
+#battery {
+    color: #a6e3a1;
+}
+
+#battery.charging {
+    color: #89b4fa;
+}
+
+#battery.warning:not(.charging) {
+    color: #f9e2af;
+}
+
+#battery.critical:not(.charging) {
+    color: #f38ba8;
+    animation: blink 1s linear infinite;
+}
+
+@keyframes blink {
+    to {
+        opacity: 0.5;
+    }
+}
+
+#tray {
+    padding: 0 8px;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
 }
