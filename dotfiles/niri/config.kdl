@@ -137,7 +137,21 @@ layout {
     }
 }
 
+// Named workspaces
+workspace "dev"
+workspace "tools"
+workspace "web"
+workspace "chat"
+workspace "media"
+workspace "game"
+
 spawn-at-startup "waybar"
+
+// Delayed autostart apps (workspace assignment handled via window-rules)
+spawn-sh-at-startup "sh -c 'sleep 1; kitty'";
+spawn-sh-at-startup "sh -c 'sleep 2; firefox'";
+// VPN reminder notification
+spawn-sh-at-startup "sh -c 'sleep 15; notify-send \"VPN\" \"Don\'t forget to start VPN!\" --urgency=critical'";
 
 spawn-sh-at-startup "$HOME/scripts/wallpaper random";
 
@@ -197,6 +211,32 @@ window-rule {
 window-rule {
     geometry-corner-radius 4
     clip-to-geometry true
+}
+
+// Workspace assignment rules
+window-rule {
+    match at-startup=true app-id=r#"^(kitty|alacritty|code|code-oss|jetbrains-.*)$"#
+    open-on-workspace "dev"
+}
+window-rule {
+    match at-startup=true app-id=r#"^(insomnia|dbeaver)$"#
+    open-on-workspace "tools"
+}
+window-rule {
+    match at-startup=true app-id=r#"^(firefox|zen|obsidian)$"#
+    open-on-workspace "web"
+}
+window-rule {
+    match at-startup=true app-id=r#"^(discord|teams|slack)$"#
+    open-on-workspace "chat"
+}
+window-rule {
+    match at-startup=true app-id=r#"^(spotify)$"#
+    open-on-workspace "media"
+}
+window-rule {
+    match at-startup=true app-id=r#"^(steam)$"#
+    open-on-workspace "game"
 }
 
 binds {
@@ -292,6 +332,9 @@ binds {
     Mod+7 { focus-workspace 7; }
     Mod+8 { focus-workspace 8; }
     Mod+9 { focus-workspace 9; }
+    // PageUp/PageDown workspace navigation
+    Mod+Page_Up { focus-workspace-previous; }
+    Mod+Page_Down { focus-workspace-next; }
     Mod+Shift+1 { move-window-to-workspace 1; }
     Mod+Shift+2 { move-window-to-workspace 2; }
     Mod+Shift+3 { move-window-to-workspace 3; }
