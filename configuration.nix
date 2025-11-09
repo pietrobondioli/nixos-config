@@ -42,10 +42,6 @@
 
   services.xserver = {
     enable = true;
-    dpi = 196; # Increase DPI for larger UI scaling
-    displayManager = {
-      defaultSession = "niri";
-    };
     xkb = {
       layout = "us";
       variant = "altgr-intl";
