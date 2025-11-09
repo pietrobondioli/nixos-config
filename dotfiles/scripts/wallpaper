@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+# Dynamic wallpaper setter for niri using swaybg + rofi.
+# Usage:
+#   wallpaper            -> set a random wallpaper
+#   wallpaper choose     -> choose via rofi
+#   wallpaper /path/img  -> set specific image
+# Env vars:
+#   WALLPAPER_DIR (default: $HOME/.config/wallpaper; falls back to .../wallpapers if missing)
+
+set -euo pipefail
+# Determine default directory (prefer singular)
+if [[ -d "$HOME/.config/wallpapers" ]]; then
+  WALLPAPER_DIR_DEFAULT="$HOME/.config/wallpapers"
+fi
+WALLPAPER_DIR="${WALLPAPER_DIR:-$WALLPAPER_DIR_DEFAULT}"
+
+shopt -s nullglob
+mapfile -t images < <(find -L "$WALLPAPER_DIR" -maxdepth 1 -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' \) | sort)
+if [[ ${#images[@]} -eq 0 ]]; then
+  echo "No wallpapers found in $WALLPAPER_DIR" >&2
+  exit 1
+fi
+mode="${1:-random}"
+
+choose_wallpaper() {
+  local names selection file
+  for f in "${images[@]}"; do printf '%s\n' "$(basename "$f")"; done | rofi -dmenu -p "Wallpaper" >/tmp/wallpaper_choice || true
+  selection=$(cat /tmp/wallpaper_choice || true)
+  rm -f /tmp/wallpaper_choice
+  [[ -z "$selection" ]] && exit 0
+  file="$WALLPAPER_DIR/$selection"
+  echo "$file"
+}
+
+set_wallpaper() {
+  local file="$1"
+  if [[ ! -f "$file" ]]; then
+    echo "File not found: $file" >&2
+    exit 1
+  fi
+  pkill -x swaybg 2>/dev/null || true
+  setsid swaybg -i "$file" -m fill >/dev/null 2>&1 &
+  echo "Wallpaper set: $file"
+}
+
+case "$mode" in
+choose)
+  chosen=$(choose_wallpaper)
+  [[ -n "$chosen" ]] && set_wallpaper "$chosen"
+  ;;
+random)
+  idx=$((RANDOM % ${#images[@]}))
+  set_wallpaper "${images[$idx]}"
+  ;;
+*)
+  if [[ -f "$mode" ]]; then
+    set_wallpaper "$mode"
+  else
+    echo "Unknown mode or file not found: $mode" >&2
+    exit 1
+  fi
+  ;;
+esac

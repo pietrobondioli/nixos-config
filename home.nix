@@ -24,6 +24,7 @@
     slurp
     grim
     wtype
+    swaybg
 
     # Browsers
     firefox
@@ -145,6 +146,12 @@
 
   xdg.configFile."zellij" = {
     source = ./dotfiles/zellij;
+    recursive = true;
+  };
+
+  # Wallpapers
+  xdg.configFile."wallpapers" = {
+    source = ./dotfiles/wallpapers;
     recursive = true;
   };
 
