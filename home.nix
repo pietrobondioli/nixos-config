@@ -148,6 +148,11 @@
     recursive = true;
   };
 
+  xdg.configFile."kitty" = {
+    source = ./dotfiles/kitty;
+    recursive = true;
+  };
+
   # Wallpapers
   xdg.configFile."wallpapers" = {
     source = ./dotfiles/wallpapers;
