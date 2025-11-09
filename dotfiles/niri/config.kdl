@@ -58,7 +58,7 @@ output "HDMI-A-1" {
     // Run `niri msg outputs` while inside a niri instance to list all outputs and their modes.
     mode "3840x2160@60.000"
 
-    scale 1.75
+    scale 1.60
 
     // normal, 90, 180, 270, flipped, flipped-90, flipped-180 and flipped-270.
     transform "normal"
