@@ -21,7 +21,7 @@ tooltip label {
     color: #cdd6f4;
 }
 
-/* Niri Workspaces */
+/* Workspaces */
 #workspaces {
     padding: 0 5px;
 }
@@ -43,6 +43,11 @@ tooltip label {
     color: #cdd6f4;
 }
 
+#workspaces button.urgent {
+    color: #f38ba8;
+    background: rgba(243, 139, 168, 0.15);
+}
+
 /* Window title */
 #window {
     padding: 0 12px;
@@ -58,20 +63,21 @@ tooltip label {
 }
 
 /* Common module styling */
-#pulseaudio,
+#wireplumber,
 #network,
 #memory,
 #cpu,
-#battery,
+#temperature,
+#keyboard-state,
 #tray {
     padding: 0 12px;
 }
 
-#pulseaudio {
+#wireplumber {
     color: #89b4fa;
 }
 
-#pulseaudio.muted {
+#wireplumber.muted {
     color: #6c7086;
 }
 
@@ -91,21 +97,26 @@ tooltip label {
     color: #fab387;
 }
 
-#battery {
-    color: #a6e3a1;
+#temperature {
+    color: #f38ba8;
 }
 
-#battery.charging {
-    color: #89b4fa;
-}
-
-#battery.warning:not(.charging) {
-    color: #f9e2af;
-}
-
-#battery.critical:not(.charging) {
+#temperature.critical {
     color: #f38ba8;
     animation: blink 1s linear infinite;
+}
+
+#keyboard-state {
+    color: #cba6f7;
+    padding: 0 8px;
+}
+
+#keyboard-state > label {
+    padding: 0 4px;
+}
+
+#keyboard-state > label.locked {
+    background: rgba(203, 166, 247, 0.15);
 }
 
 @keyframes blink {
