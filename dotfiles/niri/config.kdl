@@ -138,12 +138,12 @@ layout {
 }
 
 // Named workspaces
-workspace "dev"
-workspace "tools"
-workspace "web"
-workspace "chat"
-workspace "media"
-workspace "game"
+workspace "6: game 🎮"
+workspace "5: media 🎵"
+workspace "4: chat 💬"
+workspace "3: web 🌐"
+workspace "2: tools 🛠"
+workspace "1: dev 🧑🏻‍💻"
 
 spawn-at-startup "waybar"
 
@@ -207,6 +207,21 @@ window-rule {
     // block-out-from "screencast"
 }
 
+window-rule {
+  match app-id=r#"firefox$"
+  match app-id=r#"code$"#
+  match app-id=r#"code-oss$"#
+  match app-id=r#"^jetbrains-.*$"#
+  match app-id=r#"alacritty$"#
+  match app-id=r#"kitty$"#
+  match app-id=r#"obsidian$"#
+  match app-id=r#"dbeaver$"#
+  match app-id=r#"insomnia$"#
+  match app-id=r#"discord$"#
+
+  open-maximized true
+}
+
 // enable rounded corners for all windows.
 window-rule {
     geometry-corner-radius 4
@@ -215,27 +230,27 @@ window-rule {
 
 // Workspace assignment rules
 window-rule {
-    match at-startup=true app-id=r#"^(kitty|alacritty|code|code-oss|jetbrains-.*)$"#
+    match at-startup=false app-id=r#"^(kitty|alacritty|code|code-oss|jetbrains-.*)$"#
     open-on-workspace "dev"
 }
 window-rule {
-    match at-startup=true app-id=r#"^(insomnia|dbeaver)$"#
+    match at-startup=false app-id=r#"^(insomnia|dbeaver)$"#
     open-on-workspace "tools"
 }
 window-rule {
-    match at-startup=true app-id=r#"^(firefox|zen|obsidian)$"#
+    match at-startup=false app-id=r#"^(firefox|zen|obsidian)$"#
     open-on-workspace "web"
 }
 window-rule {
-    match at-startup=true app-id=r#"^(discord|teams|slack)$"#
+    match at-startup=false app-id=r#"^(discord|teams|slack)$"#
     open-on-workspace "chat"
 }
 window-rule {
-    match at-startup=true app-id=r#"^(spotify)$"#
+    match at-startup=false app-id=r#"^(spotify)$"#
     open-on-workspace "media"
 }
 window-rule {
-    match at-startup=true app-id=r#"^(steam)$"#
+    match at-startup=false app-id=r#"^(steam)$"#
     open-on-workspace "game"
 }
 
