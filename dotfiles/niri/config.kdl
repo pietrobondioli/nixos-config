@@ -138,12 +138,12 @@ layout {
 }
 
 // Named workspaces
-workspace "1: dev"
-workspace "2: tools"
-workspace "3: web"
-workspace "4: chat"
-workspace "5: media"
-workspace "6: game"
+workspace "1"
+workspace "2"
+workspace "3"
+workspace "4"
+workspace "5"
+workspace "6"
 
 spawn-at-startup "waybar"
 
@@ -213,7 +213,6 @@ window-rule {
   match app-id=r#"code$"#
   match app-id=r#"code-oss$"#
   match app-id=r#"^jetbrains-.*$"#
-  match app-id=r#"alacritty$"#
   match app-id=r#"kitty$"#
   match app-id=r#"obsidian$"#
   match app-id=r#"dbeaver$"#
@@ -231,28 +230,28 @@ window-rule {
 
 // Workspace assignment rules
 window-rule {
-    match at-startup=false app-id=r#"^(kitty|alacritty|code|code-oss|jetbrains-.*)$"#
-    open-on-workspace "1: dev"
+    match at-startup=false app-id=r#"^(kitty|code|code-oss|jetbrains-.*)$"#
+    open-on-workspace "1"
 }
 window-rule {
     match at-startup=false app-id=r#"^(insomnia|dbeaver)$"#
-    open-on-workspace "2: tools"
+    open-on-workspace "2"
 }
 window-rule {
     match at-startup=false app-id=r#"^(firefox|zen|obsidian)$"#
-    open-on-workspace "3: web"
+    open-on-workspace "3"
 }
 window-rule {
     match at-startup=false app-id=r#"^(discord|teams|slack)$"#
-    open-on-workspace "4: chat"
+    open-on-workspace "4"
 }
 window-rule {
     match at-startup=false app-id=r#"^(spotify)$"#
-    open-on-workspace "5: media"
+    open-on-workspace "5"
 }
 window-rule {
     match at-startup=false app-id=r#"^(steam)$"#
-    open-on-workspace "6: game"
+    open-on-workspace "6"
 }
 
 binds {
@@ -260,7 +259,7 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     Mod+Backspace hotkey-overlay-title="Open a Web Browser: firefox" { spawn "firefox"; }
-    Mod+Return hotkey-overlay-title="Open a Terminal: alacritty" { spawn "alacritty"; }
+    Mod+Return hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
     Mod+B hotkey-overlay-title="Bluetooth Manager: blueman-manager" { spawn "blueman-manager"; }
     Mod+M hotkey-overlay-title="Audio Device Manager: pwvucontrol" { spawn "pwvucontrol"; }
     Mod+Space hotkey-overlay-title="Run an Application: rofi -show drun" { spawn-sh "rofi -show drun"; }
@@ -336,18 +335,18 @@ binds {
     //
     // For example, with 2 workspaces + 1 empty, indices 3, 4, 5 and so on
     // will all refer to the 3rd workspace.
-    Mod+1 { focus-workspace "1: dev"; }
-    Mod+2 { focus-workspace "2: tools"; }
-    Mod+3 { focus-workspace "3: web"; }
-    Mod+4 { focus-workspace "4: chat"; }
-    Mod+5 { focus-workspace "5: media"; }
-    Mod+6 { focus-workspace "6: game"; }
-    Mod+Shift+1 { move-window-to-workspace "1: dev"; }
-    Mod+Shift+2 { move-window-to-workspace "2: tools"; }
-    Mod+Shift+3 { move-window-to-workspace "3: web"; }
-    Mod+Shift+4 { move-window-to-workspace "4: chat"; }
-    Mod+Shift+5 { move-window-to-workspace "5: media"; }
-    Mod+Shift+6 { move-window-to-workspace "6: game"; }
+    Mod+1 { focus-workspace "1"; }
+    Mod+2 { focus-workspace "2"; }
+    Mod+3 { focus-workspace "3"; }
+    Mod+4 { focus-workspace "4"; }
+    Mod+5 { focus-workspace "5"; }
+    Mod+6 { focus-workspace "6"; }
+    Mod+Shift+1 { move-window-to-workspace "1"; }
+    Mod+Shift+2 { move-window-to-workspace "2"; }
+    Mod+Shift+3 { move-window-to-workspace "3"; }
+    Mod+Shift+4 { move-window-to-workspace "4"; }
+    Mod+Shift+5 { move-window-to-workspace "5"; }
+    Mod+Shift+6 { move-window-to-workspace "6"; }
 
     // Switches focus between the current and the previous workspace.
     Mod+Tab { focus-workspace-previous; }

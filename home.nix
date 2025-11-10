@@ -18,7 +18,6 @@ in {
     # Terminal emulators
     alacritty
     foot
-    kitty
 
     # Wayland utilities
     waybar
@@ -226,11 +225,6 @@ in {
     recursive = true;
   };
 
-  xdg.configFile."kitty" = {
-    source = ./dotfiles/kitty;
-    recursive = true;
-  };
-
   # Wallpapers
   xdg.configFile."wallpapers" = {
     source = ./dotfiles/wallpapers;
@@ -275,6 +269,45 @@ in {
     plugins = with pkgs; [ rofi-emoji ];
   };
 
+  programs.kitty = {
+    enable = true;
+    font = {
+      name = "JetBrainsMono Nerd Font";
+      size = 14;
+    };
+    extraConfig = ''
+      background #1e1e2e
+      foreground #cdd6f4
+      selection_background #45475a
+      selection_foreground #cdd6f4
+      cursor #89b4fa
+      cursor_text_color #1e1e2e
+      url_color #89b4fa
+      active_tab_background #313244
+      active_tab_foreground #cdd6f4
+      inactive_tab_background #1e1e2e
+      inactive_tab_foreground #585b70
+      color0 #45475a
+      color1 #f38ba8
+      color2 #a6e3a1
+      color3 #f9e2af
+      color4 #89b4fa
+      color5 #f5c2e7
+      color6 #94e2d5
+      color7 #bac2de
+      color8 #585b70
+      color9 #f38ba8
+      color10 #a6e3a1
+      color11 #f9e2af
+      color12 #89b4fa
+      color13 #f5c2e7
+      color14 #94e2d5
+      color15 #a6adc8
+      enable_audio_bell no
+      background_opacity 0.95
+    '';
+  };
+
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -292,7 +325,7 @@ in {
 
     sessionVariables = {
       EDITOR = "vim";
-      TERMINAL = "/usr/bin/kitty";
+      TERMINAL = "kitty";
       USER_LOG_DIR = "$HOME/logs";
       SSH_AUTH_SOCK = "\${XDG_RUNTIME_DIR}/gcr/ssh";
     };
