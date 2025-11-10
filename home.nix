@@ -112,7 +112,6 @@ in {
     wlr-randr
 
     # Notifications
-    mako
     libnotify
 
     # System monitor
@@ -135,6 +134,30 @@ in {
     nerd-fonts.meslo-lg
     nerd-fonts.symbols-only
   ];
+
+  services.mako = {
+    enable = true;
+    font = "JetBrainsMono Nerd Font 12";
+    anchor = "top-right";
+    backgroundColor = "#1e1e2eFF";
+    borderColor = "#89b4faFF";
+    borderSize = 2;
+    borderRadius = 8;
+    defaultTimeout = 8000;
+    height = 120;
+    width = 400;
+    padding = "12";
+    margin = "8";
+    textColor = "#cdd6f4FF";
+    progressColor = "#89b4faFF";
+    icons = true;
+    extraConfig = ''
+      [urgency=low]
+      border-color=#45475a
+      [urgency=high]
+      border-color=#f38ba8
+    '';
+  };
 
   programs.ssh = {
     enable = true;
