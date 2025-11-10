@@ -1,6 +1,9 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
-{
+let
+  # Define the onePassPath outside the main attribute set if you want to reuse it elsewhere
+  onePassPath = "~/.1password/agent.sock";
+in {
   home.username = "pietro";
   home.homeDirectory = "/home/pietro";
   home.stateVersion = "25.05";
@@ -133,10 +136,61 @@
     nerd-fonts.symbols-only
   ];
 
+  programs.ssh = {
+    enable = true;
+    extraConfig = ''
+      Host *
+        IdentityAgent ${onePassPath}
+    '';
+  };
+
   programs.git = {
     enable = true;
     userName = "Pietro Bondioli";
     userEmail = "email@pietrobondioli.com.br";
+
+    extraConfig = {
+      # commit.template = "~/dotfiles/git/gitmessage";
+
+      user.signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIBkYROpWTR4k2G7mzsT9I3SFhlL9A3wRPKHepcHmpIU";
+      user.enableSigning = true;
+
+      # [url "git@github.com:"]
+      url."git@github.com:".insteadOf = "https://github.com/";
+
+      # [gpg]
+      gpg.format = "ssh";
+
+      gpg."ssh".program = "${lib.getExe' pkgs._1password-gui "op-ssh-sign"}";
+      gpg."ssh".allowedSignersFile = "~/.ssh/allowed_signers";
+
+      push.autoSetupRemote = true;
+
+      filter.lfs = {
+        clean = "git-lfs clean -- %f";
+        smudge = "git-lfs smudge -- %f";
+        process = "git-lfs filter-process";
+        required = true;
+      };
+
+      # And so on for all other sections:
+      apply.whitespace = "fix";
+      grep.lineNumber = true;
+      branch.sort = "-committerdate";
+      color.ui = true;
+      rebase.autoStash = true;
+      gist.private = "yes";
+      log.decorate = "short";
+      fetch = {
+        prune = true;
+        output = "compact";
+      };
+      help.autocorrect = "prompt";
+      merge = {
+        log = true;
+        conflictstyle = "diff3";
+      };
+    };
   };
 
   xdg.configFile."niri" = {
