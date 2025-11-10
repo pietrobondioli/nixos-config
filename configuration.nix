@@ -210,6 +210,7 @@
   services.pcscd.enable = true;
   # Enable U2F support (for 2FA in browsers, etc.)
   services.udev.packages = [ pkgs.yubikey-personalization ];
+  # security.pam.u2f disabled temporarily for troubleshooting sudo
   security.pam.u2f = {
     enable = true;
     control = "sufficient";  # Allows password OR YubiKey
@@ -218,14 +219,9 @@
   security.pam.services.sudo.u2fAuth = true;
   security.pam.services.login.u2fAuth = true;
 
-  security.pam.services.sudo.text = lib.mkAfter ''
-    auth sufficient ${pkgs.pam_u2f}/lib/security/pam_u2f.so cue cue_prompt="🔑 Please tap your YubiKey to continue..."
-  '';
+  security.polkit.enable = true;
 
   # You can also add it to login if desired
-  security.pam.services.login.text = lib.mkAfter ''
-    auth sufficient ${pkgs.pam_u2f}/lib/security/pam_u2f.so cue cue_prompt="🔑 Tap YubiKey to login..."
-  '';
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
