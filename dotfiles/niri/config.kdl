@@ -187,6 +187,7 @@ window-rule {
     match app-id=r#".*copyq.*"#
     match app-id=r#".*yubico.*"#
     match app-id=r#".*pwvucontrol"# title=".*Volume Control.*"
+    match app-id=r#"teams-for-linux$"# title=".*Screen.*shared.*"
 
     open-floating true
     default-column-width {
@@ -231,27 +232,27 @@ window-rule {
 
 // Workspace assignment rules
 window-rule {
-    match at-startup=false app-id=r#"^(kitty|code|code-oss|jetbrains-.*)$"#
+    match app-id=r#"^(kitty|code|code-oss|jetbrains-.*)$"#
     open-on-workspace "1"
 }
 window-rule {
-    match at-startup=false app-id=r#"^(insomnia|dbeaver)$"#
+    match app-id=r#"^(insomnia|dbeaver)$"#
     open-on-workspace "2"
 }
 window-rule {
-    match at-startup=false app-id=r#"^(firefox|zen|obsidian)$"#
+    match app-id=r#"^(firefox|zen|obsidian)$"#
     open-on-workspace "3"
 }
 window-rule {
-    match at-startup=false app-id=r#"^(discord|teams|slack)$"#
+    match app-id=r#"^(discord|teams|slack)$"#
     open-on-workspace "4"
 }
 window-rule {
-    match at-startup=false app-id=r#"^(spotify)$"#
+    match app-id=r#"^(spotify)$"#
     open-on-workspace "5"
 }
 window-rule {
-    match at-startup=false app-id=r#"^(steam)$"#
+    match app-id=r#"^(steam)$"#
     open-on-workspace "6"
 }
 
