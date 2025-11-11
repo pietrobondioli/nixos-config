@@ -69,6 +69,7 @@ in {
 
     # AI
     github-copilot-cli
+    claude-code
 
     # Container/K8s tools
     lazydocker
@@ -136,20 +137,22 @@ in {
 
   services.mako = {
     enable = true;
-    font = "JetBrainsMono Nerd Font 12";
-    anchor = "top-right";
-    backgroundColor = "#1e1e2eFF";
-    borderColor = "#89b4faFF";
-    borderSize = 2;
-    borderRadius = 8;
-    defaultTimeout = 8000;
-    height = 120;
-    width = 400;
-    padding = "12";
-    margin = "8";
-    textColor = "#cdd6f4FF";
-    progressColor = "#89b4faFF";
-    icons = true;
+    settings = {
+      font = "JetBrainsMono Nerd Font 12";
+      anchor = "top-right";
+      background-color = "#1e1e2eFF";
+      border-color = "#89b4faFF";
+      border-size = 2;
+      border-radius = 8;
+      default-timeout = 8000;
+      height = 120;
+      width = 400;
+      padding = "12";
+      margin = "8";
+      text-color = "#cdd6f4FF";
+      progress-color = "#89b4faFF";
+      icons = true;
+    };
     extraConfig = ''
       [urgency=low]
       border-color=#45475a
@@ -160,33 +163,39 @@ in {
 
   programs.ssh = {
     enable = true;
-    extraConfig = ''
-      Host *
-        IdentityAgent ${onePassPath}
-    '';
+    enableDefaultConfig = false;
+    matchBlocks."*" = {
+      extraOptions = {
+        IdentityAgent = onePassPath;
+      };
+    };
   };
 
   programs.git = {
     enable = true;
-    userName = "Pietro Bondioli";
-    userEmail = "email@pietrobondioli.com.br";
+    settings = {
+      user = {
+        name = "Pietro Bondioli";
+        email = "email@pietrobondioli.com.br";
+        signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIBkYROpWTR4k2G7mzsT9I3SFhlL9A3wRPKHepcHmpIU";
+        enableSigning = true;
+      };
 
-    extraConfig = {
-      # commit.template = "~/dotfiles/git/gitmessage";
+      url."git@github.com:" = {
+        insteadOf = "https://github.com/";
+      };
 
-      user.signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIBkYROpWTR4k2G7mzsT9I3SFhlL9A3wRPKHepcHmpIU";
-      user.enableSigning = true;
+      gpg = {
+        format = "ssh";
+        ssh = {
+          program = "${lib.getExe' pkgs._1password-gui "op-ssh-sign"}";
+          allowedSignersFile = "~/.ssh/allowed_signers";
+        };
+      };
 
-      # [url "git@github.com:"]
-      url."git@github.com:".insteadOf = "https://github.com/";
-
-      # [gpg]
-      gpg.format = "ssh";
-
-      gpg."ssh".program = "${lib.getExe' pkgs._1password-gui "op-ssh-sign"}";
-      gpg."ssh".allowedSignersFile = "~/.ssh/allowed_signers";
-
-      push.autoSetupRemote = true;
+      push = {
+        autoSetupRemote = true;
+      };
 
       filter.lfs = {
         clean = "git-lfs clean -- %f";
@@ -195,7 +204,6 @@ in {
         required = true;
       };
 
-      # And so on for all other sections:
       apply.whitespace = "fix";
       grep.lineNumber = true;
       branch.sort = "-committerdate";
@@ -236,11 +244,6 @@ in {
     recursive = true;
   };
 
-  xdg.configFile."rofi" = {
-    source = ./dotfiles/rofi;
-    recursive = true;
-  };
-
   xdg.configFile."satty" = {
     source = ./dotfiles/satty;
     recursive = true;
@@ -264,9 +267,196 @@ in {
     systemd.enable = true;
   };
 
+  # Beautiful Rofi configuration with Catppuccin Mocha theme
   programs.rofi = {
     enable = true;
     plugins = with pkgs; [ rofi-emoji ];
+    package = pkgs.rofi;
+    font = "JetBrainsMono Nerd Font 12";
+    terminal = "kitty";
+
+    extraConfig = {
+      modi = "drun,run,window,ssh";
+      show-icons = true;
+      icon-theme = "Adwaita";
+      display-drun = " Apps";
+      display-run = " Run";
+      display-window = "󰖯 Windows";
+      display-ssh = " SSH";
+      drun-display-format = "{name}";
+      window-format = "{w} · {c} · {t}";
+
+      # Layout
+      width = 35;
+      lines = 10;
+      columns = 1;
+
+      # Behavior
+      sort = true;
+      sorting-method = "fzf";
+      matching = "fuzzy";
+      scroll-method = 0;
+      disable-history = false;
+      cycle = true;
+
+      # Appearance
+      hide-scrollbar = true;
+      fixed-num-lines = true;
+      sidebar-mode = false;
+      hover-select = true;
+      me-select-entry = "";
+      me-accept-entry = "MousePrimary";
+    };
+
+    theme = let
+      inherit (config.lib.formats.rasi) mkLiteral;
+    in {
+      "*" = {
+        bg = mkLiteral "#1e1e2eff";
+        bg-alt = mkLiteral "#313244ff";
+        bg-selected = mkLiteral "#45475aff";
+
+        fg = mkLiteral "#cdd6f4ff";
+        fg-alt = mkLiteral "#7f849cff";
+
+        border = mkLiteral "#89b4faff";
+        border-alt = mkLiteral "#b4befeff";
+
+        background-color = mkLiteral "transparent";
+        text-color = mkLiteral "@fg";
+
+        font = "JetBrainsMono Nerd Font 12";
+
+        margin = 0;
+        padding = 0;
+        spacing = 0;
+      };
+
+      window = {
+        location = mkLiteral "center";
+        width = 640;
+        border-radius = 12;
+
+        background-color = mkLiteral "@bg";
+        border = 2;
+        border-color = mkLiteral "@border";
+      };
+
+      mainbox = {
+        padding = 12;
+        background-color = mkLiteral "inherit";
+      };
+
+      inputbar = {
+        padding = mkLiteral "12px 16px";
+        spacing = 12;
+
+        background-color = mkLiteral "@bg-alt";
+        border-radius = 8;
+        border = 0;
+
+        children = map mkLiteral [ "prompt" "entry" ];
+      };
+
+      prompt = {
+        text-color = mkLiteral "@border";
+        font = "JetBrainsMono Nerd Font Bold 13";
+      };
+
+      entry = {
+        placeholder = "Search...";
+        placeholder-color = mkLiteral "@fg-alt";
+        text-color = mkLiteral "@fg";
+        cursor = mkLiteral "text";
+      };
+
+      message = {
+        margin = mkLiteral "12px 0 0";
+        border-radius = 8;
+        border-color = mkLiteral "@border";
+        background-color = mkLiteral "@bg-alt";
+      };
+
+      textbox = {
+        padding = 12;
+        background-color = mkLiteral "inherit";
+        text-color = mkLiteral "@fg";
+      };
+
+      listview = {
+        margin = mkLiteral "12px 0 0";
+        columns = 1;
+        lines = 8;
+        fixed-height = false;
+
+        background-color = mkLiteral "transparent";
+
+        scrollbar = false;
+        spacing = 4;
+        cycle = true;
+        dynamic = true;
+      };
+
+      element = {
+        padding = mkLiteral "10px 14px";
+        spacing = 12;
+        border-radius = 6;
+
+        background-color = mkLiteral "transparent";
+        text-color = mkLiteral "@fg";
+
+        cursor = mkLiteral "pointer";
+      };
+
+      "element normal.normal" = {
+        background-color = mkLiteral "inherit";
+        text-color = mkLiteral "inherit";
+      };
+
+      "element normal.urgent" = {
+        background-color = mkLiteral "#f38ba8ff";
+        text-color = mkLiteral "@bg";
+      };
+
+      "element normal.active" = {
+        background-color = mkLiteral "#a6e3a1ff";
+        text-color = mkLiteral "@bg";
+      };
+
+      "element selected.normal" = {
+        background-color = mkLiteral "@bg-selected";
+        text-color = mkLiteral "@border";
+      };
+
+      "element selected.urgent" = {
+        background-color = mkLiteral "#f38ba8ff";
+        text-color = mkLiteral "@bg";
+      };
+
+      "element selected.active" = {
+        background-color = mkLiteral "#a6e3a1ff";
+        text-color = mkLiteral "@bg";
+      };
+
+      "element alternate.normal" = {
+        background-color = mkLiteral "inherit";
+        text-color = mkLiteral "inherit";
+      };
+
+      "element-icon" = {
+        size = 28;
+        cursor = mkLiteral "inherit";
+        background-color = mkLiteral "transparent";
+        text-color = mkLiteral "inherit";
+      };
+
+      "element-text" = {
+        vertical-align = mkLiteral "0.5";
+        cursor = mkLiteral "inherit";
+        background-color = mkLiteral "transparent";
+        text-color = mkLiteral "inherit";
+      };
+    };
   };
 
   programs.kitty = {
@@ -349,7 +539,7 @@ in {
       plugins = [ "git" "fzf" ];
     };
 
-    initExtra = ''
+    initContent = ''
       # Disable corrections
       # unsetopt correct_all
 
@@ -394,16 +584,14 @@ in {
 
   programs.zoxide = {
     enable = true;
-    enableZshIntegration = true; # This might even replace the initExtra line
+    enableZshIntegration = true;
   };
 
   home.file.".p10k.zsh" = {
-    source = ./dotfiles/.p10k.zsh; # <-- Copy your p10k file into your repo
+    source = ./dotfiles/.p10k.zsh;
   };
 
-  # 3. AUTOMATIC DEV SHELLS (This is the magic!)
-  # This configures direnv to automatically load the
-  # dev shells defined in your project's flake.nix
+  # AUTOMATIC DEV SHELLS
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
@@ -454,7 +642,7 @@ in {
   home.sessionVariables = {
     GTK_THEME = "Adwaita:dark";
     QT_STYLE_OVERRIDE = "adwaita-dark";
-    NIXOS_OZONE_WL = "1";  # Enable Wayland for Electron apps
+    NIXOS_OZONE_WL = "1";
   };
 
   dconf.settings = {
@@ -467,7 +655,7 @@ in {
   services.gammastep = {
     enable = true;
     provider = "manual";
-    latitude = -23.5;  # São Paulo coordinates
+    latitude = -23.5;
     longitude = -46.6;
     temperature = {
       day = 4500;
@@ -493,4 +681,3 @@ in {
     ];
   };
 }
-
