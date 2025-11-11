@@ -264,7 +264,6 @@ in {
     package = pkgs.waybar.override {
       niriSupport = true;
     };
-    systemd.enable = true;
   };
 
   # Beautiful Rofi configuration with Catppuccin Mocha theme
