@@ -134,14 +134,29 @@ in {
   home.pointerCursor = {
     package = pkgs.bibata-cursors;
     name = "Bibata-Modern-Classic";
-    size = 24;
+    size = 20;
     gtk.enable = true;
     x11.enable = true;
   };
 
-  home.sessionVariables = {
-    XCURSOR_SIZE = "24";
-    XCURSOR_THEME = "Bibata-Modern-Classic";
+  programs.obs-studio = {
+    enable = true;
+
+    # optional Nvidia hardware acceleration
+    package = (
+      pkgs.obs-studio.override {
+        cudaSupport = true;
+      }
+    );
+
+    plugins = with pkgs.obs-studio-plugins; [
+      wlrobs
+      obs-backgroundremoval
+      obs-pipewire-audio-capture
+      obs-vaapi #optional AMD hardware acceleration
+      obs-gstreamer
+      obs-vkcapture
+    ];
   };
 
   services.mako = {
