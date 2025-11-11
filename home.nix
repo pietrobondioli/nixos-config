@@ -131,6 +131,19 @@ in {
     nerd-fonts.symbols-only
   ];
 
+  home.pointerCursor = {
+    package = pkgs.bibata-cursors;
+    name = "Bibata-Modern-Classic";
+    size = 24;
+    gtk.enable = true;
+    x11.enable = true;
+  };
+
+  home.sessionVariables = {
+    XCURSOR_SIZE = "24";
+    XCURSOR_THEME = "Bibata-Modern-Classic";
+  };
+
   services.mako = {
     enable = true;
     settings = {
