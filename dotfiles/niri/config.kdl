@@ -185,6 +185,7 @@ window-rule {
     match app-id=r#".*blueman.*"#
     match title=r#"^Sign in - Google Accounts.*"#
     match app-id=r#".*copyq.*"#
+    match app-id=r#".*yubico.*"#
     match app-id=r#".*pwvucontrol"# title=".*Volume Control.*"
 
     open-floating true
