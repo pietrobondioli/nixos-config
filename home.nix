@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 let
   # Define the onePassPath outside the main attribute set if you want to reuse it elsewhere
@@ -13,6 +13,12 @@ in {
           hi = "echo hello";
       };
   };
+
+  imports = [
+    inputs.zen-browser.homeModules.beta
+  ];
+
+  programs.zen-browser.enable = true;
 
   home.packages = with pkgs; [
     # Terminal emulators
@@ -131,6 +137,8 @@ in {
     nerd-fonts.meslo-lg
     nerd-fonts.symbols-only
   ];
+
+  # programs.zen-browser.enable = true;
 
   home.pointerCursor = {
     package = pkgs.bibata-cursors;

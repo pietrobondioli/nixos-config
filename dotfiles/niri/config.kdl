@@ -149,7 +149,7 @@ spawn-at-startup "waybar"
 
 // Delayed autostart apps (workspace assignment handled via window-rules)
 spawn-sh-at-startup "sleep 1; kitty";
-spawn-sh-at-startup "sleep 2; firefox";
+spawn-sh-at-startup "sleep 2; zen";
 spawn-sh-at-startup "sleep 4; 1password";
 // VPN reminder notification
 spawn-sh-at-startup "sleep 15; notify-send \"VPN\" \"Don\\'t forget to start VPN!\" --urgency=critical";
@@ -181,6 +181,7 @@ animations {
 // Open apps as floating by default.
 window-rule {
     match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+    match app-id=r#"zen$"# title="^Picture-in-Picture$"
     match app-id=r#".*1password.*"#
     match app-id=r#".*blueman.*"#
     match title=r#"^Sign in - Google Accounts.*"#
@@ -212,6 +213,7 @@ window-rule {
 
 window-rule {
   match app-id=r#"firefox$"
+  match app-id=r#"zen$"#
   match app-id=r#"code$"#
   match app-id=r#"code-oss$"#
   match app-id=r#"^jetbrains-.*$"#
@@ -282,7 +284,7 @@ binds {
     // shows a list of important hotkeys.
     Mod+Shift+Slash { show-hotkey-overlay; }
 
-    Mod+Backspace hotkey-overlay-title="Open a Web Browser: firefox" { spawn "firefox"; }
+    Mod+Backspace hotkey-overlay-title="Open a Web Browser: zen" { spawn "zen"; }
     Mod+Return hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
     Mod+B hotkey-overlay-title="Bluetooth Manager: blueman-manager" { spawn "blueman-manager"; }
     Mod+M hotkey-overlay-title="Audio Device Manager: pwvucontrol" { spawn "pwvucontrol"; }
