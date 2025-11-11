@@ -242,6 +242,15 @@
     polkitPolicyOwners = [ "pietro" ];
   };
 
+  environment.etc = {
+      "1password/custom_allowed_browsers" = {
+        text = ''
+          zen
+        '';
+        mode = "0755";
+      };
+    };
+
   # You can also add it to login if desired
 
   # Copy the NixOS configuration file and link it from the resulting system
