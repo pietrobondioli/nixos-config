@@ -63,8 +63,9 @@
   # OR
   services.pipewire = {
     enable = true;
-    pulse.enable = true;
     alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
   };
 
   security.pam.services.swaylock = {};
@@ -119,6 +120,8 @@
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
   environment.systemPackages = with pkgs; [
+    xwayland-satellite
+
     # Essential system tools
     git
     wget
@@ -145,12 +148,8 @@
     usbutils
   ];
 
-  hardware.graphics = {
-    enable = true;
-  };
-
   # Load nvidia driver for Xorg and Wayland
-  hardware.opengl.enable = true;
+  hardware.graphics.enable = true;
   services.xserver.videoDrivers = ["nvidia"];
 
   hardware.nvidia = {
@@ -183,7 +182,7 @@
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
-	
+
   xdg.portal.enable = true;
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
 
