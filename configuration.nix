@@ -96,6 +96,10 @@
 
   environment.shells = with pkgs; [ zsh ];
 
+  environment.variables = {
+    ELECTRON_OZONE_PLATFORM_HINT = "auto";
+  };
+
   virtualisation.docker.enable = true;
   virtualisation.docker.rootless = {
     enable = true;
