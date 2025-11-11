@@ -181,7 +181,7 @@ animations {
 // Open apps as floating by default.
 window-rule {
     match app-id=r#"firefox$"# title="^Picture-in-Picture$"
-    match app-id=r#"zen$"# title="^Picture-in-Picture$"
+    match app-id=r#"^zen"# title="^Picture-in-Picture$"
     match app-id=r#".*1password.*"#
     match app-id=r#".*blueman.*"#
     match title=r#"^Sign in - Google Accounts.*"#
@@ -213,7 +213,7 @@ window-rule {
 
 window-rule {
   match app-id=r#"firefox$"
-  match app-id=r#"zen$"#
+  match app-id=r#"^zen"#
   match app-id=r#"code$"#
   match app-id=r#"code-oss$"#
   match app-id=r#"^jetbrains-.*$"#
@@ -222,6 +222,8 @@ window-rule {
   match app-id=r#"dbeaver$"#
   match app-id=r#"insomnia$"#
   match app-id=r#"discord$"#
+  match app-id=r#"vesktop$"#
+  match app-id=r#"teams-for-linux"#
 
   open-maximized true
 }
@@ -242,11 +244,11 @@ window-rule {
     open-on-workspace "2"
 }
 window-rule {
-    match app-id=r#"^(firefox|zen|obsidian)$"#
+    match app-id=r#"^(firefox|zen|obsidian)"#
     open-on-workspace "3"
 }
 window-rule {
-    match app-id=r#"^(discord|teams|slack)$"#
+    match app-id=r#"^(discord|vesktop|teams-for-linux|slack)$"#
     open-on-workspace "4"
 }
 window-rule {
