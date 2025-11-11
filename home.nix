@@ -138,8 +138,6 @@ in {
     nerd-fonts.symbols-only
   ];
 
-  # programs.zen-browser.enable = true;
-
   home.pointerCursor = {
     package = pkgs.bibata-cursors;
     name = "Bibata-Modern-Classic";
@@ -675,11 +673,52 @@ in {
     GTK_THEME = "Adwaita:dark";
     QT_STYLE_OVERRIDE = "adwaita-dark";
     NIXOS_OZONE_WL = "1";
+    BROWSER = "zen";
   };
 
   dconf.settings = {
     "org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";
+    };
+  };
+
+  # Default applications for file types
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      # Web browser - all browser-related MIME types
+      "text/html" = "zen.desktop";
+      "x-scheme-handler/http" = "zen.desktop";
+      "x-scheme-handler/https" = "zen.desktop";
+      "x-scheme-handler/about" = "zen.desktop";
+      "x-scheme-handler/unknown" = "zen.desktop";
+
+      # PDF files
+      "application/pdf" = "org.pwmt.zathura.desktop";
+
+      # Text files
+      "text/plain" = "nvim.desktop";
+
+      # Images
+      "image/png" = "mpv.desktop";
+      "image/jpeg" = "mpv.desktop";
+      "image/jpg" = "mpv.desktop";
+      "image/gif" = "mpv.desktop";
+      "image/webp" = "mpv.desktop";
+
+      # Videos
+      "video/mp4" = "mpv.desktop";
+      "video/x-matroska" = "mpv.desktop";
+      "video/webm" = "mpv.desktop";
+
+      # Audio
+      "audio/mpeg" = "mpv.desktop";
+      "audio/mp3" = "mpv.desktop";
+      "audio/flac" = "mpv.desktop";
+      "audio/ogg" = "mpv.desktop";
+
+      # File manager
+      "inode/directory" = "thunar.desktop";
     };
   };
 
