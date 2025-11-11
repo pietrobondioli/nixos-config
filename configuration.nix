@@ -75,7 +75,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.pietro = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "docker" "input" "video" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "networkmanager" "docker" "input" "video" "plugdev" ]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
       tree
     ];
@@ -140,6 +140,9 @@
     yubikey-personalization  # For configuring YubiKey slots
     yubico-pam           # For PAM authentication
     yubioath-flutter   # Optional: GUI tool
+
+    libsecret
+    usbutils
   ];
 
   hardware.graphics = {
@@ -187,10 +190,10 @@
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+  };
 
   # List services that you want to enable:
 
@@ -215,11 +218,26 @@
     enable = true;
     control = "sufficient";  # Allows password OR YubiKey
     # control = "required";  # Use this if you want to ENFORCE YubiKey
+    settings = {
+      cue = true;
+      cue_prompt = "🔑 Touch your Security Key";
+    };
   };
-  security.pam.services.sudo.u2fAuth = true;
-  security.pam.services.login.u2fAuth = true;
+  security.pam.services = {
+    login.u2fAuth = true;
+    sudo.u2fAuth = true;
+  };
 
   security.polkit.enable = true;
+
+  services.gnome.gnome-keyring.enable = true;
+  programs.seahorse.enable = true;
+
+  programs._1password.enable = true;
+  programs._1password-gui = {
+    enable = true;
+    polkitPolicyOwners = [ "pietro" ];
+  };
 
   # You can also add it to login if desired
 

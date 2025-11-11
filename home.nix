@@ -50,10 +50,6 @@ in {
     gpu-screen-recorder
     wf-recorder
 
-    # Security
-    _1password-cli
-    _1password-gui
-
     # IDEs / Editors
     vscode
     neovim
