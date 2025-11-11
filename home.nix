@@ -104,6 +104,7 @@ in {
     vesktop
     teams-for-linux
     spotify
+    chromium
 
     wlr-randr
 
