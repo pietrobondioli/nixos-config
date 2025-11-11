@@ -653,6 +653,9 @@ in {
       "file:///home/pietro/Downloads Downloads"
       "file:///home/pietro/Documents Documents"
       "file:///home/pietro/Pictures Pictures"
+      "file:///home/pietro/Videos Videos"
+      "file:///home/pietro/Music Music"
+      "file:///home/pietro/Templates Templates"
     ];
 
     theme = {
@@ -689,6 +692,12 @@ in {
     "org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";
     };
+  };
+
+  # Ensure standard XDG user directories exist
+  xdg.userDirs = {
+    enable = true;
+    createDirectories = true; # Create if missing
   };
 
   # Default applications for file types
