@@ -37,11 +37,6 @@ in {
     # Browsers
     firefox
 
-    # File manager
-    xfce.thunar
-    xfce.thunar-volman
-    xfce.thunar-archive-plugin
-
     # Media
     mpv
     pwvucontrol
