@@ -1,0 +1,14 @@
+{ config, pkgs, lib, ... }:
+
+{
+  networking.hostName = "pc"; # Define your hostname.
+  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+
+  # Set your time zone.
+  time.timeZone = "America/Sao_Paulo";
+
+  # Firewall configuration
+  networking.firewall.enable = true;
+  # networking.firewall.allowedTCPPorts = [ ... ];
+  # networking.firewall.allowedUDPPorts = [ ... ];
+}

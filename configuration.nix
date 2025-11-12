@@ -5,303 +5,48 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
 
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.systemd-boot.configurationLimit = 5;
+    # System modules
+    ./modules/system/boot.nix
+    ./modules/system/networking.nix
+    ./modules/system/display.nix
+    ./modules/system/audio.nix
+    ./modules/system/users.nix
+    ./modules/system/environment.nix
+    ./modules/system/virtualization.nix
+    ./modules/system/filesystems.nix
+    ./modules/system/nixpkgs.nix
+    ./modules/system/xdg.nix
 
-  networking.hostName = "pc"; # Define your hostname.
-  # Pick only one of the below networking options.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+    # Hardware modules
+    ./modules/system/hardware/nvidia.nix
+    ./modules/system/hardware/bluetooth.nix
 
-  # Set your time zone.
-  time.timeZone = "America/Sao_Paulo";
+    # Security modules
+    ./modules/system/security/yubikey.nix
+    ./modules/system/security/polkit.nix
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+    # Programs
+    ./modules/system/programs/steam.nix
+    ./modules/system/programs/firefox.nix
+    ./modules/system/programs/niri.nix
+    ./modules/system/programs/zsh.nix
+    ./modules/system/programs/gnupg.nix
+    ./modules/system/programs/1password.nix
+    ./modules/system/programs/thunar.nix
+    ./modules/system/programs/nix-ld.nix
+    ./modules/system/programs/seahorse.nix
 
-  # Select internationalisation properties.
-  # i18n.defaultLocale = "en_US.UTF-8";
-  # console = {
-  #   font = "Lat2-Terminus16";
-  #   keyMap = "us";
-  #   useXkbConfig = true; # use xkb.options in tty.
-  # };
-
-  # Enable the X11 windowing system.
-  # services.xserver.enable = true;
-
-  # Configure keymap in X11
-
-  services.xserver = {
-    enable = true;
-    xkb = {
-      layout = "us";
-      variant = "altgr-intl";
-    };
-  };
-
-  services.displayManager.ly = {
-    enable = true;
-  };
-
-  # If you want to set a default session for ly
-  services.displayManager.defaultSession = "niri";
-
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
-  # Enable sound.
-  # services.pulseaudio.enable = true;
-  # OR
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-  };
-
-  security.pam.services.swaylock = {};
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  services.libinput.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.pietro = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "docker" "input" "video" "plugdev" ]; # Enable ‘sudo’ for the user.
-    packages = with pkgs; [
-      tree
-    ];
-    shell = pkgs.zsh;
-  };
-
-  systemd.services.ydotool = {
-    enable = true;
-    wantedBy = [ "multi-user.target" ];
-  };
-
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-  };
-
-  environment.shells = with pkgs; [ zsh ];
-
-  environment.variables = {
-    ELECTRON_OZONE_PLATFORM_HINT = "auto";
-  };
-
-  virtualisation.docker.enable = true;
-  virtualisation.docker.rootless = {
-    enable = true;
-    setSocketVariable = true; # Automatically sets DOCKER_HOST for your user
-  };
-
-  programs.firefox.enable = true;
-  programs.niri.enable = true;
-  programs.zsh.enable = true;
-
-  nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.allowUnsupportedSystem = true;
-
-  programs.nix-ld.enable = true;
-  programs.nix-ld.libraries = with pkgs; [
-    # Add common libraries that might be needed
-    stdenv.cc.cc.lib
-    zlib
-    # Add other libraries as needed
+    # Services
+    ./modules/system/services/openssh.nix
+    ./modules/system/services/bluetooth.nix
+    ./modules/system/services/gnome-keyring.nix
+    ./modules/system/services/gvfs.nix
+    ./modules/system/services/ydotool.nix
   ];
-
-  # List packages installed in system profile.
-  # You can use https://search.nixos.org/ to find more packages (and options).
-  environment.systemPackages = with pkgs; [
-    xwayland-satellite
-
-    # Essential system tools
-    git
-    wget
-    curl
-    vim
-    unzip
-    eza
-    fd
-
-    # Build essentials (needed for system operations)
-    gcc
-    libinput
-
-    # Themes
-    adwaita-icon-theme
-    papirus-icon-theme
-
-    yubikey-manager      # CLI tool for YubiKey management
-    yubikey-personalization  # For configuring YubiKey slots
-    yubico-pam           # For PAM authentication
-    yubioath-flutter   # Optional: GUI tool
-
-    libsecret
-    usbutils
-  ];
-
-  # Load nvidia driver for Xorg and Wayland
-  hardware.graphics.enable = true;
-  services.xserver.videoDrivers = ["nvidia"];
-
-  hardware.nvidia = {
-
-    # Modesetting is required.
-    modesetting.enable = true;
-
-    # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
-    # Enable this if you have graphical corruption issues or application crashes after waking
-    # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead 
-    # of just the bare essentials.
-    powerManagement.enable = false;
-
-    # Fine-grained power management. Turns off GPU when not in use.
-    # Experimental and only works on modern Nvidia GPUs (Turing or newer).
-    powerManagement.finegrained = false;
-
-    # Use the NVidia open source kernel module (not to be confused with the
-    # independent third-party "nouveau" open source driver).
-    # Support is limited to the Turing and later architectures. Full list of 
-    # supported GPUs is at: 
-    # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus 
-    # Only available from driver 515.43.04+
-    open = false;
-
-    # Enable the Nvidia settings menu,
-	# accessible via `nvidia-settings`.
-    nvidiaSettings = true;
-
-    # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
-  };
-
-  xdg.portal.enable = true;
-  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
-  };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  networking.firewall.enable = true;
-
-  hardware.bluetooth.enable = true;
-  services.blueman.enable = true;
-
-  # Enable smartcard daemon for YubiKey
-  services.pcscd.enable = true;
-  # Enable U2F support (for 2FA in browsers, etc.)
-  services.udev.packages = [ pkgs.yubikey-personalization ];
-  # security.pam.u2f disabled temporarily for troubleshooting sudo
-  security.pam.u2f = {
-    enable = true;
-    control = "sufficient";  # Allows password OR YubiKey
-    # control = "required";  # Use this if you want to ENFORCE YubiKey
-    settings = {
-      cue = true;
-      cue_prompt = "🔑 Touch your Security Key";
-    };
-  };
-  security.pam.services = {
-    login.u2fAuth = true;
-    sudo.u2fAuth = true;
-  };
-
-  security.polkit.enable = true;
-
-  services.gnome.gnome-keyring.enable = true;
-  programs.seahorse.enable = true;
-
-  programs._1password.enable = true;
-  programs._1password-gui = {
-    enable = true;
-    polkitPolicyOwners = [ "pietro" ];
-  };
-
-  environment.etc = {
-    "1password/custom_allowed_browsers" = {
-      text = ''
-        zen
-      '';
-      mode = "0755";
-    };
-  };
-
-  programs.xfconf.enable = true;
-  services.gvfs.enable = true;
-  services.tumbler.enable = true;
-  # Enable Thunar with plugins
-  programs.thunar = {
-    enable = true;
-    plugins = with pkgs.xfce; [
-      thunar-volman        # Automatic management of removable devices
-      thunar-archive-plugin # Archive support
-      thunar-media-tags-plugin # Media tags
-    ];
-  };
-
-  fileSystems = {
-    # Btrfs drive (sda1)
-    "/mnt/btrfs-drive" = {
-      device = "/dev/disk/by-uuid/49317738-381d-4e44-bfd6-8d0f3ce17b56";
-      fsType = "btrfs";
-      options = [ "defaults" "nofail" ];
-    };
-
-    # exFAT drive (sdb1) - good for Windows/Mac compatibility
-    "/mnt/exfat-drive" = {
-      device = "/dev/disk/by-uuid/7FEA-F9DB";
-      fsType = "exfat";
-      options = [ "defaults" "uid=1000" "gid=100" "umask=022" "nofail" ];
-    };
-
-    # ext4 drive (sdc1)
-    "/mnt/ext4-drive" = {
-      device = "/dev/disk/by-uuid/32bbee13-3044-4584-a387-cd2bd29c65a9";
-      fsType = "ext4";
-      options = [ "defaults" "nofail" ];
-    };
-
-    # Second NVMe drive (nvme1n1p2) - ext4 partition
-    "/mnt/nvme-extra" = {
-      device = "/dev/disk/by-uuid/f67a281a-1938-42d2-acfa-364981de89b1";
-      fsType = "ext4";
-      options = [ "defaults" "nofail" ];
-    };
-  };
-
-  # You can also add it to login if desired
-
-  # Copy the NixOS configuration file and link it from the resulting system
-  # (/run/current-system/configuration.nix). This is useful in case you
-  # accidentally delete configuration.nix.
-  # system.copySystemConfiguration = true;
-
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
@@ -321,6 +66,4 @@
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "25.05"; # Did you read the comment?
-
 }
-
