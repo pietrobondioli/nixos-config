@@ -3,7 +3,18 @@
 log_file="zellij_autostart.log"
 
 is_in_editor_or_ide() {
-  pstree -s $$ | grep -E 'nvim|vim|code|jetbrains|java' &>/dev/null
+  local pid=$$
+  while [[ $pid -gt 1 ]]; do
+    local cmd=$(ps -o comm= -p $pid 2>/dev/null)
+    local args=$(ps -o args= -p $pid 2>/dev/null)
+    if [[ "$cmd" =~ (nvim|vim|code|rider|idea|pycharm|webstorm|clion|goland|phpstorm) ]] || \
+       [[ "$args" =~ (nvim|vim|code|jetbrains|rider|idea|pycharm|webstorm|clion|goland|phpstorm) ]]; then
+      return 0
+    fi
+    pid=$(ps -o ppid= -p $pid 2>/dev/null | tr -d ' ')
+    [[ -z "$pid" ]] && break
+  done
+  return 1
 }
 
 get_zellij_sessions() {

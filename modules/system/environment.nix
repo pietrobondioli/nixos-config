@@ -36,5 +36,6 @@
     usbutils
 
     nix-output-monitor
+    pstree
   ];
 }
