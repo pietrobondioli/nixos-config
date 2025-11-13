@@ -187,10 +187,11 @@ window-rule {
     match title=r#"^Sign in - Google Accounts.*"#
     match app-id=r#".*copyq.*"#
     match app-id=r#".*yubico.*"#
-    match app-id=r#".*pwvucontrol"# title=".*Volume Control.*"
+    match app-id=r#".*p(a|w)vucontrol.*"# title=".*Volume Control.*"
     match app-id=r#"teams-for-linux$"# title=".*Screen.*shared.*"
     match app-id=r#"thunar"# title="File Operation Progress"
     match app-id=r#"nmtui"#
+
 
     open-floating true
     default-column-width {
