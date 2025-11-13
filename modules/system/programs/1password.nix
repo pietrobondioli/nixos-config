@@ -7,12 +7,18 @@
     polkitPolicyOwners = [ "pietro" ];
   };
 
+  # Enable browser integration
   environment.etc = {
     "1password/custom_allowed_browsers" = {
       text = ''
         zen
+        zen-beta
+        firefox
       '';
       mode = "0755";
     };
   };
+
+  # Ensure proper group membership for 1Password integration
+  users.users.pietro.extraGroups = [ "onepassword" "onepassword-cli" ];
 }
