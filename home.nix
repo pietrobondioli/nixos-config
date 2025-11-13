@@ -26,6 +26,7 @@
     ./modules/home/programs/zen-browser.nix
     ./modules/home/programs/zoxide.nix
     ./modules/home/programs/direnv.nix
+    ./modules/home/programs/terraform.nix
 
     # Services
     ./modules/home/services/mako.nix

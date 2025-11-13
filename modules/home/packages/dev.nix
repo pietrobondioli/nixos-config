@@ -29,5 +29,9 @@
     awscli2
     aws-vault
     gh
+    terraform
+    terraform-ls
+    tflint
+    tfsec
   ];
 }
