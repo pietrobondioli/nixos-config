@@ -34,5 +34,7 @@
 
     libsecret
     usbutils
+
+    nix-output-monitor
   ];
 }

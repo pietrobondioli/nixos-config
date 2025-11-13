@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   programs.kitty = {
     enable = true;
-    font = { name = "JetBrainsMono Nerd Font"; size = 14; };
+    font = { name = "JetBrainsMono Nerd Font"; size = 13; };
     extraConfig = ''
       background #1e1e2e
       foreground #cdd6f4

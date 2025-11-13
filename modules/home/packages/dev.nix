@@ -26,5 +26,6 @@
     gnumake
     awscli2
     aws-vault
+    gh
   ];
 }
