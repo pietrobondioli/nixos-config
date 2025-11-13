@@ -16,7 +16,7 @@
     "memory",
     "cpu",
     "temperature",
-    "temperature#gpu",
+    "custom/gpu-temp",
     "keyboard-state",
     "tray"
   ],
@@ -73,7 +73,7 @@
     "format-disconnected": " Disconnected",
     "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
     "tooltip-format-wifi": "{essid} ({signalStrength}%)\n{ifname}: {ipaddr}/{cidr}",
-    "on-click": "nm-connection-editor",
+    "on-click": "kitty --class nmtui -e nmtui",
     "interval": 10
   },
   "memory": {
@@ -93,23 +93,22 @@
     "format-critical": " {temperatureC}°C",
     "interval": 10
   },
-  "temperature#gpu": {
-    "hwmon-path": "/sys/class/hwmon/hwmon3/temp1_input",
-    "critical-threshold": 80,
-    "format": " {temperatureC}°C",
-    "format-critical": " {temperatureC}°C",
-    "interval": 10
+  "custom/gpu-temp": {
+    "exec": "nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader",
+    "format": " {}°C",
+    "interval": 10,
+    "return-type": ""
   },
   "keyboard-state": {
-    "numlock": false,
+    "numlock": true,
     "capslock": true,
     "format": {
-      "numlock": "N {icon}",
-      "capslock": " {icon}"
+      "numlock": "Num {icon}",
+      "capslock": "Caps {icon}"
     },
     "format-icons": {
-      "locked": "",
-      "unlocked": ""
+      "locked": "🔒",
+      "unlocked": "🔓"
     }
   },
   "tray": {
