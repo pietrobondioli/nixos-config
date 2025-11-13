@@ -112,8 +112,8 @@
     "numlock": true,
     "capslock": true,
     "format": {
-      "numlock": "Num {icon}",
-      "capslock": "Caps {icon}"
+      "numlock": " Num {icon} ",
+      "capslock": " Caps {icon} "
     },
     "format-icons": {
       "locked": "🔒",

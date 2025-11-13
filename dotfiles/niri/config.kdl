@@ -298,22 +298,14 @@ binds {
     Mod+Y hotkey-overlay-title="Clipboard history: rofi" { spawn-sh "$HOME/scripts/rofi-cliphist"; }
     Mod+E hotkey-overlay-title="Emoji Selector: rofi" { spawn-sh "rofi -show emoji --action clipboard --files all"; }
 
-    // open thunar mod + /
     Mod+Slash hotkey-overlay-title="Open File Manager: thunar" { spawn "thunar"; }
 
-    // Example volume keys mappings for PipeWire & WirePlumber.
-    // The allow-when-locked=true property makes them work even when the session is locked.
     XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+"; }
     XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
     XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
     XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
 
-    // brightness key mappings for brightnessctl.
-    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
-    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
-
     // Open/close the Overview: a zoomed-out view of workspaces and windows.
-    // You can also move the mouse into the top-left hot corner,
     Mod+O repeat=false { toggle-overview; }
 
     Mod+Q repeat=false { close-window; }
@@ -346,7 +338,6 @@ binds {
     Mod+Shift+L     { move-column-right; }
     Mod+Shift+Page_Down { move-column-to-workspace-down; }
     Mod+Shift+Page_Up   { move-column-to-workspace-up; }
-
 
     // Similarly, you can bind touchpad scroll "ticks".
     // Touchpad scrolling is continuous, so for these binds it is split into
