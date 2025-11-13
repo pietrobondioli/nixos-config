@@ -2,6 +2,8 @@
   home.packages = with pkgs; [
     vscode
     neovim
+    jetbrains.rider
+    jetbrains.idea-ultimate
     tree-sitter
     github-copilot-cli
     claude-code
