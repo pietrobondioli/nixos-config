@@ -70,7 +70,7 @@ ffd() {
 
   if [ -z "$1" ]; then
     # Default search paths
-    dirs=$(fd "${fd_args[@]}" . ~/personal ~/work ~/mack-ads ~/)
+    dirs=$(fd "${fd_args[@]}" . ~/personal ~/work ~/)
   else
     # Specific search path
     dirs=$(fd "${fd_args[@]}" . "$1")

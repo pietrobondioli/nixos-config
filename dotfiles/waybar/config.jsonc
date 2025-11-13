@@ -67,7 +67,7 @@
       "",
       ""
     ],
-    "on-click": "pavwcontrol",
+    "on-click": "pavucontrol",
     "scroll-step": 5
   },
   "network": {
