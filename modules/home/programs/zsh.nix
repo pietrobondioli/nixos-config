@@ -4,7 +4,7 @@
     enableCompletion = true;
     shellAliases = { ll = "ls -l"; edit = "sudo -e"; update = "sudo nixos-rebuild switch"; };
     history = { size = 10000; path = "$HOME/.zsh_history"; };
-    sessionVariables = { EDITOR = "vim"; TERMINAL = "kitty"; USER_LOG_DIR = "$HOME/logs"; SSH_AUTH_SOCK = "\${XDG_RUNTIME_DIR}/gcr/ssh"; };
+    sessionVariables = { EDITOR = "vim"; TERMINAL = "kitty"; USER_LOG_DIR = "$HOME/logs"; SSH_AUTH_SOCK = "$HOME/.1password/agent.sock"; };
     antidote = { enable = true; plugins = [
       "zsh-users/zsh-autosuggestions"
       "zsh-users/zsh-syntax-highlighting"
