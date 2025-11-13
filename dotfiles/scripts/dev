@@ -58,7 +58,7 @@ function clean_workflowruns() {
         local run=$1
         local id=$(echo "$run" | cut -f3)
         local result
-        
+
         echo "Deleting run $id..."
         if gh api -X DELETE "/repos/$repo/actions/runs/$id" &> /dev/null; then
             result="OK!"
@@ -89,3 +89,17 @@ function clean_workflowruns() {
 
     echo "Cleanup completed!"
 }
+
+aws-profile() {
+    local profile
+    profile=$(rg '^\[(profile )?(.+)\]' ~/.aws/config ~/.aws/credentials -r '$2' --no-filename 2>/dev/null | \
+              sort -u | \
+              fzf --height 40% --border --prompt "Select AWS Profile: ")
+
+    if [ -n "$profile" ]; then
+        export AWS_PROFILE="$profile"
+        echo "✓ AWS_PROFILE set to: $AWS_PROFILE"
+    fi
+}
+
+alias aws-whoami='echo "Profile: $AWS_PROFILE" && aws sts get-caller-identity'
