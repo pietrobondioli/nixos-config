@@ -291,7 +291,7 @@ binds {
     Mod+Backspace hotkey-overlay-title="Open a Web Browser: zen" { spawn "zen"; }
     Mod+Return hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
     Mod+B hotkey-overlay-title="Bluetooth Manager: blueman-manager" { spawn "blueman-manager"; }
-    Mod+M hotkey-overlay-title="Audio Device Manager: pwvucontrol" { spawn "pwvucontrol"; }
+    Mod+M hotkey-overlay-title="Audio Device Manager: pavucontrol" { spawn "pavucontrol"; }
     Mod+Space hotkey-overlay-title="Run an Application: rofi -show drun" { spawn-sh "rofi -show drun"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
     Mod+0 hotkey-overlay-title="Power Menu: rofi" { spawn-sh "$HOME/scripts/rofi-power-menu"; }

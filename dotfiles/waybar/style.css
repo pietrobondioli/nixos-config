@@ -1,3 +1,4 @@
+/* Global styles */
 * {
     border: none;
     border-radius: 0;
@@ -7,18 +8,18 @@
 }
 
 window#waybar {
-    background: rgba(30, 30, 46, 0.95);
-    color: #cdd6f4;
+    background: rgba(48, 52, 70, 0.95);
+    color: #c6d0f5;
 }
 
 tooltip {
-    background: rgba(30, 30, 46, 0.95);
-    border: 1px solid rgba(137, 180, 250, 0.3);
+    background: rgba(48, 52, 70, 0.95);
+    border: 1px solid rgba(140, 170, 238, 0.3);
     border-radius: 8px;
 }
 
 tooltip label {
-    color: #cdd6f4;
+    color: #c6d0f5;
 }
 
 /* Workspaces */
@@ -28,86 +29,149 @@ tooltip label {
 
 #workspaces button {
     padding: 0 8px;
-    color: #6c7086;
+    color: #737994;
     background: transparent;
     transition: all 0.3s ease;
 }
 
 #workspaces button.active {
-    color: #89b4fa;
-    background: rgba(137, 180, 250, 0.15);
+    color: #8caaee;
+    background: rgba(140, 170, 238, 0.15);
 }
 
 #workspaces button:hover {
-    background: rgba(205, 214, 244, 0.1);
-    color: #cdd6f4;
+    background: rgba(198, 208, 245, 0.1);
+    color: #c6d0f5;
 }
 
 #workspaces button.urgent {
-    color: #f38ba8;
-    background: rgba(243, 139, 168, 0.15);
+    color: #e78284;
+    background: rgba(231, 130, 132, 0.15);
+}
+
+#workspaces button.empty {
+    background-color: transparent;
+    color: #51576d;
+    opacity: 0.5;
+}
+
+/* Ensure all workspace buttons have proper color */
+#workspaces button * {
+    color: inherit;
 }
 
 /* Window title */
 #window {
     padding: 0 12px;
-    color: #a6adc8;
+    color: #a5adce;
     font-weight: 500;
 }
 
 /* Clock */
 #clock {
     padding: 0 16px;
-    color: #f5e0dc;
+    color: #f2d5cf;
     font-weight: 600;
 }
 
 /* Common module styling */
+#mpris,
+#idle_inhibitor,
 #wireplumber,
+#backlight,
 #network,
 #memory,
 #cpu,
 #temperature,
+#custom-gpu-temp,
 #keyboard-state,
-#tray {
+#tray,
+#custom-power {
     padding: 0 12px;
 }
 
+/* Module colors */
+#mpris {
+    color: #ca9ee6;
+}
+
+#mpris.paused {
+    color: #737994;
+    font-style: italic;
+}
+
+#idle_inhibitor {
+    color: #e5c890;
+}
+
+#idle_inhibitor.activated {
+    color: #e78284;
+}
+
 #wireplumber {
-    color: #89b4fa;
+    color: #8caaee;
 }
 
 #wireplumber.muted {
-    color: #6c7086;
+    color: #737994;
+}
+
+#backlight {
+    color: #ef9f76;
 }
 
 #network {
-    color: #a6e3a1;
+    color: #a6d189;
 }
 
 #network.disconnected {
-    color: #f38ba8;
+    color: #e78284;
 }
 
 #memory {
-    color: #f9e2af;
+    color: #e5c890;
 }
 
-#cpu {
-    color: #fab387;
-}
-
-#temperature {
-    color: #f38ba8;
-}
-
-#temperature.critical {
-    color: #f38ba8;
+#memory.critical {
+    color: #e78284;
     animation: blink 1s linear infinite;
 }
 
+#cpu {
+    color: #ef9f76;
+}
+
+#cpu.critical {
+    color: #e78284;
+    animation: blink 1s linear infinite;
+}
+
+#temperature {
+    color: #e78284;
+}
+
+#temperature.critical {
+    color: #e78284;
+    animation: blink 1s linear infinite;
+}
+
+#custom-gpu-temp {
+    color: #99d1db;
+}
+
+#custom-power {
+    color: #e78284;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+#custom-power:hover {
+    color: #f4b8e4;
+    background: rgba(231, 130, 132, 0.15);
+}
+
 #keyboard-state {
-    color: #cba6f7;
+    color: #ca9ee6;
     padding: 0 8px;
 }
 
@@ -116,7 +180,7 @@ tooltip label {
 }
 
 #keyboard-state > label.locked {
-    background: rgba(203, 166, 247, 0.15);
+    background: rgba(202, 158, 230, 0.15);
 }
 
 @keyframes blink {

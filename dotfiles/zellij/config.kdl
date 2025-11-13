@@ -138,7 +138,7 @@ scrollback_lines_to_serialize 100000
 // Choose the theme that is specified in the themes section.
 // Default: default
 //
-theme "onedark"
+theme "catppuccin-frappe"
 
 // The name of the default layout to load on startup
 // Default: "default"

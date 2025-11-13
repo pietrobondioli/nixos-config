@@ -4,8 +4,8 @@
     settings = {
       font = "JetBrainsMono Nerd Font 12";
       anchor = "top-right";
-      background-color = "#1e1e2eFF";
-      border-color = "#89b4faFF";
+      background-color = "#303446FF";
+      border-color = "#8caaeeFF";
       border-size = 2;
       border-radius = 8;
       default-timeout = 8000;
@@ -13,15 +13,15 @@
       width = 400;
       padding = "12";
       margin = "8";
-      text-color = "#cdd6f4FF";
-      progress-color = "#89b4faFF";
+      text-color = "#c6d0f5FF";
+      progress-color = "#8caaeeFF";
       icons = true;
     };
     extraConfig = ''
       [urgency=low]
-      border-color=#45475a
+      border-color=#414559
       [urgency=high]
-      border-color=#f38ba8
+      border-color=#e78284
     '';
   };
 }
