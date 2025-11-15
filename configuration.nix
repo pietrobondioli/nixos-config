@@ -47,6 +47,7 @@
     ./modules/system/services/gvfs.nix
     ./modules/system/services/ydotool.nix
     ./modules/system/services/upower.nix
+    ./modules/system/services/rtkit.nix
   ];
 
   # This option defines the first version of NixOS you have installed on this particular machine,
