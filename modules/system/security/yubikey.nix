@@ -19,7 +19,10 @@
   };
 
   security.pam.services = {
-    login.u2fAuth = true;
+    login.u2fAuth = false; # disable YubiKey for login, keep password only
     sudo.u2fAuth = true;
+    # Disable YubiKey for display manager (ly)
+    greetd.u2fAuth = false;
+    ly.u2fAuth = false;
   };
 }
