@@ -37,5 +37,6 @@
 
     nix-output-monitor
     pstree
+    jq
   ];
 }
