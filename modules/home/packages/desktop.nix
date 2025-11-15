@@ -7,7 +7,6 @@
     swaybg
     swaylock
     swayidle
-    xdg-desktop-portal-wlr
     firefox
     chromium
     vesktop

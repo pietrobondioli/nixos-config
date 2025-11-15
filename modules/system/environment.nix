@@ -38,5 +38,7 @@
     nix-output-monitor
     pstree
     jq
+
+    xdg-desktop-portal-wlr
   ];
 }
