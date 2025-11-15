@@ -40,5 +40,8 @@
     jq
 
     xdg-desktop-portal-wlr
+    pciutils
+    vulkan-tools
+    psmisc
   ];
 }

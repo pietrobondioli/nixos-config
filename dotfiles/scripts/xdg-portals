@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+sleep 1
+systemctl --user stop xdg-desktop-portal-gtk.service
+systemctl --user stop xdg-desktop-portal-gnome.service
+systemctl --user stop xdg-desktop-portal-wlr.service
+systemctl --user stop xdg-desktop-portal.service
+# /usr/lib/xdg-desktop-portal-wlr &
+systemctl --user restart xdg-desktop-portal-wlr.service
+sleep 2
+# /usr/lib/xdg-desktop-portal &
+systemctl --user restart xdg-desktop-portal.service
