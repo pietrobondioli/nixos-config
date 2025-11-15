@@ -4,6 +4,8 @@
     neovim
     jetbrains.rider
     jetbrains.idea-ultimate
+    insomnia
+    dbeaver-bin
     tree-sitter
     github-copilot-cli
     claude-code
