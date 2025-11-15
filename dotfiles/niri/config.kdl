@@ -180,11 +180,9 @@ animations {
 
 // Open apps as floating by default.
 window-rule {
-    match app-id=r#"firefox$"# title="^Picture-in-Picture$"
-    match app-id=r#"^zen"# title="^Picture-in-Picture$"
+    match app-id=r#"(^zen-beta$)|(^firefox$)"# title=r#"(^Sign in - Google Accounts.*)|(^Picture-in-Picture$)|(^Library)"#
     match app-id=r#".*1password.*"#
     match app-id=r#".*blueman.*"#
-    match title=r#"^Sign in - Google Accounts.*"#
     match app-id=r#".*copyq.*"#
     match app-id=r#".*yubico.*"#
     match app-id=r#".*p(a|w)vucontrol.*"# title=".*Volume Control.*"
@@ -294,7 +292,7 @@ binds {
 
     Mod+Backspace hotkey-overlay-title="Open a Web Browser: zen" { spawn "zen"; }
     Mod+Return hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
-    Mod+Shift+Return hotkey-overlay-title="Scratch Terminal: floating kitty" { spawn "kitty"; toggle-window-floating; center-column; }
+    // Mod+Shift+Return hotkey-overlay-title="Scratch Terminal: floating kitty" { spawn "kitty"; toggle-window-floating; center-column; }
     Mod+N hotkey-overlay-title="New Note: kitty+nvim" { spawn-sh "mkdir -p \"$HOME/personal/notes\"; kitty -e nvim \"$HOME/personal/notes/$(date +%Y-%m-%d_%H%M%S).md\""; }
     Mod+B hotkey-overlay-title="Bluetooth Manager: blueman-manager" { spawn "blueman-manager"; }
     Mod+M hotkey-overlay-title="Audio Device Manager: pavucontrol" { spawn "pavucontrol"; }

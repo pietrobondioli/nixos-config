@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+# --- Configuration ---
+WATCH_INTERVAL="0.1" # Check every 100ms
+APP_ID="zen-beta"
+# File to store all unique titles found
+RECORD_FILE="zen_titles_record.txt"
+
+# Create the record file if it doesn't exist
+touch "$RECORD_FILE"
+
+echo "--- Starting $APP_ID Title Monitor ---"
+echo "New unique titles will be logged to: $RECORD_FILE"
+echo "Press Ctrl+C to stop."
+echo "----------------------------------------"
+
+# Function to run the check
+monitor_titles() {
+  # 1. Run the niri command to get window info for zen-beta.
+  # 2. Use grep to isolate the Title line.
+  # 3. Use sed to clean up the Title line, leaving only the text.
+  niri msg windows 2>/dev/null |
+    awk "/App ID: \"$APP_ID\"/,/Title:/" |
+    grep "Title:" |
+    sed -E 's/^[[:space:]]*Title: "(.*)"/\1/'
+}
+
+# Continuous monitoring loop
+while true; do
+
+  # Get the current list of titles
+  CURRENT_TITLES=$(monitor_titles)
+
+  # Loop through each title found
+  while IFS= read -r TITLE; do
+    if [ -n "$TITLE" ]; then
+
+      # Check if this title is already in the record file
+      if ! grep -Fxq "$TITLE" "$RECORD_FILE"; then
+
+        # If it's a new title, log it with a timestamp
+        TIMESTAMP=$(date +'%Y-%m-%d %H:%M:%S.%3N')
+        echo "$TIMESTAMP - NEW TITLE FOUND: $TITLE"
+
+        # Append the new unique title to the record file (for persistent tracking)
+        echo "$TITLE" >>"$RECORD_FILE"
+      fi
+    fi
+  done <<<"$CURRENT_TITLES"
+
+  sleep "$WATCH_INTERVAL"
+done
