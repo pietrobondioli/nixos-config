@@ -46,6 +46,7 @@
     ./modules/system/services/gnome-keyring.nix
     ./modules/system/services/gvfs.nix
     ./modules/system/services/ydotool.nix
+    ./modules/system/services/upower.nix
   ];
 
   # This option defines the first version of NixOS you have installed on this particular machine,
