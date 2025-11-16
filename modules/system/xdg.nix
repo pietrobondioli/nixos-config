@@ -1,23 +1,25 @@
 { config, pkgs, lib, ... }:
-
 {
-  xdg.portal.enable = true;
-  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
-  xdg.portal.wlr.enable = true;
-
-  # Explicitly configure which portals to use and in what order
-  xdg.portal.config = {
-    niri = {
-      default = [ "wlr" "gtk" ];
-      "org.freedesktop.impl.portal.Screenshot" = [ "wlr" ];
-      "org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ];
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
+    config.niri = {
+      default = [ "gnome" "gtk" ];
+      "org.freedesktop.impl.portal.ScreenCast" = [ "gnome" ];
     };
   };
 
-  # Prevent auto-detection of other portals
+  environment.systemPackages = [ pkgs.xdg-desktop-portal-gnome ];
   xdg.portal.xdgOpenUsePortal = true;
 
+  services.gnome.gnome-remote-desktop.enable = true;
+
+  # This is key - set environment for niri session
   environment.sessionVariables = {
+    XDG_CURRENT_DESKTOP = "niri";  # ADD THIS
+    QT_QPA_PLATFORM = "wayland";
+    ELECTRON_OZONE_PLATFORM_HINT = "wayland";
+    _JAVA_AWT_WM_NONREPARENTING = "1";
     GSK_RENDERER = "gl";
     GDK_BACKEND = "wayland";
   };

@@ -1,11 +1,6 @@
 { config, pkgs, lib, ... }:
 
 {
-  # Environment variables
-  environment.variables = {
-    ELECTRON_OZONE_PLATFORM_HINT = "auto";
-  };
-
   # System packages
   environment.systemPackages = with pkgs; [
     xwayland-satellite
@@ -39,7 +34,7 @@
     pstree
     jq
 
-    xdg-desktop-portal-wlr
+    pkgs.xdg-desktop-portal-gnome
     pciutils
     vulkan-tools
     psmisc
