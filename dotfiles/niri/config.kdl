@@ -146,7 +146,7 @@ workspace "5"
 workspace "6"
 
 // spawn-sh-at-startup "systemctl --user start xdg-desktop-portal-wlr.service"
-spawn-sh-at-startup "$HOME/scripts/xdg-portals";
+// spawn-sh-at-startup "$HOME/scripts/xdg-portals";
 
 spawn-at-startup "waybar"
 
