@@ -2,9 +2,6 @@
 
 {
   imports = [
-    # External modules
-    inputs.zen-browser.homeModules.beta
-
     # Identity
     ./modules/home/identity.nix
 
@@ -23,7 +20,6 @@
     ./modules/home/programs/rofi.nix
     ./modules/home/programs/kitty.nix
     ./modules/home/programs/zsh.nix
-    ./modules/home/programs/zen-browser.nix
     ./modules/home/programs/zoxide.nix
     ./modules/home/programs/direnv.nix
     ./modules/home/programs/terraform.nix

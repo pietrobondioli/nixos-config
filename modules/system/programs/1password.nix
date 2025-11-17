@@ -14,6 +14,8 @@
         zen
         zen-beta
         firefox
+        chromium
+        brave
       '';
       mode = "0755";
     };

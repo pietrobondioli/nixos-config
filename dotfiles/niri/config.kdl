@@ -152,7 +152,7 @@ spawn-at-startup "waybar"
 
 // Delayed autostart apps (workspace assignment handled via window-rules)
 spawn-sh-at-startup "sleep 1; kitty";
-spawn-sh-at-startup "sleep 2; zen";
+spawn-sh-at-startup "sleep 2; firefox";
 spawn-sh-at-startup "sleep 4; 1password";
 // VPN reminder notification
 spawn-sh-at-startup "sleep 15; notify-send \"VPN\" \"Don\\'t forget to start VPN!\" --urgency=critical";
@@ -293,7 +293,7 @@ binds {
     // shows a list of important hotkeys.
     Mod+Shift+Slash { show-hotkey-overlay; }
 
-    Mod+Backspace hotkey-overlay-title="Open a Web Browser: zen" { spawn "zen"; }
+    Mod+Backspace hotkey-overlay-title="Open a Web Browser: firefox" { spawn "firefox"; }
     Mod+Return hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
     // Mod+Shift+Return hotkey-overlay-title="Scratch Terminal: floating kitty" { spawn "kitty"; toggle-window-floating; center-column; }
     Mod+N hotkey-overlay-title="New Note: kitty+nvim" { spawn-sh "mkdir -p \"$HOME/personal/notes\"; kitty -e nvim \"$HOME/personal/notes/$(date +%Y-%m-%d_%H%M%S).md\""; }
