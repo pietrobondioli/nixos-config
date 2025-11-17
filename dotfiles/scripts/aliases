@@ -16,12 +16,6 @@ alias .....="cd ../../../.."
 alias ......="cd ../../../../.."
 alias zz="zi" # Shortcut for frequently used command
 
-# Create and move into a directory
-function cdm() {
-  mkdir -p "$1"
-  cd "$1" || return
-}
-
 #######
 # User Aliases
 #######
@@ -85,8 +79,6 @@ alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[
 #######
 alias rr="rm -rf"
 alias md="mkdir -p"
-alias update="yay -Syu"
-alias grep="rg" # Use ripgrep for faster and better searching
 alias secrets="ripsecrets"
 
 # Print each PATH entry on a separate line
@@ -101,27 +93,7 @@ alias reload="exec ${SHELL} -l"
 #######
 # Dotfiles and Configuration Management
 #######
-alias dotfilesrc="cd $HOME/dotfiles && nvim ."
-alias zshrc="cd $HOME && nvim .zshrc"
-alias nvimrc="cd $XDG_CONFIG_HOME/nvim && nvim ."
-alias i3rc="cd $XDG_CONFIG_HOME/i3 && nvim config"
-alias picomrc="cd $XDG_CONFIG_HOME/picom && nvim picom.conf"
-alias kittyrc="cd $XDG_CONFIG_HOME/kitty && nvim kitty.conf"
-alias tmuxrc="cd $XDG_CONFIG_HOME/tmux && nvim tmux.conf"
-alias binrc="cd $HOME/.local/bin && nvim ."
-alias scriptsrc="cd $HOME/scripts && nvim ."
-alias zellijrc="cd $XDG_CONFIG_HOME/zellij && nvim config.kdl"
-alias cscriptsrc="cd $XDG_CONFIG_HOME/scripts && nvim ."
-alias lazygitrc="cd $XDG_CONFIG_HOME/lazygit && nvim config.yml"
-alias lazydockerrc="cd $XDG_CONFIG_HOME/lazydocker && nvim config.yml"
-
-#######
-# Git Aliases
-#######
-alias gbl="git branch --format='%(refname:short)'"
-alias gbr="git branch -r --format='%(refname:lstrip=3)'"
-alias gswl="gbl | fzf | xargs git switch"
-alias gswr="gbr | fzf | xargs git switch"
+alias dotfilesrc="cd $HOME/personal/nixos-config && nvim ."
 
 #######
 # Functions
