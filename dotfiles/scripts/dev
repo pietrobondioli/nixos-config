@@ -103,3 +103,4 @@ aws-profile() {
 }
 
 alias aws-whoami='echo "Profile: $AWS_PROFILE" && aws sts get-caller-identity'
+

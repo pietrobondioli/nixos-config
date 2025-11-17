@@ -12,7 +12,6 @@ export FZF_DEFAULT_COMMAND="fd --type f --strip-cwd-prefix"
 export FZF_ALT_C_COMMAND="bfs -color -mindepth 1 -exclude \( -name .git \) -type d -printf '%P\n' 2>/dev/null"
 export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
 export FZF_CTRL_T_COMMAND="bfs -color -mindepth 1 -exclude \( -name .git \) -printf '%P\n' 2>/dev/null"
-export FORGIT_FZF_DEFAULT_OPTS="--ansi --exact --border --cycle --height '80%' --preview-window right,50%"
 
 export FZF_DEFAULT_OPTS='
 --ansi
@@ -74,45 +73,6 @@ function _fzf_git_fzf() {
     "$@"
 }
 
-# Change Directory Using FZF
-function fcd() {
-  mylog "Changing directory using FZF" "$log_file_name"
-  cd "$(find . -type d -print | fzf)"
-}
-
-# Evaluate Command Using FZF
-function fzf-eval() {
-  mylog "Evaluating command using FZF" "$log_file_name"
-  echo | fzf -q "$*" --preview-window=up:99% --preview="eval {q}"
-}
-
-# View Files Using FZF
-function view() {
-  mylog "Viewing files using FZF" "$log_file_name"
-  fd --type f --strip-cwd-prefix | fzf
-}
-
-# Change Directory Using FZF with Hidden Files
-function cdf() {
-  mylog "Changing directory to hidden directories using FZF" "$log_file_name"
-  local dir
-  dir="$(fd --type directory --hidden --exclude .git | fzf)"
-  cd "$PWD/$dir"
-}
-
-# Run NPM Scripts Using FZF
-function fns() {
-  mylog "Running NPM scripts using FZF" "$log_file_name"
-  if [[ -f package.json ]]; then
-    local content script
-    content="$(jq -r '.scripts' package.json)"
-    script=$(jq -r '.scripts | keys[] ' package.json | sort -u | fzf --preview="echo 'Script -> {}\n';grep '{}' package.json | sed 's/^[ ]*//g'")
-    if [[ "$script" != "" ]]; then
-      n "$script"
-    fi
-  fi
-}
-
 # Update FZF from Source
 function fzf-update() {
   mylog "Updating FZF from source" "$log_file_name"
@@ -121,41 +81,6 @@ function fzf-update() {
   cd ~/.fzf && git pull && ./install --no-bash --no-zsh --no-fish --no-key-bindings --no-completion --no-update-rc
   cd "$dir"
   exec $SHELL -l
-}
-
-# Open Files Using FZF
-function files() {
-  mylog "Opening files using FZF" "$log_file_name"
-  local file
-  file="$(fzf --multi --reverse)"
-  if [[ "$file" ]]; then
-    for prog in $(echo "$file"); do
-      $EDITOR "$prog"
-    done
-  else
-    echo "Cancelled FZF"
-    mylog "FZF file selection cancelled" "$log_file_name"
-  fi
-}
-
-# Git Status Using FZF
-function st() {
-  git rev-parse --git-dir >/dev/null 2>&1 || {
-    mylog "Not in a git repository" "$log_file_name"
-    echo "You are not in a git repository"
-    return
-  }
-  local selected
-  selected=$(git -c color.status=always status --short |
-    fzf --no-height --cycle "$@" --border -m --ansi --nth 2..,.. \
-      --preview '(if [ -d {-1} ];then lsd -l {-1}; else git diff --color=always -- {-1} | delta --side-by-side -w "$(tput cols)-45" | sed 1,4d; cat {-1}; fi)' |
-    cut -c4- | sed 's/.* -> //')
-  if [[ $selected ]]; then
-    for prog in $(echo "$selected"); do
-      $EDITOR "$prog"
-    done
-  fi
-  mylog "Selected files for editing using FZF and git status: $selected" "$log_file_name"
 }
 
 #############################################################################################################################

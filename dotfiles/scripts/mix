@@ -22,38 +22,6 @@ clc() {
   fi
 }
 
-# Finding and opening file with nvim
-fv() {
-  mylog "Finding and opening file with nvim" "fv.log"
-  local path
-
-  if [ -n "$1" ]; then
-    path="$1"
-  else
-    path=(~/work ~/personal/projects ~/personal/sandbox ~/)
-  fi
-
-  local file=$(find "${path[@]}" -type f -print 2>/dev/null | fzf +m) || {
-    echo "No files found"
-    return 1
-  }
-
-  local dir=$(dirname "$file")
-  local filename=$(basename "$file")
-
-  if [ -n "$dir" ]; then
-    cd "$dir" || {
-      echo "Unable to change directory"
-      return 1
-    }
-  else
-    echo "No selection made"
-    return 1
-  fi
-
-  [ -n "$filename" ] && nvim "$filename"
-}
-
 # Open configuration file with vim
 cfgedit() {
   mylog "Opening configuration file with vim" "cfgedit.log"
@@ -98,27 +66,6 @@ fhistory() {
   fi
 }
 
-# Open cheat sheet
-chsheet() {
-  mylog "Opening cheat sheet for $selected" "chsheet.log"
-  local languages=("csharp" "css" "go" "java" "dotnet" "html" "http" "javascript" "linux" "lua" "mysql" "nodejs" "python" "rust" "sql" "vim")
-  local commands=("curl" "date" "docker" "find" "mv" "rm" "ssh" "tar" "unzip" "wget" "zip" "awk" "cat" "chmod" "chown" "cp" "curl" "diff" "du" "grep" "tail" "touch" "wc" "tee")
-
-  local selected=$(printf "%s\n" "${languages[@]}" "${commands[@]}" | fzf)
-  if [[ -z $selected ]]; then
-    return 0
-  fi
-
-  read -p "Enter Query: " query
-  query=$(echo $query | tr ' ' '+')
-
-  if printf "%s\n" "${languages[@]}" | grep -q "^$selected$"; then
-    tmux neww bash -c "while :; do read -p 'Enter Query: ' query; [[ -z \$query ]] && break; query=\$(echo \$query | tr ' ' '+'); echo \"curl cht.sh/$selected/\$query/\"; curl cht.sh/$selected/\$query; done"
-  else
-    tmux neww bash -c "while :; do read -p 'Enter Query: ' query; [[ -z \$query ]] && break; query=\$(echo \$query | tr ' ' '+'); curl -s cht.sh/$selected~\$query | less; done"
-  fi
-}
-
 # Search files and print content
 pfc() {
   local depth=1
@@ -154,7 +101,7 @@ pfc() {
 
   # Build the find command
   local find_cmd="find \"$dir\" -maxdepth \"$depth\" -type f"
-  
+
   # Add name pattern
   find_cmd+=" -name \"$pattern\""
 
@@ -182,4 +129,30 @@ fssh() {
   mylog "Connecting to SSH host" "fssh.log"
   local host=$(grep "Host " ~/.ssh/config | awk '{print $2}' | fzf --exit-0)
   [ -n "$host" ] && ssh "$host"
+}
+
+#######
+# Docker Utilities
+#######
+
+# Prune unused Docker volumes
+docker-prune-volumes() {
+  mylog "Pruning unused Docker volumes" "docker.log"
+  docker volume rm "$(docker volume ls -q --filter dangling=true)"
+}
+
+# Find and remove Docker containers using fzf
+fdocker() {
+  mylog "Finding and removing Docker containers" "docker.log"
+  docker ps -a | sed 1d | fzf -q "$1" --no-sort -m --tac | awk '{ print $1 }' | xargs -r docker rm
+}
+
+#######
+# Shell Utilities
+#######
+
+# Temporarily disable ZSH auto-suggestions
+anon() {
+  mylog "Disabling ZSH auto-suggestions" "shell.log"
+  ZSH_AUTOSUGGEST_STRATEGY=()
 }

@@ -2,9 +2,74 @@
   programs.zsh = {
     enable = true;
     enableCompletion = true;
-    shellAliases = { ll = "ls -l"; edit = "sudo -e"; update = "sudo nixos-rebuild switch"; };
+    shellAliases = {
+      # System aliases
+      edit = "sudo -e";
+      update = "sudo nixos-rebuild switch";
+
+      # Directory Navigation
+      ra = "ranger";
+      "cd" = "z"; # Use 'z' for autojump-like directory navigation
+      ".." = "cd ..";
+      "..." = "cd ../..";
+      "...." = "cd ../../..";
+      "....." = "cd ../../../..";
+      "......" = "cd ../../../../..";
+      zz = "zi";
+
+      # User Aliases
+      "v." = "nvim .";
+      v = "nvim";
+      c = "clear";
+
+      # Enhanced ls Aliases using eza
+      ls = "eza -alg --color=always --group-directories-first --git";
+      l = "eza -alg --color=always --group-directories-first --git";
+      ll = "eza -aliSgh --color=always --group-directories-first --icons --header --long --git";
+      lt = "eza -@alT --color=always --git";
+      llt = "eza --oneline --tree --icons --git-ignore";
+      lr = "eza -alg --sort=modified --color=always --group-directories-first --git";
+
+      # Clipboard Management (Wayland)
+      cwd = "pwd | tr -d '\\n' | wl-copy";
+      copy = "wl-copy";
+      paste = "wl-paste";
+
+      # Lazygit and Lazydocker
+      lg = "lazygit";
+      gg = "lazygit";
+      ld = "lazydocker";
+
+      # Docker Utilities
+      docker-compose = "docker compose";
+
+      # Network Utilities
+      ip = "dig +short myip.opendns.com @resolver1.opendns.com";
+      localip = "ipconfig getifaddr en0";
+      ips = "ifconfig -a | grep -o 'inet6\\? \\(addr:\\)\\?\\s\\?\\(\\(\\([0-9]\\+\\.\\)\\{3\\}[0-9]\\+\\)\\|[a-fA-F0-9:]\\+\\)' | awk '{ sub(/inet6? (addr:)? ?/, \\\"\\\"); print }'";
+
+      # Miscellaneous
+      rr = "rm -rf";
+      md = "mkdir -p";
+      secrets = "ripsecrets";
+      path = "echo -e \${PATH//:/\\\\n}";
+      map = "xargs -n1";
+      reload = "exec \${SHELL} -l";
+
+      # Dotfiles and Configuration Management
+      dotfilesrc = "cd $HOME/personal/nixos-config && nvim .";
+    };
+
     history = { size = 10000; path = "$HOME/.zsh_history"; };
-    sessionVariables = { EDITOR = "vim"; TERMINAL = "kitty"; USER_LOG_DIR = "$HOME/logs"; SSH_AUTH_SOCK = "$HOME/.1password/agent.sock"; };
+
+    sessionVariables = {
+      EDITOR = "vim";
+      BROWSER = "firefox";
+      TERMINAL = "kitty";
+      USER_LOG_DIR = "$HOME/logs";
+      SSH_AUTH_SOCK = "$HOME/.1password/agent.sock";
+    };
+
     antidote = { enable = true; plugins = [
       "zsh-users/zsh-autosuggestions"
       "zsh-users/zsh-syntax-highlighting"
@@ -16,9 +81,7 @@
     ]; };
     oh-my-zsh = { enable = true; plugins = [ "git" "fzf" ]; };
     initContent = ''
-      source $HOME/scripts/vars
       source $HOME/scripts/utils
-      source $HOME/scripts/aliases
       local -a SOURCE_FILES=(
         "$HOME/scripts/dev"
         "$HOME/scripts/fzf"
@@ -26,7 +89,6 @@
         "$HOME/scripts/history"
         "$HOME/scripts/mix"
         "$HOME/scripts/nav"
-        "$HOME/scripts/tmux"
         "$HOME/scripts/zellij"
         "$HOME/scripts/zellij_autostart_config"
         "$HOME/scripts/zellij_tab_name_update"
@@ -35,6 +97,7 @@
       for config in $SOURCE_FILES; do
         [[ -f "$config" ]] && source "$config"
       done
+
       zellij_tab_name_update
       chpwd_functions+=(zellij_tab_name_update)
       zellij_autostart_config
