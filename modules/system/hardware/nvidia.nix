@@ -3,6 +3,9 @@
 {
   # Load nvidia driver for Xorg and Wayland
   hardware.graphics.enable = true;
+  hardware.graphics.enable32Bit = true;
+  hardware.enableAllFirmware = true;
+
   services.xserver.videoDrivers = ["nvidia"];
 
   hardware.nvidia = {

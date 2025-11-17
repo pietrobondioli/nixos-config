@@ -38,5 +38,7 @@
     pciutils
     vulkan-tools
     psmisc
+
+    pulseaudio
   ];
 }
