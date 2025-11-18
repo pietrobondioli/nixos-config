@@ -14,6 +14,11 @@
     eza
     fd
 
+    # Network utilities
+    bind.dnsutils  # provides dig, nslookup, etc.
+    iproute2       # provides ip command
+    net-tools      # provides ifconfig, netstat, etc.
+
     # Build essentials (needed for system operations)
     gcc
     libinput
