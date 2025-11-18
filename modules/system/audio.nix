@@ -1,6 +1,11 @@
 { config, pkgs, lib, ... }:
 
 {
+  # Audio utilities
+  environment.systemPackages = with pkgs; [
+    pulseaudio # Provides pactl, pavucontrol, etc.
+  ];
+
   # Enable sound with pipewire
   services.pipewire = {
     enable = true;

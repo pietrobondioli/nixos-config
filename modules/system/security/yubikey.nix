@@ -1,6 +1,15 @@
 { config, pkgs, lib, ... }:
 
 {
+  # YubiKey packages
+  environment.systemPackages = with pkgs; [
+    yubikey-manager # CLI tool for YubiKey management
+    yubikey-personalization # For configuring YubiKey slots
+    yubico-pam # For PAM authentication
+    yubioath-flutter # GUI tool
+    libsecret # Secret management
+  ];
+
   # Enable smartcard daemon for YubiKey
   services.pcscd.enable = true;
 

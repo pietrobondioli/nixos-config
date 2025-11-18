@@ -15,7 +15,7 @@
     ./modules/system/display.nix
     ./modules/system/audio.nix
     ./modules/system/users.nix
-    ./modules/system/environment.nix
+    ./modules/system/core-packages.nix
     ./modules/system/virtualization.nix
     ./modules/system/filesystems.nix
     ./modules/system/nixpkgs.nix

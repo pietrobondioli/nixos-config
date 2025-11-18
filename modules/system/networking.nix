@@ -1,6 +1,15 @@
 { config, pkgs, lib, ... }:
 
 {
+  # Network utilities and VPN packages
+  environment.systemPackages = with pkgs; [
+    bind.dnsutils # provides dig, nslookup, etc.
+    iproute2 # provides ip command
+    net-tools # provides ifconfig, netstat, etc.
+    wireguard-tools # WireGuard VPN tools
+    protonvpn-gui # ProtonVPN GUI
+  ];
+
   networking.hostName = "pc"; # Define your hostname.
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 

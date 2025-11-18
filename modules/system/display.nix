@@ -1,6 +1,12 @@
 { config, pkgs, lib, ... }:
 
 {
+  # Icon themes
+  environment.systemPackages = with pkgs; [
+    adwaita-icon-theme
+    papirus-icon-theme
+  ];
+
   # Configure X11 windowing system
   services.xserver = {
     enable = true;
