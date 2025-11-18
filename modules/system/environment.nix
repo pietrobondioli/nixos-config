@@ -40,5 +40,7 @@
     psmisc
 
     pulseaudio
+    wireguard-tools
+    protonvpn-gui
   ];
 }

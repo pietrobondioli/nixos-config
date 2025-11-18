@@ -12,6 +12,7 @@
 
   # Firewall configuration
   networking.firewall.enable = true;
+  networking.firewall.checkReversePath = false;
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
 }
