@@ -25,15 +25,21 @@
       ExecStartPre = "/run/current-system/sw/bin/mkdir -p %h/gdrive";
       ExecStart = ''
         ${pkgs.rclone}/bin/rclone mount gdrive: %h/gdrive \
-          --vfs-cache-mode writes \
+          --vfs-cache-mode full \
           --vfs-cache-max-age 24h \
-          --vfs-read-chunk-size 128M \
-          --vfs-read-chunk-size-limit off \
-          --buffer-size 256M \
+          --vfs-read-chunk-size 32M \
+          --vfs-read-chunk-size-limit 2G \
+          --vfs-read-ahead 128M \
+          --buffer-size 64M \
           --poll-interval 15s \
-          --dir-cache-time 1h \
+          --dir-cache-time 5m \
+          --attr-timeout 1s \
+          --vfs-fast-fingerprint \
+          --no-modtime \
+          --drive-chunk-size 32M \
           --timeout 1h \
-          --umask 022
+          --umask 022 \
+          --allow-other
       '';
       ExecStop = "/run/current-system/sw/bin/fusermount -u %h/gdrive";
       Restart = "on-failure";
