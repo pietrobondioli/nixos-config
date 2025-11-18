@@ -27,6 +27,6 @@ install-hooks:
 	@echo "Installing git pre-commit hook..."
 	@mkdir -p .git/hooks
 	@echo '#!/bin/sh' > .git/hooks/pre-commit
-	@echo 'make check' >> .git/hooks/pre-commit
+	@echo 'make fmt' >> .git/hooks/pre-commit
 	@chmod +x .git/hooks/pre-commit
 	@echo "Git hook installed! Run 'make check' will run before each commit."
