@@ -5,8 +5,8 @@
   };
 
   home.packages = with pkgs; [
-    playerctl     # Media player control (MPRIS)
+    playerctl # Media player control (MPRIS)
     brightnessctl # Brightness control
-    pavucontrol   # PulseAudio volume control GUI
+    pavucontrol # PulseAudio volume control GUI
   ];
 }

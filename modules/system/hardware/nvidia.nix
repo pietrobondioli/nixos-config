@@ -6,7 +6,7 @@
   hardware.graphics.enable32Bit = true;
   hardware.enableAllFirmware = true;
 
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia = {
     # Modesetting is required.

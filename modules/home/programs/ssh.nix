@@ -1,4 +1,5 @@
-{ pkgs, ... }: let onePassPath = "~/.1password/agent.sock"; in {
+{ pkgs, ... }:
+let onePassPath = "~/.1password/agent.sock"; in {
   programs.ssh = {
     enable = true;
     enableDefaultConfig = false;

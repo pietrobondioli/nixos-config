@@ -22,5 +22,5 @@
   programs.noisetorch.enable = true;
 
   # PAM services configuration for swaylock
-  security.pam.services.swaylock = {};
+  security.pam.services.swaylock = { };
 }

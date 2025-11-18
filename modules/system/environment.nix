@@ -22,10 +22,10 @@
     adwaita-icon-theme
     papirus-icon-theme
 
-    yubikey-manager      # CLI tool for YubiKey management
-    yubikey-personalization  # For configuring YubiKey slots
-    yubico-pam           # For PAM authentication
-    yubioath-flutter   # Optional: GUI tool
+    yubikey-manager # CLI tool for YubiKey management
+    yubikey-personalization # For configuring YubiKey slots
+    yubico-pam # For PAM authentication
+    yubioath-flutter # Optional: GUI tool
 
     libsecret
     usbutils

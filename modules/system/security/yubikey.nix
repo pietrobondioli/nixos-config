@@ -10,7 +10,7 @@
   # PAM U2F authentication
   security.pam.u2f = {
     enable = true;
-    control = "sufficient";  # Allows password OR YubiKey
+    control = "sufficient"; # Allows password OR YubiKey
     # control = "required";  # Use this if you want to ENFORCE YubiKey
     settings = {
       cue = true;

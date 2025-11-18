@@ -70,15 +70,18 @@
       SSH_AUTH_SOCK = "$HOME/.1password/agent.sock";
     };
 
-    antidote = { enable = true; plugins = [
-      "zsh-users/zsh-autosuggestions"
-      "zsh-users/zsh-syntax-highlighting"
-      "zsh-users/zsh-completions"
-      "zsh-users/zsh-history-substring-search"
-      "wfxr/forgit"
-      "hlissner/zsh-autopair"
-      "romkatv/powerlevel10k"
-    ]; };
+    antidote = {
+      enable = true;
+      plugins = [
+        "zsh-users/zsh-autosuggestions"
+        "zsh-users/zsh-syntax-highlighting"
+        "zsh-users/zsh-completions"
+        "zsh-users/zsh-history-substring-search"
+        "wfxr/forgit"
+        "hlissner/zsh-autopair"
+        "romkatv/powerlevel10k"
+      ];
+    };
     oh-my-zsh = { enable = true; plugins = [ "git" "fzf" ]; };
     initContent = ''
       source $HOME/scripts/utils

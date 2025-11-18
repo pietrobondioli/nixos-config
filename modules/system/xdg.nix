@@ -16,7 +16,7 @@
 
   # This is key - set environment for niri session
   environment.sessionVariables = {
-    XDG_CURRENT_DESKTOP = "niri";  # ADD THIS
+    XDG_CURRENT_DESKTOP = "niri"; # ADD THIS
     QT_QPA_PLATFORM = "wayland";
     ELECTRON_OZONE_PLATFORM_HINT = "wayland";
     _JAVA_AWT_WM_NONREPARENTING = "1";

@@ -15,7 +15,21 @@
       display-ssh = " SSH";
       drun-display-format = "{name}";
       window-format = "{w} · {c} · {t}";
-      width = 35; lines = 10; columns = 1; sort = true; sorting-method = "fzf"; matching = "fuzzy"; scroll-method = 0; disable-history = false; cycle = true; hide-scrollbar = true; fixed-num-lines = true; sidebar-mode = false; hover-select = true; me-select-entry = ""; me-accept-entry = "MousePrimary";
+      width = 35;
+      lines = 10;
+      columns = 1;
+      sort = true;
+      sorting-method = "fzf";
+      matching = "fuzzy";
+      scroll-method = 0;
+      disable-history = false;
+      cycle = true;
+      hide-scrollbar = true;
+      fixed-num-lines = true;
+      sidebar-mode = false;
+      hover-select = true;
+      me-select-entry = "";
+      me-accept-entry = "MousePrimary";
     };
     theme = let inherit (config.lib.formats.rasi) mkLiteral; in {
       "*" = { bg = mkLiteral "#303446ff"; bg-alt = mkLiteral "#292c3cff"; bg-selected = mkLiteral "#414559ff"; fg = mkLiteral "#c6d0f5ff"; fg-alt = mkLiteral "#838ba7ff"; border = mkLiteral "#8caaeeff"; border-alt = mkLiteral "#babbf1ff"; background-color = mkLiteral "transparent"; text-color = mkLiteral "@fg"; font = "JetBrainsMono Nerd Font 12"; margin = 0; padding = 0; spacing = 0; };
