@@ -1,5 +1,17 @@
 { ... }: {
   xdg.userDirs = { enable = true; createDirectories = true; };
+
+  xdg.desktopEntries = {
+    nvim-kitty = {
+      name = "Neovim (Kitty)";
+      genericName = "Text Editor";
+      exec = "kitty nvim %F";
+      terminal = false;
+      categories = [ "Application" "TextEditor" ];
+      mimeType = [ "text/plain" "text/*" ];
+    };
+  };
+
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
@@ -9,7 +21,7 @@
       "x-scheme-handler/about" = "firefox.desktop";
       "x-scheme-handler/unknown" = "firefox.desktop";
       "application/pdf" = "org.pwmt.zathura.desktop";
-      "text/plain" = "nvim.desktop";
+      "text/plain" = "nvim-kitty.desktop";
       "image/png" = "mpv.desktop";
       "image/jpeg" = "mpv.desktop";
       "image/jpg" = "mpv.desktop";
