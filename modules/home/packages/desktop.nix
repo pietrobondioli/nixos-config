@@ -7,7 +7,6 @@
     swaybg
     swaylock
     swayidle
-    chromium
     vesktop
     teams-for-linux
     spotify

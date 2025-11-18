@@ -4,7 +4,7 @@
   programs._1password.enable = true;
   programs._1password-gui = {
     enable = true;
-    polkitPolicyOwners = [ "pietro" ];
+    polkitPolicyOwners = [ config.myDefaults.user.name ];
   };
 
   # Enable browser integration
@@ -22,5 +22,5 @@
   };
 
   # Ensure proper group membership for 1Password integration
-  users.users.pietro.extraGroups = [ "onepassword" "onepassword-cli" ];
+  users.users.${config.myDefaults.user.name}.extraGroups = [ "onepassword" "onepassword-cli" ];
 }

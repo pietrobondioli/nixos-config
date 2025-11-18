@@ -9,6 +9,9 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
 
+    # Shared defaults
+    ./modules/shared/defaults.nix
+
     # System modules
     ./modules/system/boot.nix
     ./modules/system/networking.nix

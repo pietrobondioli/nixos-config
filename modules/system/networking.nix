@@ -10,14 +10,14 @@
     protonvpn-gui # ProtonVPN GUI
   ];
 
-  networking.hostName = "pc"; # Define your hostname.
+  networking.hostName = config.myDefaults.system.hostname;
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
   # NetworkManager tray icon
   programs.nm-applet.enable = true;
 
   # Set your time zone.
-  time.timeZone = "America/Sao_Paulo";
+  time.timeZone = config.myDefaults.system.timezone;
 
   # Firewall configuration
   networking.firewall.enable = true;

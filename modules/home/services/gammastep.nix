@@ -1,9 +1,9 @@
-{ ... }: {
+{ config, ... }: {
   services.gammastep = {
     enable = true;
     provider = "manual";
-    latitude = -23.5;
-    longitude = -46.6;
+    latitude = config.myDefaults.location.latitude;
+    longitude = config.myDefaults.location.longitude;
     temperature.day = 4500;
     temperature.night = 4500;
     settings.general.adjustment-method = "wayland";

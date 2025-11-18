@@ -1,4 +1,9 @@
-{ pkgs, ... }: {
+{ config, pkgs, ... }:
+let
+  paths = config.myDefaults.paths;
+  apps = config.myDefaults.applications;
+in
+{
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -55,17 +60,17 @@
       reload = "exec \${SHELL} -l";
 
       # Dotfiles and Configuration Management
-      dotfilesrc = "cd $HOME/personal/nixos-config && nvim .";
+      dotfilesrc = "cd ${paths.nixConfig} && nvim .";
 
-      makenix = "sudo nixos-rebuild switch --flake $HOME/personal/nixos-config#nixos --log-format internal-json -v |& nom --json";
+      makenix = "sudo nixos-rebuild switch --flake ${paths.nixConfig}#nixos --log-format internal-json -v |& nom --json";
     };
 
     history = { size = 10000; path = "$HOME/.zsh_history"; };
 
     sessionVariables = {
-      EDITOR = "vim";
-      BROWSER = "firefox";
-      TERMINAL = "kitty";
+      EDITOR = apps.editor.command;
+      BROWSER = apps.browser.package;
+      TERMINAL = apps.terminal.package;
       USER_LOG_DIR = "$HOME/logs";
       SSH_AUTH_SOCK = "$HOME/.1password/agent.sock";
     };
@@ -84,18 +89,18 @@
     };
     oh-my-zsh = { enable = true; plugins = [ "git" "fzf" ]; };
     initContent = ''
-      source $HOME/scripts/utils
+      source ${paths.scripts}/utils
       local -a SOURCE_FILES=(
-        "$HOME/scripts/dev"
-        "$HOME/scripts/fzf"
-        "$HOME/scripts/git"
-        "$HOME/scripts/history"
-        "$HOME/scripts/mix"
-        "$HOME/scripts/nav"
-        "$HOME/scripts/zellij"
-        "$HOME/scripts/zellij_autostart_config"
-        "$HOME/scripts/zellij_tab_name_update"
-        "$HOME/scripts/secrets"
+        "${paths.scripts}/dev"
+        "${paths.scripts}/fzf"
+        "${paths.scripts}/git"
+        "${paths.scripts}/history"
+        "${paths.scripts}/mix"
+        "${paths.scripts}/nav"
+        "${paths.scripts}/zellij"
+        "${paths.scripts}/zellij_autostart_config"
+        "${paths.scripts}/zellij_tab_name_update"
+        "${paths.scripts}/secrets"
       )
       for config in $SOURCE_FILES; do
         [[ -f "$config" ]] && source "$config"

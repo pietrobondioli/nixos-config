@@ -11,8 +11,8 @@
   services.xserver = {
     enable = true;
     xkb = {
-      layout = "us";
-      variant = "altgr-intl";
+      layout = config.myDefaults.system.keyboardLayout;
+      variant = config.myDefaults.system.keyboardVariant;
     };
   };
 

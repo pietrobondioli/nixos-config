@@ -2,6 +2,9 @@
 
 {
   imports = [
+    # Shared defaults
+    ./modules/shared/defaults.nix
+
     # Identity
     ./modules/home/identity.nix
 

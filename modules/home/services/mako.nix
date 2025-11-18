@@ -1,27 +1,33 @@
-{ ... }: {
+{ config, ... }:
+let
+  c = config.myDefaults.colors;
+  fonts = config.myDefaults.fonts;
+  ui = config.myDefaults.ui;
+in
+{
   services.mako = {
     enable = true;
     settings = {
-      font = "JetBrainsMono Nerd Font 12";
+      font = "${fonts.primary} ${toString fonts.sizes.small}";
       anchor = "top-right";
-      background-color = "#303446FF";
-      border-color = "#8caaeeFF";
+      background-color = "${c.background}FF";
+      border-color = "${c.blue}FF";
       border-size = 2;
-      border-radius = 8;
+      border-radius = ui.borderRadius.medium;
       default-timeout = 8000;
       height = 120;
       width = 400;
       padding = "12";
       margin = "8";
-      text-color = "#c6d0f5FF";
-      progress-color = "#8caaeeFF";
+      text-color = "${c.foreground}FF";
+      progress-color = "${c.blue}FF";
       icons = true;
     };
     extraConfig = ''
       [urgency=low]
-      border-color=#414559
+      border-color=${c.selection}
       [urgency=high]
-      border-color=#e78284
+      border-color=${c.red}
     '';
   };
 }

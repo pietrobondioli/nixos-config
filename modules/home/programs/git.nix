@@ -1,11 +1,11 @@
-{ lib, pkgs, ... }: {
+{ config, lib, pkgs, ... }: {
   programs.git = {
     enable = true;
     settings = {
       user = {
-        name = "Pietro Bondioli";
-        email = "email@pietrobondioli.com.br";
-        signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIBkYROpWTR4k2G7mzsT9I3SFhlL9A3wRPKHepcHmpIU";
+        name = config.myDefaults.git.userName;
+        email = config.myDefaults.git.userEmail;
+        signingKey = config.myDefaults.git.signingKey;
         enableSigning = true;
       };
       url."git@github.com:".insteadOf = "https://github.com/";
