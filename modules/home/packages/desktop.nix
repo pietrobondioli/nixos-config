@@ -7,7 +7,6 @@
     swaybg
     swaylock
     swayidle
-    firefox
     chromium
     vesktop
     teams-for-linux

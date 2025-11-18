@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 {
   # System packages
@@ -42,5 +42,10 @@
     pulseaudio
     wireguard-tools
     protonvpn-gui
+
+    # Firefox wrapper to provide 'firefox' command for nightly
+    (pkgs.writeShellScriptBin "firefox" ''
+      exec ${inputs.firefox-nightly.packages.${pkgs.system}.firefox-nightly-bin}/bin/firefox-nightly "$@"
+    '')
   ];
 }
