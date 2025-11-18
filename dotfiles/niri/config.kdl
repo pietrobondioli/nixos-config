@@ -308,7 +308,7 @@ binds {
 
     Mod+Backspace hotkey-overlay-title="Open a Web Browser: firefox" { spawn "firefox"; }
     Mod+Return hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
-    Mod+Shift+Return hotkey-overlay-title="Scratch Terminal: floating kitty" { spawn-sh "kitty --class kitty-scratch"; }
+    Mod+Shift+Return hotkey-overlay-title="Scratch Terminal: floating kitty" { spawn-sh "KITTY_SCRATCH=1 kitty --class kitty-scratch"; }
     Mod+N hotkey-overlay-title="New Note: kitty+nvim" { spawn-sh "mkdir -p \"$HOME/personal/notes\"; kitty -e nvim \"$HOME/personal/notes/$(date +%Y-%m-%d_%H%M%S).md\""; }
     Mod+B hotkey-overlay-title="Bluetooth Manager: blueman-manager" { spawn "blueman-manager"; }
     Mod+M hotkey-overlay-title="Audio Device Manager: pavucontrol" { spawn "pavucontrol"; }
