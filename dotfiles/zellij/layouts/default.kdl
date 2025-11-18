@@ -1,6 +1,15 @@
 layout {
-    pane
-    pane size=1 borderless=true {
-        plugin location="zellij:compact-bar"
+    default_tab_template {
+        children
+        pane size=1 borderless=true {
+            plugin location="zellij:compact-bar"
+        }
+    }
+
+    tab {
+        pane stacked=true {
+            pane expanded=true
+            pane
+        }
     }
 }

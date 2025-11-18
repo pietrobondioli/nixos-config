@@ -63,7 +63,6 @@ in
       dotfilesrc = "cd ${paths.nixConfig} && nvim .";
 
       makenix = "sudo nixos-rebuild switch --flake ${paths.nixConfig}#nixos --log-format internal-json -v |& nom --json";
-      makehome = "home-manager switch --flake ${paths.nixConfig}#pietro --log-format internal-json -v |& nom --json";
     };
 
     history = { size = 10000; path = "$HOME/.zsh_history"; };

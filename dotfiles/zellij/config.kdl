@@ -37,7 +37,9 @@ keybinds clear-defaults=true {
         bind "Alt q" { Quit; }
         bind "Alt n" { NewPane; }
         bind "Alt x" { CloseFocus; }
-        bind "Alt t" { NewTab; }
+        bind "Alt t" { NewTab {
+            layout "default"
+        }; }
         bind "Alt w" { CloseTab; }
         bind "Alt [" { MovePane "Left"; }
         bind "Alt ]" { MovePane "Right"; }
@@ -65,7 +67,7 @@ keybinds clear-defaults=true {
         bind "Alt -" { Resize "Decrease"; }
         bind "Alt 0" { Detach; }
         bind "Alt p" { ToggleFloatingPanes; SwitchToMode "Normal"; }
-        bind "Alt /" { ToggleFloatingPanes; }
+        bind "Alt /" { SwitchFocus; }
         bind "Alt y" { EditScrollback; SwitchToMode "Normal"; }
     }
 
@@ -143,7 +145,7 @@ theme "catppuccin-frappe"
 // The name of the default layout to load on startup
 // Default: "default"
 //
-default_layout "terminal"
+default_layout "default"
 
 // Choose the mode that zellij uses when starting up.
 // Default: normal
@@ -173,8 +175,8 @@ scroll_buffer_size 100000
 // that will be used by default if this option is not set.
 // Examples:
 //
-copy_command "xclip -selection clipboard" // x11
-// copy_command "wl-copy"                    // wayland
+// copy_command "xclip -selection clipboard" // x11
+copy_command "wl-copy"                    // wayland
 // copy_command "pbcopy"                     // osx
 
 // Choose the destination for copied text
