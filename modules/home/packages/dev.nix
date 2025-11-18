@@ -35,5 +35,10 @@
     terraform-ls
     tflint
     tfsec
+
+    # Nix formatting and linting tools
+    nixpkgs-fmt
+    statix
+    deadnix
   ];
 }
