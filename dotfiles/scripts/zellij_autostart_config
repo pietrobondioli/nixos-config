@@ -7,8 +7,13 @@ is_in_editor_or_ide() {
   while [[ $pid -gt 1 ]]; do
     local cmd=$(ps -o comm= -p $pid 2>/dev/null)
     local args=$(ps -o args= -p $pid 2>/dev/null)
+    # Check for editors/IDEs
     if [[ "$cmd" =~ (nvim|vim|code|rider|idea|pycharm|webstorm|clion|goland|phpstorm) ]] || \
        [[ "$args" =~ (nvim|vim|code|jetbrains|rider|idea|pycharm|webstorm|clion|goland|phpstorm) ]]; then
+      return 0
+    fi
+    # Check for quick access terminal (kitty-scratch)
+    if [[ "$cmd" == "kitty" ]] && [[ "$args" =~ kitty-scratch ]]; then
       return 0
     fi
     pid=$(ps -o ppid= -p $pid 2>/dev/null | tr -d ' ')
@@ -42,13 +47,13 @@ zellij_autostart_config() {
     return
   fi
 
-  mylog "Checking if the current environment is inside an IDE or terminal editor..." "$log_file"
+  mylog "Checking if the current environment is inside an IDE, terminal editor, or quick access terminal..." "$log_file"
   if is_in_editor_or_ide; then
-    mylog "Running inside an IDE (VS Code, JetBrains) or a terminal editor (Neovim/Vim). Not starting Zellij." "$log_file"
+    mylog "Running inside an IDE (VS Code, JetBrains), terminal editor (Neovim/Vim), or quick access terminal. Not starting Zellij." "$log_file"
     return
   fi
 
-  mylog "Environment not detected as Neovim or VS Code. Proceeding with Zellij." "$log_file"
+  mylog "Environment not detected as editor/IDE/scratch terminal. Proceeding with Zellij." "$log_file"
   local sessions
   sessions=$(get_zellij_sessions)
   if [[ -z "$sessions" ]]; then

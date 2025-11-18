@@ -181,6 +181,19 @@ animations {
 
 // https://yalter.github.io/niri/Configuration:-Window-Rules
 
+// Scratch/floating terminal
+window-rule {
+    match app-id=r#"^kitty-scratch$"#
+
+    open-floating true
+    default-column-width {
+        fixed 1200;
+    }
+    default-window-height {
+        fixed 800;
+    }
+}
+
 // Open apps as floating by default.
 window-rule {
     match app-id=r#"(^zen-beta$)|(^firefox$)"# title=r#"(^Sign in - Google Accounts.*)|(^Picture-in-Picture$)|(^Library)"#
@@ -192,7 +205,7 @@ window-rule {
     match app-id=r#"teams-for-linux$"# title=".*Screen.*shared.*"
     match app-id=r#"thunar"# title="File Operation Progress"
     match app-id=r#"nmtui"#
-
+    match app-id=r#"^xdg-desktop-portal-gtk$"#
 
     open-floating true
     default-column-width {
@@ -295,7 +308,7 @@ binds {
 
     Mod+Backspace hotkey-overlay-title="Open a Web Browser: firefox" { spawn "firefox"; }
     Mod+Return hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
-    // Mod+Shift+Return hotkey-overlay-title="Scratch Terminal: floating kitty" { spawn "kitty"; toggle-window-floating; center-column; }
+    Mod+Shift+Return hotkey-overlay-title="Scratch Terminal: floating kitty" { spawn-sh "kitty --class kitty-scratch"; }
     Mod+N hotkey-overlay-title="New Note: kitty+nvim" { spawn-sh "mkdir -p \"$HOME/personal/notes\"; kitty -e nvim \"$HOME/personal/notes/$(date +%Y-%m-%d_%H%M%S).md\""; }
     Mod+B hotkey-overlay-title="Bluetooth Manager: blueman-manager" { spawn "blueman-manager"; }
     Mod+M hotkey-overlay-title="Audio Device Manager: pavucontrol" { spawn "pavucontrol"; }
