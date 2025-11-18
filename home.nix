@@ -30,6 +30,7 @@
     ./modules/home/services/gammastep.nix
     ./modules/home/services/swayidle.nix
     ./modules/home/services/rclone.nix
+    ./modules/home/services/nm-applet.nix
 
     # Theming
     ./modules/home/theming/cursor.nix
