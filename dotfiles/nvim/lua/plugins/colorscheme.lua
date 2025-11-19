@@ -5,6 +5,11 @@ return {
     lazy = true,
     config = function()
       require("catppuccin").setup({
+        transparent_background = true,
+        float = {
+          transparent = true,
+          solid = false,
+        },
         integrations = {
           cmp = true,
           gitsigns = true,
@@ -38,18 +43,59 @@ return {
     "folke/tokyonight.nvim",
     name = "tokyonight",
     lazy = true,
-    opts = { style = "storm" },
+    opts = {
+      style = "storm",
+      transparent = true,
+      transparent_background = true,
+    },
   },
 
-  { "sainnhe/everforest", name = "everforest", lazy = true },
+  {
+    "sainnhe/everforest",
+    name = "everforest",
+    lazy = true,
+    config = function()
+      vim.g.everforest_transparent_background = 1
+    end,
+  },
 
   { "NLKNguyen/papercolor-theme", name = "papercolor", lazy = true },
 
-  { "morhetz/gruvbox", name = "gruvbox", lazy = true },
+  {
+    "morhetz/gruvbox",
+    name = "gruvbox",
+    lazy = true,
+    config = function()
+      vim.g.gruvbox_transparent_background = 1
+    end,
+  },
 
-  { "rose-pine/neovim", name = "rose-pine", lazy = true },
+  {
+    "rose-pine/neovim",
+    name = "rose-pine",
+    lazy = true,
+    opts = {
+      styles = {
+        transparency = true,
+      },
+    },
+  },
 
-  { "rebelot/kanagawa.nvim", name = "kanagawa", lazy = true },
+  {
+    "rebelot/kanagawa.nvim",
+    name = "kanagawa",
+    lazy = true,
+    opts = {
+      transparent = true,
+    },
+  },
 
-  { "navarasu/onedark.nvim", name = "onedark", lazy = true },
+  {
+    "navarasu/onedark.nvim",
+    name = "onedark",
+    lazy = true,
+    opts = {
+      transparent = true,
+    },
+  },
 }
