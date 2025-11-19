@@ -103,7 +103,7 @@
             small = 6;
           };
           opacity = {
-            terminal = 0.95;
+            terminal = 0.98;
           };
         };
 

@@ -22,6 +22,7 @@
     ./modules/home/programs/waybar.nix
     ./modules/home/programs/rofi.nix
     ./modules/home/programs/kitty.nix
+    ./modules/home/programs/thunar.nix
     ./modules/home/programs/zsh.nix
     ./modules/home/programs/zoxide.nix
     ./modules/home/programs/direnv.nix

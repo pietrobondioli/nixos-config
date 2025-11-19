@@ -35,6 +35,9 @@
       "audio/flac" = config.myDefaults.applications.mediaPlayer.desktop;
       "audio/ogg" = config.myDefaults.applications.mediaPlayer.desktop;
       "inode/directory" = config.myDefaults.applications.fileManager.desktop;
+
+      # Terminal emulator for Thunar "Open Terminal Here"
+      "application/x-terminal-emulator" = config.myDefaults.applications.terminal.desktop;
     };
   };
 }
