@@ -33,5 +33,7 @@
 
     ## Graphics & GPU Debugging
     vulkan-tools # Vulkan utilities and debug tools (vulkaninfo, vkcube)
+
+    (pkgs.callPackage ../../packages/gemini-cli-nightly.nix { })
   ];
 }
