@@ -40,5 +40,11 @@
     nixpkgs-fmt
     statix
     deadnix
+
+    # Cypress and browsers
+    cypress
+    google-chrome
+    microsoft-edge
+    brave
   ];
 }
