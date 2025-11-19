@@ -14,7 +14,8 @@ in
       border-color = "${c.blue}FF";
       border-size = 2;
       border-radius = ui.borderRadius.medium;
-      default-timeout = 8000;
+      default-timeout = 10000;
+      ignore-timeout = true;
       height = 120;
       width = 400;
       padding = "12";
