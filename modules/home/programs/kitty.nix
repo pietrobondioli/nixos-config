@@ -39,6 +39,9 @@ in
       color15 #a5adce
       enable_audio_bell no
       background_opacity ${toString config.myDefaults.ui.opacity.terminal}
+      open_url_with default
+      mouse_map left click ungrabbed mouse_handle_click prompt
+      mouse_map ctrl+left click ungrabbed mouse_handle_click link
     '';
   };
 }
