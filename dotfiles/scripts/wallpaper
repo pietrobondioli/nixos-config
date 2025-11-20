@@ -38,11 +38,6 @@ set_wallpaper() {
     echo "File not found: $file" >&2
     exit 1
   fi
-  # Validate image format
-  if ! file "$file" | grep -q -E 'image/(jpeg|png|webp)'; then
-    echo "Invalid image format: $file (file appears corrupted)" >&2
-    exit 1
-  fi
   pkill -x swaybg 2>/dev/null || true
   setsid swaybg -i "$file" -m fill >/dev/null 2>&1 &
   echo "Wallpaper set: $file"
