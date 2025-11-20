@@ -8,11 +8,11 @@
     # Hardware scan (generate this on the laptop with nixos-generate-config)
     ./hardware-configuration.nix
 
+    # Shared defaults (must come before host-specific overrides)
+    ../../modules/shared/defaults.nix
+
     # Host-specific defaults (overrides shared defaults)
     ./defaults.nix
-
-    # Shared defaults
-    ../../modules/shared/defaults.nix
 
     # System modules (all shared)
     ../../modules/system/boot.nix

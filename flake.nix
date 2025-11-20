@@ -13,9 +13,8 @@
   };
   outputs = { self, nixpkgs, home-manager, firefox-nightly, ... }@inputs:
     let
-      # Import shared defaults to access username
-      sharedDefaults = import ./modules/shared/defaults.nix { lib = nixpkgs.lib; };
-      username = sharedDefaults.options.myDefaults.default.user.name;
+      # Username from defaults (defined in modules/shared/defaults.nix)
+      username = "pietro";
 
       # Helper function to create a NixOS system configuration
       mkSystem = hostname: nixpkgs.lib.nixosSystem {
@@ -38,10 +37,10 @@
     in
     {
       nixosConfigurations = {
-        # Desktop: AMD CPU + NVIDIA GPU, gaming setup
+        # Desktop: AMD CPU + NVIDIA GPU
         desktop = mkSystem "desktop";
 
-        # Laptop: Intel i5 + integrated graphics, dev focused
+        # Laptop: Intel i5 + integrated graphics
         laptop = mkSystem "laptop";
 
         # Legacy alias for backwards compatibility
