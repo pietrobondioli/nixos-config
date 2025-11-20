@@ -21,9 +21,16 @@
 
         # Git Configuration
         git = {
+          baseUrl = "https://github.com/pietrobondioli";
           userName = "Pietro Bondioli";
           userEmail = "email@pietrobondioli.com.br";
           signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIBkYROpWTR4k2G7mzsT9I3SFhlL9A3wRPKHepcHmpIU";
+        };
+
+        # Neovim Configuration
+        nvim = {
+          repo = "nvim-config";
+          localPath = "personal/nvim-config";
         };
 
         # System Settings

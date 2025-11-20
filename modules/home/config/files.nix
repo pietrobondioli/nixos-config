@@ -4,6 +4,5 @@
   xdg.configFile."wallpapers" = { source = ../../../dotfiles/wallpapers; recursive = true; };
   xdg.configFile."waybar" = { source = ../../../dotfiles/waybar; recursive = true; };
   xdg.configFile."satty" = { source = ../../../dotfiles/satty; recursive = true; };
-  xdg.configFile."nvim" = { source = ../../../dotfiles/nvim; recursive = true; };
   home.file."scripts" = { source = ../../../dotfiles/scripts; recursive = true; };
 }

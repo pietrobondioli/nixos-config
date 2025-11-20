@@ -27,6 +27,7 @@
     ./modules/home/programs/zoxide.nix
     ./modules/home/programs/direnv.nix
     ./modules/home/programs/terraform.nix
+    ./modules/home/programs/nvim.nix
 
     # Services
     ./modules/home/services/mako.nix
