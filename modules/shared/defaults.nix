@@ -40,7 +40,7 @@ in
 
     # System Settings
     system = {
-      hostname = "desktop";
+      hostname = "host";
       timezone = "America/Sao_Paulo";
       keyboardLayout = "us";
       keyboardVariant = "altgr-intl";
@@ -136,6 +136,10 @@ in
       mediaPlayer = {
         desktop = "mpv.desktop";
         package = "mpv";
+      };
+      imageViewer = {
+        desktop = "swayimg.desktop";
+        package = "swayimg";
       };
       pdfViewer = {
         desktop = "org.pwmt.zathura.desktop";

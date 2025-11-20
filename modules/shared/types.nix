@@ -207,6 +207,15 @@ lib.types.submodule {
             };
             default = { };
           };
+          imageViewer = lib.mkOption {
+            type = lib.types.submodule {
+              options = {
+                desktop = lib.mkOption { type = lib.types.str; };
+                package = lib.mkOption { type = lib.types.str; };
+              };
+            };
+            default = { };
+          };
           mediaPlayer = lib.mkOption {
             type = lib.types.submodule {
               options = {
