@@ -1,5 +1,5 @@
 {
-  description = "Pietro's NixOS";
+  description = "Pietro's NixOS - Multi-host Configuration";
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
     home-manager = {
@@ -16,13 +16,13 @@
       # Import shared defaults to access username
       sharedDefaults = import ./modules/shared/defaults.nix { lib = nixpkgs.lib; };
       username = sharedDefaults.options.myDefaults.default.user.name;
-    in
-    {
-      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+
+      # Helper function to create a NixOS system configuration
+      mkSystem = hostname: nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
         modules = [
-          ./configuration.nix
+          ./hosts/${hostname}/configuration.nix
           home-manager.nixosModules.home-manager
           {
             home-manager = {
@@ -34,6 +34,18 @@
             };
           }
         ];
+      };
+    in
+    {
+      nixosConfigurations = {
+        # Desktop: AMD CPU + NVIDIA GPU, gaming setup
+        desktop = mkSystem "desktop";
+
+        # Laptop: Intel i5 + integrated graphics, dev focused
+        laptop = mkSystem "laptop";
+
+        # Legacy alias for backwards compatibility
+        nixos = mkSystem "desktop";
       };
     };
 }

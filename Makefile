@@ -1,4 +1,46 @@
-.PHONY: fmt lint check clean
+.PHONY: fmt lint check clean install-hooks build-desktop build-laptop test-desktop test-laptop update help
+
+# Default target
+help:
+	@echo "NixOS Configuration Management"
+	@echo ""
+	@echo "Build commands:"
+	@echo "  make build-desktop    - Build and switch to desktop configuration"
+	@echo "  make build-laptop     - Build and switch to laptop configuration"
+	@echo "  make test-desktop     - Test desktop configuration (no activation)"
+	@echo "  make test-laptop      - Test laptop configuration (no activation)"
+	@echo ""
+	@echo "Maintenance:"
+	@echo "  make update          - Update flake inputs"
+	@echo "  make fmt             - Format all Nix files"
+	@echo "  make lint            - Lint all Nix files"
+	@echo "  make check           - Format and lint"
+	@echo "  make clean           - Clean backup files"
+	@echo "  make install-hooks   - Install git pre-commit hooks"
+
+# Build commands
+build-desktop:
+	@echo "Building desktop configuration..."
+	sudo nixos-rebuild switch --flake .#desktop
+
+build-laptop:
+	@echo "Building laptop configuration..."
+	sudo nixos-rebuild switch --flake .#laptop
+
+# Test commands (no activation)
+test-desktop:
+	@echo "Testing desktop configuration..."
+	sudo nixos-rebuild test --flake .#desktop
+
+test-laptop:
+	@echo "Testing laptop configuration..."
+	sudo nixos-rebuild test --flake .#laptop
+
+# Update flake
+update:
+	@echo "Updating flake inputs..."
+	nix flake update
+	@echo "Done! Run 'make build-desktop' or 'make build-laptop' to apply updates."
 
 # Format all Nix files
 fmt:

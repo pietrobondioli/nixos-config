@@ -61,8 +61,6 @@ in
 
       # Dotfiles and Configuration Management
       dotfilesrc = "cd ${paths.nixConfig} && nvim .";
-
-      makenix = "sudo nixos-rebuild switch --flake ${paths.nixConfig}#nixos --log-format internal-json -v |& nom --json";
     };
 
     history = { size = 10000; path = "$HOME/.zsh_history"; };
