@@ -1,53 +1,69 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
+    # Editors & IDEs
     vscode
     neovim
-    jetbrains.rider
-    jetbrains.idea-ultimate
-    insomnia
-    dbeaver-bin
-    tree-sitter
+
+    # AI Assistants
     github-copilot-cli
     claude-code
-    lazydocker
-    lazygit
-    kubectl
-    helm
-    minikube
-    k9s
+
+    # Databases & Tools
+    dbeaver-bin
+    insomnia
+
+    # Build Tools & Language Servers
+    tree-sitter
+    gcc
+    gnumake
+
+    # Programming Languages
     nodejs_24
+    python3
     go
     go-tools
     rustc
     cargo
-    zellij
+    lua
+    jdk
     dotnet-sdk_8
     dotnet-aspnetcore_8
-    jdk
-    python3
-    lua
-    gcc
-    gnumake
+
+    # Kubernetes & Container Tools
+    kubectl
+    helm
+    minikube
+    k9s
+    lazydocker
+
+    # AWS Tools
     awscli2
     aws-vault
-    gh
+
+    # Infrastructure & IaC
     terraform
     terraform-ls
     tflint
     tfsec
 
-    # Nix formatting and linting tools
+    # Git & Version Control
+    gh
+    git-lfs
+    lazygit
+
+    # Nix Tools
     nixpkgs-fmt
     statix
     deadnix
 
-    # Cypress and browsers
+    # Web & Browser Testing
     cypress
     google-chrome
     microsoft-edge
     brave
 
+    # Utilities
     imagemagick
-    git-lfs
+    zellij
   ];
 }

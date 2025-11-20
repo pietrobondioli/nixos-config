@@ -22,11 +22,11 @@
       "x-scheme-handler/unknown" = config.myDefaults.applications.browser.desktop;
       "application/pdf" = config.myDefaults.applications.pdfViewer.desktop;
       "text/plain" = config.myDefaults.applications.editor.desktop;
-      "image/png" = config.myDefaults.applications.mediaPlayer.desktop;
-      "image/jpeg" = config.myDefaults.applications.mediaPlayer.desktop;
-      "image/jpg" = config.myDefaults.applications.mediaPlayer.desktop;
-      "image/gif" = config.myDefaults.applications.mediaPlayer.desktop;
-      "image/webp" = config.myDefaults.applications.mediaPlayer.desktop;
+      "image/png" = config.myDefaults.applications.imageViewer.desktop;
+      "image/jpeg" = config.myDefaults.applications.imageViewer.desktop;
+      "image/jpg" = config.myDefaults.applications.imageViewer.desktop;
+      "image/gif" = config.myDefaults.applications.imageViewer.desktop;
+      "image/webp" = config.myDefaults.applications.imageViewer.desktop;
       "video/mp4" = config.myDefaults.applications.mediaPlayer.desktop;
       "video/x-matroska" = config.myDefaults.applications.mediaPlayer.desktop;
       "video/webm" = config.myDefaults.applications.mediaPlayer.desktop;

@@ -1,24 +1,36 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
+    # Window Manager & Status Bar
     waybar
-    slurp
-    grim
-    wtype
-    swaybg
     swaylock
     swayidle
-    vesktop
-    teams-for-linux
-    spotify
-    mpv
-    pwvucontrol
-    copyq
-    cliphist
-    wl-clipboard
+    swaybg
+
+    # Screenshot & Recording
+    slurp
+    grim
     satty
     gpu-screen-recorder
     wf-recorder
-    zathura
+
+    # Clipboard & Input
+    wtype
+    wl-clipboard
+    cliphist
+    copyq
+
+    # Media & Entertainment
+    spotify
+    vesktop
+    teams-for-linux
+    mpv
     prismlauncher
+
+    # Audio Tools
+    pwvucontrol
+
+    # Document & Image Viewers
+    zathura
+    swayimg
   ];
 }
