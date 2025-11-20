@@ -46,5 +46,8 @@
     google-chrome
     microsoft-edge
     brave
+
+    imagemagick
+    git-lfs
   ];
 }
