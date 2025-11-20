@@ -35,6 +35,7 @@
     ./modules/home/services/swayidle.nix
     ./modules/home/services/rclone.nix
     ./modules/home/services/nm-applet.nix
+    ./modules/home/services/cypress-permissions.nix
 
     # Theming
     ./modules/home/theming/cursor.nix
