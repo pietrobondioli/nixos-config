@@ -34,6 +34,8 @@
     ## Graphics & GPU Debugging
     vulkan-tools # Vulkan utilities and debug tools (vulkaninfo, vkcube)
 
+    ffmpeg # Multimedia framework for handling video, audio, and other multimedia files
+
     (pkgs.callPackage ../../packages/gemini-cli-nightly.nix { })
   ];
 }
