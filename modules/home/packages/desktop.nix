@@ -19,5 +19,6 @@
     gpu-screen-recorder
     wf-recorder
     zathura
+    prismlauncher
   ];
 }

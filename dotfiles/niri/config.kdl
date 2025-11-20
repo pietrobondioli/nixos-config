@@ -202,10 +202,11 @@ window-rule {
     match app-id=r#".*copyq.*"#
     match app-id=r#".*yubico.*"#
     match app-id=r#".*p(a|w)vucontrol.*"# title=".*Volume Control.*"
-    match app-id=r#"teams-for-linux$"# title=".*Screen.*shared.*"
-    match app-id=r#"thunar"# title="File Operation Progress"
-    match app-id=r#"nmtui"#
-    match app-id=r#"^xdg-desktop-portal-gtk$"#
+    match app-id=r#".*teams-for-linux.*"# title=".*Screen.*shared.*"
+    match app-id=r#".*thunar.*"# title="File Operation Progress"
+    match app-id=r#".*nmtui.*"#
+    match app-id=r#".*xdg-desktop-portal-gtk.*"#
+    match app-id=r#".*prismlauncher.*"#
 
     open-floating true
     default-column-width {
