@@ -87,9 +87,9 @@ in
     fonts = {
       primary = "JetBrainsMono Nerd Font";
       sizes = {
-        small = 12;
-        medium = 13;
-        large = 14;
+        small = 11;
+        medium = 12;
+        large = 13;
       };
     };
 

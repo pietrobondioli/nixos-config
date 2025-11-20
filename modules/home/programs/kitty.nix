@@ -7,7 +7,7 @@ in
     enable = true;
     font = {
       name = config.myDefaults.fonts.primary;
-      size = config.myDefaults.fonts.sizes.medium;
+      size = config.myDefaults.fonts.sizes.small;
     };
     extraConfig = ''
       background ${c.background}
