@@ -56,6 +56,10 @@ in
 
       # Dotfiles and Configuration Management
       nixrc = "cd ${paths.nixConfig} && nvim .";
+      nvimrc = "cd ${paths.nvimConfig} && nvim .";
+
+      # App Clean Run Utility
+      clean-run = "${paths.scripts}/clean-run";
     };
 
     history = { size = 10000; path = "$HOME/.zsh_history"; };

@@ -1,0 +1,93 @@
+#!/usr/bin/env bash
+
+# clean-run: Kill, clean cache/config, and restart applications
+# Usage: clean-run <app-name>
+
+set -e
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DEFINITIONS_DIR="$SCRIPT_DIR/clean-run.d"
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+print_info() {
+    echo -e "${BLUE}ℹ${NC} $1"
+}
+
+print_success() {
+    echo -e "${GREEN}✓${NC} $1"
+}
+
+print_warning() {
+    echo -e "${YELLOW}⚠${NC} $1"
+}
+
+print_error() {
+    echo -e "${RED}✗${NC} $1"
+}
+
+show_help() {
+    echo "Usage: clean-run <app-name>"
+    echo ""
+    echo "Performs a clean restart of an application by:"
+    echo "  1. Killing the running process"
+    echo "  2. Clearing cache and config (as defined per-app)"
+    echo "  3. Starting the app with specific flags (if needed)"
+    echo ""
+    echo "Available apps:"
+    if [ -d "$DEFINITIONS_DIR" ]; then
+        for def in "$DEFINITIONS_DIR"/*.sh; do
+            if [ -f "$def" ]; then
+                app_name=$(basename "$def" .sh)
+                echo "  - $app_name"
+            fi
+        done
+    else
+        echo "  (none found - $DEFINITIONS_DIR does not exist)"
+    fi
+    echo ""
+    echo "Examples:"
+    echo "  clean-run spotify"
+    echo "  clean-run vesktop"
+}
+
+# Check arguments
+if [ $# -eq 0 ] || [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
+    show_help
+    exit 0
+fi
+
+APP_NAME="$1"
+DEFINITION_FILE="$DEFINITIONS_DIR/$APP_NAME.sh"
+
+# Check if definition exists
+if [ ! -f "$DEFINITION_FILE" ]; then
+    print_error "No definition found for '$APP_NAME'"
+    echo ""
+    echo "Available apps:"
+    for def in "$DEFINITIONS_DIR"/*.sh; do
+        if [ -f "$def" ]; then
+            app_name=$(basename "$def" .sh)
+            echo "  - $app_name"
+        fi
+    done
+    exit 1
+fi
+
+print_info "Starting clean run for: $APP_NAME"
+echo ""
+
+# Source the definition file
+# shellcheck source=/dev/null
+source "$DEFINITION_FILE"
+
+# Execute the clean run
+clean_run_"$APP_NAME"
+
+echo ""
+print_success "Clean run completed for $APP_NAME"

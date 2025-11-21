@@ -21,6 +21,7 @@ lib.types.submodule {
         options = {
           scripts = lib.mkOption { type = lib.types.str; };
           nixConfig = lib.mkOption { type = lib.types.str; };
+          nvimConfig = lib.mkOption { type = lib.types.str; };
         };
       };
       default = { };

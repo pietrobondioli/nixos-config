@@ -22,6 +22,7 @@ in
     paths = {
       scripts = "$HOME/scripts";
       nixConfig = "$HOME/personal/nixos-config";
+      nvimConfig = "$HOME/personal/nvim-config";
     };
 
     # Git Configuration
