@@ -8,10 +8,6 @@ in
     enable = true;
     enableCompletion = true;
     shellAliases = {
-      # System aliases
-      edit = "sudo -e";
-      update = "sudo nixos-rebuild switch";
-
       # Directory Navigation
       ra = "ranger";
       "cd" = "z"; # Use 'z' for autojump-like directory navigation
@@ -54,13 +50,12 @@ in
       # Miscellaneous
       rr = "rm -rf";
       md = "mkdir -p";
-      secrets = "ripsecrets";
       path = "echo -e \${PATH//:/\\\\n}";
       map = "xargs -n1";
       reload = "exec \${SHELL} -l";
 
       # Dotfiles and Configuration Management
-      dotfilesrc = "cd ${paths.nixConfig} && nvim .";
+      nixrc = "cd ${paths.nixConfig} && nvim .";
     };
 
     history = { size = 10000; path = "$HOME/.zsh_history"; };

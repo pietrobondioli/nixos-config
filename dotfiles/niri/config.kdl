@@ -251,6 +251,20 @@ window-rule {
     clip-to-geometry true
 }
 
+// Transparency for communication apps
+window-rule {
+    match app-id=r#"^(vesktop|discord|teams-for-linux|slack)$"#
+
+    opacity 0.95
+}
+
+// Transparency for background apps
+window-rule {
+    match app-id=r#"^(spotify|thunar)$"#
+
+    opacity 0.93
+}
+
 // Workspace assignment rules
 window-rule {
     match app-id=r#"^(code|code-oss|jetbrains-.*)$"#
