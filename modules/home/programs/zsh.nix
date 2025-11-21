@@ -81,7 +81,6 @@ in
         "zsh-users/zsh-history-substring-search"
         "wfxr/forgit"
         "hlissner/zsh-autopair"
-        "romkatv/powerlevel10k"
       ];
     };
     oh-my-zsh = { enable = true; plugins = [ "git" "fzf" ]; };
@@ -107,8 +106,61 @@ in
       chpwd_functions+=(zellij_tab_name_update)
       zellij_autostart_config
       neofetch --ascii "$(fortune | cowsay -W 40)" | lolcat
-      [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
     '';
   };
-  home.file.".p10k.zsh".source = ../../../dotfiles/.p10k.zsh;
+
+  programs.starship = {
+    enable = true;
+    enableZshIntegration = true;
+    settings = {
+      format = "$username$hostname$directory$git_branch$git_status$cmd_duration$line_break$character";
+
+      username = {
+        show_always = true;
+        format = "[$user]($style)@";
+        style_user = "bold blue";
+      };
+
+      hostname = {
+        ssh_only = false;
+        format = "[$hostname]($style) in ";
+        style = "bold green";
+      };
+
+      directory = {
+        truncation_length = 3;
+        truncate_to_repo = false;
+        style = "bold cyan";
+      };
+
+      git_branch = {
+        format = "on [$symbol$branch]($style) ";
+        symbol = " ";
+        style = "bold purple";
+      };
+
+      git_status = {
+        format = "([$all_status$ahead_behind]($style) )";
+        style = "bold red";
+      };
+
+      cmd_duration = {
+        min_time = 500;
+        format = "took [$duration]($style) ";
+        style = "bold yellow";
+      };
+
+      time = {
+        disabled = false;
+        format = "at [$time]($style) ";
+        style = "bold white";
+        time_format = "%H:%M:%S";
+      };
+
+      character = {
+        success_symbol = "[➜](bold green)";
+        error_symbol = "[➜](bold red)";
+      };
+    };
+  };
 }
