@@ -240,5 +240,35 @@ lib.types.submodule {
       };
       default = { };
     };
+
+    power = lib.mkOption {
+      type = lib.types.submodule {
+        options = {
+          battery = lib.mkOption {
+            type = lib.types.submodule {
+              options = {
+                charge = lib.mkOption {
+                  type = lib.types.submodule {
+                    options = {
+                      startThreshold = lib.mkOption {
+                        type = lib.types.int;
+                        description = "The battery charge percentage at which to start charging.";
+                      };
+                      stopThreshold = lib.mkOption {
+                        type = lib.types.int;
+                        description = "The battery charge percentage at which to stop charging.";
+                      };
+                    };
+                  };
+                  default = {};
+                };
+              };
+            };
+            default = {};
+          };
+        };
+      };
+      default = {};
+    };
   };
 }

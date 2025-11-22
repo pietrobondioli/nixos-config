@@ -148,5 +148,12 @@ in
       };
       shell = "zsh";
     };
+
+    power = {
+      battery.charge = {
+        startThreshold = 75;
+        stopThreshold = 80;
+      };
+    };
   };
 }

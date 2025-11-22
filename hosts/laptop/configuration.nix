@@ -35,7 +35,6 @@
     ../../modules/system/security/polkit.nix
 
     # Programs
-    # NOTE: NO Steam - dev focused laptop
     ../../modules/system/programs/firefox.nix
     ../../modules/system/programs/niri.nix
     ../../modules/system/programs/zsh.nix
@@ -53,23 +52,10 @@
     ../../modules/system/services/ydotool.nix
     ../../modules/system/services/upower.nix # Important for battery management
     ../../modules/system/services/rtkit.nix
+
+    # Power management
+    ../../modules/system/power-management.nix
   ];
-
-  # Laptop-specific power optimization
-  # Enable TLP for better battery life
-  services.tlp = {
-    enable = true;
-    settings = {
-      CPU_SCALING_GOVERNOR_ON_AC = "performance";
-      CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-
-      CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
-      CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
-
-      START_CHARGE_THRESH_BAT0 = 75;
-      STOP_CHARGE_THRESH_BAT0 = 80;
-    };
-  };
 
   system.stateVersion = "25.05";
 }
