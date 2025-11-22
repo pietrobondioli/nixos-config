@@ -62,12 +62,11 @@ keybinds clear-defaults=true {
         // bind "Alt j" "Alt Down" { MoveFocus "Down"; }
         // bind "Alt k" "Alt Up" { MoveFocus "Up"; }
         bind "Alt z" { ToggleFocusFullscreen; }
-        bind "Alt ;" { SwitchFocus; }
         bind "Alt =" "Alt +" { Resize "Increase"; }
         bind "Alt -" { Resize "Decrease"; }
         bind "Alt 0" { Detach; }
-        bind "Alt p" { ToggleFloatingPanes; SwitchToMode "Normal"; }
-        bind "Alt /" { SwitchFocus; }
+        bind "Alt /" { ToggleFloatingPanes; SwitchToMode "Normal"; }
+        bind "Alt ;" { SwitchFocus; }
         bind "Alt y" { EditScrollback; SwitchToMode "Normal"; }
     }
 
