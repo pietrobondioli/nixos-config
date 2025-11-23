@@ -2,7 +2,7 @@
 let
   defaults = config.myDefaults;
   nvimRepoUrl = "${defaults.git.baseUrl}/${defaults.nvim.repo}";
-  nvimLocalPath = "${config.home.homeDirectory}/${defaults.nvim.localPath}";
+  nvimLocalPath = defaults.nvim.localPath;
 in
 {
   home.activation.cloneNvimConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''

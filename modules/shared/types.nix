@@ -21,7 +21,6 @@ lib.types.submodule {
         options = {
           scripts = lib.mkOption { type = lib.types.str; };
           nixConfig = lib.mkOption { type = lib.types.str; };
-          nvimConfig = lib.mkOption { type = lib.types.str; };
         };
       };
       default = { };
@@ -40,6 +39,16 @@ lib.types.submodule {
     };
 
     nvim = lib.mkOption {
+      type = lib.types.submodule {
+        options = {
+          repo = lib.mkOption { type = lib.types.str; };
+          localPath = lib.mkOption { type = lib.types.str; };
+        };
+      };
+      default = { };
+    };
+
+    aiConfig = lib.mkOption {
       type = lib.types.submodule {
         options = {
           repo = lib.mkOption { type = lib.types.str; };

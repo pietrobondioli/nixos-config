@@ -2,6 +2,7 @@
 
 let
   defaultsType = import ./types.nix { inherit lib; };
+  userHome = "/home/pietro";
 in
 {
   options.myDefaults = lib.mkOption {
@@ -15,14 +16,13 @@ in
       name = "pietro";
       fullName = "Pietro Bondioli";
       email = "email@pietrobondioli.com.br";
-      home = "/home/pietro";
+      home = userHome;
     };
 
     # Paths
     paths = {
       scripts = "$HOME/scripts";
       nixConfig = "$HOME/personal/nixos-config";
-      nvimConfig = "$HOME/personal/nvim-config";
     };
 
     # Git Configuration
@@ -36,7 +36,13 @@ in
     # Neovim Configuration
     nvim = {
       repo = "nvim-config";
-      localPath = "personal/nvim-config";
+      localPath = "${userHome}/personal/nvim-config";
+    };
+
+    # AI Configuration
+    aiConfig = {
+      repo = "ai-config";
+      localPath = "${userHome}/personal/ai-config";
     };
 
     # System Settings

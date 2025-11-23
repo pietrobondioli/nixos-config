@@ -1,7 +1,8 @@
 { config, pkgs, ... }:
 let
-  paths = config.myDefaults.paths;
-  apps = config.myDefaults.applications;
+  defaults = config.myDefaults;
+  paths = defaults.paths;
+  apps = defaults.applications;
 in
 {
   programs.zsh = {
@@ -56,7 +57,7 @@ in
 
       # Dotfiles and Configuration Management
       nixrc = "cd ${paths.nixConfig} && nvim .";
-      nvimrc = "cd ${paths.nvimConfig} && nvim .";
+      nvimrc = "cd ${defaults.nvim.localPath} && nvim .";
 
       # App Clean Run Utility
       clean-run = "${paths.scripts}/clean-run";

@@ -28,6 +28,7 @@
     ./modules/home/programs/direnv.nix
     ./modules/home/programs/terraform.nix
     ./modules/home/programs/nvim.nix
+    ./modules/home/programs/ai-config.nix
     ./modules/home/programs/swaylock.nix
 
     # Services
