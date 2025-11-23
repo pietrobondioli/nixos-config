@@ -11,7 +11,7 @@
     grim
     satty
     gpu-screen-recorder
-    wf-recorder
+    wl-screenrec # using wl-screenrec instead of wf-recorder due to FFmpeg bug in wf-recorder 0.5.0
 
     # Clipboard & Input
     wtype

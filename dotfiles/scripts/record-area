@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Toggle screen recording with options
-PIDFILE="/tmp/wf-recorder.pid"
+PIDFILE="/tmp/screenrec.pid"
 
 if [ -f "$PIDFILE" ]; then
   # Stop recording
@@ -23,23 +23,55 @@ else
 
   # Set audio args
   if [ "$AUDIO" = "With Audio" ]; then
-    AUDIO_ARGS="-a"
+    AUDIO_ARGS=("--audio")
   else
-    AUDIO_ARGS=""
+    AUDIO_ARGS=()
   fi
 
   # Set geometry args
   if [ "$MODE" = "Select Area" ]; then
     GEOMETRY=$(slurp)
     [ -z "$GEOMETRY" ] && exit 0
-    GEOMETRY_ARGS="-g $GEOMETRY"
+
+    # Validate geometry format (should be "x,y WxH")
+    if ! echo "$GEOMETRY" | grep -qE '^[0-9]+,[0-9]+ [0-9]+x[0-9]+$'; then
+      notify-send "Recording cancelled" "Invalid region selected. Please drag to select an area, don't just click."
+      exit 1
+    fi
+
+    # Check if geometry has zero width or height
+    WIDTH=$(echo "$GEOMETRY" | awk '{print $2}' | cut -d'x' -f1)
+    HEIGHT=$(echo "$GEOMETRY" | awk '{print $2}' | cut -d'x' -f2)
+    if [ "$WIDTH" -eq 0 ] || [ "$HEIGHT" -eq 0 ]; then
+      notify-send "Recording cancelled" "Selected region has zero size (${WIDTH}x${HEIGHT})"
+      exit 1
+    fi
+
+    GEOMETRY_ARGS=("-g" "$GEOMETRY")
+    OUTPUT_ARGS=()
   else
-    GEOMETRY_ARGS=""
+    # Get the currently focused output for full screen recording
+    FOCUSED_OUTPUT=$(niri msg -j focused-output | grep -o '"name":"[^"]*"' | cut -d'"' -f4)
+    if [ -z "$FOCUSED_OUTPUT" ]; then
+      notify-send "Recording failed" "Could not detect focused output"
+      exit 1
+    fi
+    GEOMETRY_ARGS=()
+    OUTPUT_ARGS=("-o" "$FOCUSED_OUTPUT")
   fi
 
   # Start recording
   OUTPUT_FILE="$HOME/Videos/recording-$(date +%Y%m%d-%H%M%S).mp4"
-  wf-recorder $GEOMETRY_ARGS $AUDIO_ARGS -f "$OUTPUT_FILE" &
-  echo $! >"$PIDFILE"
-  notify-send "Recording started" "Press Super+Shift+A again to stop"
+  wl-screenrec --no-hw "${GEOMETRY_ARGS[@]}" "${OUTPUT_ARGS[@]}" "${AUDIO_ARGS[@]}" -f "$OUTPUT_FILE" &
+  REC_PID=$!
+
+  # Wait briefly to check if wl-screenrec started successfully
+  sleep 0.5
+  if kill -0 "$REC_PID" 2>/dev/null; then
+    echo "$REC_PID" >"$PIDFILE"
+    notify-send "Recording started" "Press Super+Shift+A again to stop"
+  else
+    notify-send "Recording failed" "wl-screenrec failed to start. Check the terminal for errors."
+    exit 1
+  fi
 fi
