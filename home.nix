@@ -39,7 +39,6 @@
     ./modules/home/services/nm-applet.nix
     ./modules/home/services/cypress-permissions.nix
     ./modules/home/services/kanshi.nix
-    ./modules/home/services/gnome-keyring.nix
 
     # Theming
     ./modules/home/theming/cursor.nix
