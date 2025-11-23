@@ -4,7 +4,7 @@ let
   laptopOutput = osConfig.myDefaults.display.output;
   # You can add more outputs here and create more complex profiles
   # run `niri msg outputs` to get the list of your outputs.
-  externalOutput = "DP-1";
+  externalOutput = "eDP-1";
 in
 {
   services.kanshi = {

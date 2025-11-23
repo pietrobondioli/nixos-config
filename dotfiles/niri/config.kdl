@@ -64,6 +64,20 @@ output "HDMI-A-1" {
     transform "normal"
 }
 
+// Laptop external monitors (DisplayPort)
+output "DP-1" {
+    // Will auto-detect best mode if not specified
+    // Uncomment to set specific mode:
+    // mode "1920x1080@60.000"
+    scale 1.0
+    position x=1920 y=0
+}
+
+output "DP-2" {
+    scale 1.0
+    position x=1920 y=0
+}
+
 // https://yalter.github.io/niri/Configuration:-Layout
 layout {
     // Set gaps around windows in logical pixels.
@@ -267,6 +281,12 @@ window-rule {
 }
 
 // Workspace assignment rules
+// Only apply to startup kitty instance
+window-rule {
+    match app-id=r#"^kitty$"# at-startup=true
+    open-on-workspace "1"
+}
+
 window-rule {
     match app-id=r#"^(code|code-oss|jetbrains-.*)$"#
     open-on-workspace "1"
@@ -376,6 +396,26 @@ binds {
     Mod+Shift+L     { move-column-right; }
     Mod+Shift+Page_Down { move-column-to-workspace-down; }
     Mod+Shift+Page_Up   { move-column-to-workspace-up; }
+
+    // Navigate between monitors/outputs
+    Mod+Ctrl+Left  { focus-monitor-left; }
+    Mod+Ctrl+Right { focus-monitor-right; }
+    Mod+Ctrl+Down  { focus-monitor-down; }
+    Mod+Ctrl+Up    { focus-monitor-up; }
+    Mod+Ctrl+H     { focus-monitor-left; }
+    Mod+Ctrl+L     { focus-monitor-right; }
+    Mod+Ctrl+J     { focus-monitor-down; }
+    Mod+Ctrl+K     { focus-monitor-up; }
+
+    // Move windows between monitors
+    Mod+Ctrl+Shift+Left  { move-column-to-monitor-left; }
+    Mod+Ctrl+Shift+Right { move-column-to-monitor-right; }
+    Mod+Ctrl+Shift+Down  { move-column-to-monitor-down; }
+    Mod+Ctrl+Shift+Up    { move-column-to-monitor-up; }
+    Mod+Ctrl+Shift+H     { move-column-to-monitor-left; }
+    Mod+Ctrl+Shift+L     { move-column-to-monitor-right; }
+    Mod+Ctrl+Shift+J     { move-column-to-monitor-down; }
+    Mod+Ctrl+Shift+K     { move-column-to-monitor-up; }
 
     // Similarly, you can bind touchpad scroll "ticks".
     // Touchpad scrolling is continuous, so for these binds it is split into

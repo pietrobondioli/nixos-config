@@ -6,7 +6,7 @@
 
   # Run 'niri msg outputs' to find the correct output name and resolution
   config.myDefaults.display = lib.mkForce {
-    output = "DP-1";
+    output = "eDP-1";
     resolution = "1920x1080@60.000";
     scale = 1.0;
   };
