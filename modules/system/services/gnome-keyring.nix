@@ -9,5 +9,7 @@
     login.enableGnomeKeyring = true;
     greetd.enableGnomeKeyring = true;
     ly.enableGnomeKeyring = true;
+    swaylock.enableGnomeKeyring = true;
+    zsh.enableGnomeKeyring = true;
   };
 }
