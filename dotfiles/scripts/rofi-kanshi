@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+## Rofi Kanshi Profile Switcher
+## Dependencies: rofi, kanshi (kanshictl)
+
+# -----------------
+# 1. Rofi Configuration
+# -----------------
+
+# Rofi Prompt and Theme settings
+ROFI_CMD="rofi -dmenu -i -p 'Display Profile' -config ~/.config/rofi/config.rasi"
+
+# Check if the config file exists, otherwise use a minimal command
+if [[ ! -f "$HOME/.config/rofi/config.rasi" ]]; then
+    ROFI_CMD="rofi -dmenu -i -p 'Display Profile'"
+fi
+
+# -----------------
+# 2. Define Kanshi Profiles
+# -----------------
+
+# These should match the profile names in your kanshi config
+OPTIONS="laptop\nextended\ncloned"
+
+# -----------------
+# 3. Execute Rofi and Process Selection
+# -----------------
+
+CHOICE=$(echo -e "$OPTIONS" | $ROFI_CMD)
+
+case "$CHOICE" in
+    "laptop")
+        kanshictl switch laptop
+        notify-send "Display Profile" "Switched to laptop profile" --urgency=low
+        ;;
+    "extended")
+        kanshictl switch extended
+        notify-send "Display Profile" "Switched to extended profile" --urgency=low
+        ;;
+    "cloned")
+        kanshictl switch cloned
+        notify-send "Display Profile" "Switched to cloned profile" --urgency=low
+        ;;
+    *)
+        # Do nothing on escape or cancel
+        exit 0
+        ;;
+esac
