@@ -28,6 +28,7 @@
 
     # Hardware modules - LAPTOP SPECIFIC
     # NOTE: NO NVIDIA module - using Intel integrated graphics
+    ../../modules/system/hardware/intel.nix
     ../../modules/system/hardware/bluetooth.nix
 
     # Security modules
