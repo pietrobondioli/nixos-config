@@ -207,6 +207,7 @@ window-rule {
     match app-id=r#".*nmtui.*"#
     match app-id=r#".*xdg-desktop-portal-gtk.*"#
     match app-id=r#".*prismlauncher.*"#
+    match app-id=r#".*protonvpn.*"#
 
     open-floating true
     default-column-width {
