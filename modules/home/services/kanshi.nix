@@ -10,17 +10,19 @@ in
   services.kanshi = {
     enable = true;
     package = pkgs.kanshi;
-    profiles = {
-      laptop = {
-        outputs = [
+    settings = [
+      {
+        profile.name = "laptop";
+        profile.outputs = [
           {
             criteria = laptopOutput;
             status = "enable";
           }
         ];
-      };
-      extended = {
-        outputs = [
+      }
+      {
+        profile.name = "extended";
+        profile.outputs = [
           {
             criteria = laptopOutput;
             status = "enable";
@@ -31,9 +33,10 @@ in
             position = "1920,0";
           }
         ];
-      };
-      cloned = {
-        outputs = [
+      }
+      {
+        profile.name = "cloned";
+        profile.outputs = [
           {
             criteria = laptopOutput;
             status = "enable";
@@ -44,7 +47,7 @@ in
             position = "0,0";
           }
         ];
-      };
-    };
+      }
+    ];
   };
 }
