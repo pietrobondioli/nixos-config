@@ -47,6 +47,15 @@ else
       exit 1
     fi
 
+    # Round dimensions to even numbers (required by libx264)
+    # If odd, subtract 1 to make even
+    WIDTH=$(( WIDTH - (WIDTH % 2) ))
+    HEIGHT=$(( HEIGHT - (HEIGHT % 2) ))
+
+    # Extract position and reconstruct geometry with even dimensions
+    POSITION=$(echo "$GEOMETRY" | awk '{print $1}')
+    GEOMETRY="${POSITION} ${WIDTH}x${HEIGHT}"
+
     GEOMETRY_ARGS=("-g" "$GEOMETRY")
     OUTPUT_ARGS=()
   else
