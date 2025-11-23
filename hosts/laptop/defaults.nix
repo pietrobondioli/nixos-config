@@ -14,4 +14,11 @@
   # Brazilian keyboard layout with cedilla
   config.myDefaults.system.keyboardLayout = lib.mkForce "br";
   config.myDefaults.system.keyboardVariant = lib.mkForce "abnt2";
+
+  # Larger font sizes for laptop
+  config.myDefaults.fonts.sizes = lib.mkForce {
+    small = 12;
+    medium = 14;
+    large = 16;
+  };
 }
