@@ -1,0 +1,109 @@
+#!/usr/bin/env zsh
+
+# Gnome Keyring Diagnostic Script
+# Verifies that gnome-keyring is properly configured and working
+
+set -e
+
+echo "🔐 Gnome Keyring Diagnostic Check"
+echo "=================================="
+echo ""
+
+# Check 1: Process count
+echo "📊 Check 1: Gnome Keyring Daemon Processes"
+DAEMON_COUNT=$(ps aux | grep -c '[g]nome-keyring-daemon' || true)
+if [[ $DAEMON_COUNT -eq 1 ]]; then
+    echo "✅ Exactly 1 daemon running (correct)"
+    ps aux | grep '[g]nome-keyring-daemon'
+elif [[ $DAEMON_COUNT -eq 0 ]]; then
+    echo "❌ No gnome-keyring-daemon running"
+    exit 1
+else
+    echo "⚠️  Multiple daemons running ($DAEMON_COUNT) - this may cause issues"
+    ps aux | grep '[g]nome-keyring-daemon'
+fi
+echo ""
+
+# Check 2: Environment variables
+echo "🌍 Check 2: Environment Variables"
+if [[ -n "$GNOME_KEYRING_CONTROL" ]]; then
+    echo "✅ GNOME_KEYRING_CONTROL: $GNOME_KEYRING_CONTROL"
+else
+    echo "❌ GNOME_KEYRING_CONTROL: not set"
+    exit 1
+fi
+
+if [[ -n "$SSH_AUTH_SOCK" ]]; then
+    echo "ℹ️  SSH_AUTH_SOCK: $SSH_AUTH_SOCK"
+    if [[ "$SSH_AUTH_SOCK" == *"1password"* ]]; then
+        echo "   (Using 1Password SSH agent - this is intentional)"
+    elif [[ "$SSH_AUTH_SOCK" == *"keyring"* ]]; then
+        echo "   (Using gnome-keyring SSH agent)"
+    fi
+else
+    echo "⚠️  SSH_AUTH_SOCK: not set"
+fi
+
+if [[ -n "$XDG_RUNTIME_DIR" ]]; then
+    echo "✅ XDG_RUNTIME_DIR: $XDG_RUNTIME_DIR"
+else
+    echo "❌ XDG_RUNTIME_DIR: not set"
+    exit 1
+fi
+echo ""
+
+# Check 3: Socket files
+echo "🔌 Check 3: Keyring Socket Directory"
+KEYRING_DIR="$XDG_RUNTIME_DIR/keyring"
+if [[ -d "$KEYRING_DIR" ]]; then
+    echo "✅ Directory exists: $KEYRING_DIR"
+    if [[ -S "$KEYRING_DIR/control" ]]; then
+        echo "✅ Control socket exists"
+    else
+        echo "❌ Control socket missing"
+        exit 1
+    fi
+    echo "   Contents:"
+    ls -la "$KEYRING_DIR" | tail -n +3
+else
+    echo "❌ Keyring directory does not exist: $KEYRING_DIR"
+    exit 1
+fi
+echo ""
+
+# Check 4: Functional test
+echo "🧪 Check 4: Functional Test"
+SECRET_TOOL=$(command -v secret-tool)
+if [[ -z "$SECRET_TOOL" ]]; then
+    echo "⚠️  secret-tool not found, skipping functional test"
+else
+    TEST_SERVICE="gnome-keyring-diag-test"
+    TEST_VALUE="test-$(date +%s)"
+
+    # Store a test secret
+    if echo "$TEST_VALUE" | $SECRET_TOOL store --label='Diagnostic Test' service "$TEST_SERVICE" username test 2>/dev/null; then
+        echo "✅ Successfully stored test secret"
+
+        # Retrieve the test secret
+        RETRIEVED=$($SECRET_TOOL lookup service "$TEST_SERVICE" 2>/dev/null)
+        if [[ "$RETRIEVED" == "$TEST_VALUE" ]]; then
+            echo "✅ Successfully retrieved test secret"
+        else
+            echo "❌ Retrieved value doesn't match"
+            exit 1
+        fi
+
+        # Clear the test secret
+        if $SECRET_TOOL clear service "$TEST_SERVICE" 2>/dev/null; then
+            echo "✅ Successfully cleared test secret"
+        else
+            echo "⚠️  Failed to clear test secret"
+        fi
+    else
+        echo "❌ Failed to store test secret"
+        exit 1
+    fi
+fi
+echo ""
+
+echo "✨ All checks passed! Gnome Keyring is properly configured."
