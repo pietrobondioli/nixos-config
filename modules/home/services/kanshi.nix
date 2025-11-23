@@ -1,7 +1,7 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, osConfig, ... }:
 
 let
-  laptopOutput = config.myDefaults.display.output;
+  laptopOutput = osConfig.myDefaults.display.output;
   # You can add more outputs here and create more complex profiles
   # run `niri msg outputs` to get the list of your outputs.
   externalOutput = "DP-1";

@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, osConfig, ... }: {
   programs.waybar = {
     enable = true;
     package = pkgs.waybar.override { niriSupport = true; };
@@ -10,7 +10,7 @@
         height = 34;
         spacing = 2;
 
-        output = config.myDefaults.display.output;
+        output = osConfig.myDefaults.display.output;
 
         modules-left = [ "niri/workspaces" "niri/window" ];
         modules-center = [ "clock" ];
