@@ -22,8 +22,8 @@
           "memory"
           "cpu"
           "temperature"
-          "custom/gpu-temp"
-          "battery"
+        ] ++ (if osConfig.myDefaults.system.hostname != "laptop" then ["custom/gpu-temp"] else [])
+          ++ (if osConfig.myDefaults.system.hostname == "laptop" then ["battery"] else []) ++ [
           "keyboard-state"
           "tray"
           "custom/power"
@@ -112,14 +112,14 @@
           format-critical = " {temperatureC}°C";
           interval = 10;
         };
-
+      } // (if osConfig.myDefaults.system.hostname != "laptop" then {
         "custom/gpu-temp" = {
           exec = "nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader";
           format = " {}°C";
           interval = 10;
           return-type = "";
         };
-
+      } else {}) // (if osConfig.myDefaults.system.hostname == "laptop" then {
         battery = {
           states = {
             warning = 30;
@@ -131,6 +131,7 @@
           format-alt = "🔋 {time}";
           tooltip-format = "{timeTo}\n{capacity}% - {power}W";
         };
+      } else {}) // {
 
         "keyboard-state" = {
           numlock = true;
