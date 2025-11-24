@@ -246,18 +246,19 @@ window-rule {
 
 // Open apps as floating by default.
 window-rule {
-    match app-id=r#"(^zen-beta$)|(^firefox$)"# title=r#"(^Sign in - Google Accounts.*)|(^Picture-in-Picture$)|(^Library)"#
-    match app-id=r#".*1password.*"#
-    match app-id=r#".*blueman.*"#
-    match app-id=r#".*copyq.*"#
-    match app-id=r#".*yubico.*"#
-    match app-id=r#".*p(a|w)vucontrol.*"# title=".*Volume Control.*"
-    match app-id=r#".*teams-for-linux.*"# title=".*Screen.*shared.*"
-    match app-id=r#".*thunar.*"# title="File Operation Progress"
-    match app-id=r#".*nmtui.*"#
-    match app-id=r#".*xdg-desktop-portal-gtk.*"#
-    match app-id=r#".*prismlauncher.*"#
-    match app-id=r#".*protonvpn.*"#
+    match app-id=r#"^zen"# title=r#"(^Sign in - Google Accounts.*)|(^Picture-in-Picture$)|(^Library)"#
+    match app-id=r#"firefox"# title=r#"(^Sign in - Google Accounts.*)|(^Picture-in-Picture$)|(^Library)"#
+    match app-id=r#"1password"#
+    match app-id=r#"blueman"#
+    match app-id=r#"copyq"#
+    match app-id=r#"yubico"#
+    match app-id=r#"p(a|w)vucontrol"# title="Volume Control"
+    match app-id=r#"teams-for-linux"# title="Screen.*shared"
+    match app-id=r#"thunar"# title="File Operation Progress"
+    match app-id=r#"nmtui"#
+    match app-id=r#"xdg-desktop-portal-gtk"#
+    match app-id=r#"prismlauncher"#
+    match app-id=r#"protonvpn"#
 
     open-floating true
     default-column-width {
@@ -281,16 +282,15 @@ window-rule {
 }
 
 window-rule {
-  match app-id=r#"firefox$"
-  match app-id=r#"^zen"#
-  match app-id=r#"code$"#
-  match app-id=r#"code-oss$"#
-  match app-id=r#"^jetbrains-.*$"#
-  match app-id=r#"obsidian$"#
-  match app-id=r#"dbeaver$"#
-  match app-id=r#"insomnia$"#
-  match app-id=r#"discord$"#
-  match app-id=r#"vesktop$"#
+  match app-id=r#"firefox"#
+  match app-id=r#"zen"#
+  match app-id=r#"code"#
+  match app-id=r#"^jetbrains-"#
+  match app-id=r#"obsidian"#
+  match app-id=r#"dbeaver"#
+  match app-id=r#"insomnia"#
+  match app-id=r#"discord"#
+  match app-id=r#"vesktop"#
   match app-id=r#"teams-for-linux"#
 
   open-maximized true
