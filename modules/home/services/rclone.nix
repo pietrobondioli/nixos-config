@@ -1,7 +1,51 @@
 { config, pkgs, lib, ... }:
 
+# ============================================================================
+# RClone Google Drive Configuration Guide
+# ============================================================================
+#
+# To configure Google Drive with rclone, follow these steps:
+#
+# 1. Run rclone configuration:
+#    $ rclone config
+#
+# 2. Create a new remote:
+#    - Choose 'n' for "New remote"
+#    - Name it 'gdrive' (must match the name used in this config)
+#    - Choose the number for "Google Drive"
+#
+# 3. Configure the remote:
+#    - client_id: Press Enter (leave empty unless you have a custom API)
+#    - client_secret: Press Enter (leave empty)
+#    - scope: Choose '1' for "Full access all files"
+#    - root_folder_id: Press Enter (leave empty)
+#    - service_account_file: Press Enter (leave empty)
+#    - Use auto config?: Choose 'y' (will open browser for authentication)
+#
+# 4. Authenticate:
+#    - Browser window will open
+#    - Sign in to Google and grant access
+#    - Should see "Success!" in browser
+#
+# 5. Complete configuration:
+#    - Configure as team drive?: Choose 'n' (unless using team drive)
+#    - Confirm configuration
+#    - Choose 'q' to quit
+#
+# 6. Test the configuration:
+#    $ rclone ls gdrive:
+#
+# 7. Enable and start the service:
+#    $ systemctl --user enable rclone-gdrive.service
+#    $ systemctl --user start rclone-gdrive.service
+#    $ systemctl --user status rclone-gdrive.service
+#
+# Configuration is saved to: ~/.config/rclone/rclone.conf
+# Mount point: ~/gdrive
+#
+# ============================================================================
+
 {
-  # Install rclone package
   home.packages = [ pkgs.rclone ];
 
   # Create mount directory
