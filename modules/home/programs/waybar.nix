@@ -22,8 +22,8 @@
           "memory"
           "cpu"
           "temperature"
-        ] ++ (if osConfig.myDefaults.system.hostname != "laptop" then ["custom/gpu-temp"] else [])
-          ++ (if osConfig.myDefaults.system.hostname == "laptop" then ["battery"] else []) ++ [
+        ] ++ (if osConfig.myDefaults.system.hostname != "laptop" then [ "custom/gpu-temp" ] else [ ])
+        ++ (if osConfig.myDefaults.system.hostname == "laptop" then [ "battery" ] else [ ]) ++ [
           "keyboard-state"
           "tray"
           "custom/power"
@@ -119,7 +119,7 @@
           interval = 10;
           return-type = "";
         };
-      } else {}) // (if osConfig.myDefaults.system.hostname == "laptop" then {
+      } else { }) // (if osConfig.myDefaults.system.hostname == "laptop" then {
         battery = {
           states = {
             warning = 30;
@@ -131,7 +131,7 @@
           format-alt = "🔋 {time}";
           tooltip-format = "{timeTo}\n{capacity}% - {power}W";
         };
-      } else {}) // {
+      } else { }) // {
 
         "keyboard-state" = {
           numlock = true;

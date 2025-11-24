@@ -11,6 +11,11 @@ lib.types.submodule {
           fullName = lib.mkOption { type = lib.types.str; };
           email = lib.mkOption { type = lib.types.str; };
           home = lib.mkOption { type = lib.types.str; };
+          ensureDirectories = lib.mkOption {
+            type = lib.types.listOf lib.types.str;
+            default = [ ];
+            description = "List of directories to ensure exist in user home (relative paths)";
+          };
         };
       };
       default = { };
@@ -147,6 +152,11 @@ lib.types.submodule {
             };
             default = { };
           };
+          gtkBookmarks = lib.mkOption {
+            type = lib.types.listOf lib.types.str;
+            default = [ ];
+            description = "Additional GTK bookmarks (e.g., mount points for drives)";
+          };
         };
       };
       default = { };
@@ -269,15 +279,15 @@ lib.types.submodule {
                       };
                     };
                   };
-                  default = {};
+                  default = { };
                 };
               };
             };
-            default = {};
+            default = { };
           };
         };
       };
-      default = {};
+      default = { };
     };
   };
 }

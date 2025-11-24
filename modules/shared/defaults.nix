@@ -17,6 +17,16 @@ in
       fullName = "Pietro Bondioli";
       email = "email@pietrobondioli.com.br";
       home = userHome;
+      ensureDirectories = [
+        "Downloads"
+        "Documents"
+        "Pictures"
+        "Videos"
+        "Music"
+        "Templates"
+        "personal"
+        "work"
+      ];
     };
 
     # Paths
