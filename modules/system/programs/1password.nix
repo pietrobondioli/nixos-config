@@ -14,6 +14,7 @@
         zen
         zen-beta
         firefox
+        firefox-nightly
         chromium
         brave
       '';
