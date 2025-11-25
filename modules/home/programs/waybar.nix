@@ -23,7 +23,7 @@
           "cpu"
           "temperature"
         ] ++ (if osConfig.myDefaults.system.hostname != "laptop" then [ "custom/gpu-temp" ] else [ ])
-        ++ (if osConfig.myDefaults.system.hostname == "laptop" then [ "battery" ] else [ ]) ++ [
+        ++ (if osConfig.myDefaults.system.hostname == "laptop" then [ "battery" "backlight" ] else [ ]) ++ [
           "keyboard-state"
           "tray"
           "custom/power"
@@ -130,6 +130,14 @@
           format-plugged = "🔌 {capacity}%";
           format-alt = "🔋 {time}";
           tooltip-format = "{timeTo}\n{capacity}% - {power}W";
+        };
+
+        backlight = {
+          format = "{icon} {percent}%";
+          format-icons = [ "" "" "" "" "" "" "" "" "" ];
+          on-scroll-up = "brightnessctl set 5%+";
+          on-scroll-down = "brightnessctl set 5%-";
+          tooltip-format = "Brightness: {percent}%";
         };
       } else { }) // {
 
@@ -367,6 +375,10 @@
       #battery.critical:not(.charging) {
           color: #e78284;
           animation: blink 1s linear infinite;
+      }
+
+      #backlight {
+          color: #ef9f76;
       }
 
       #custom-power {
