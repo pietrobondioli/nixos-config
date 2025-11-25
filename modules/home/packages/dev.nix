@@ -26,8 +26,13 @@
     cargo
     lua
     jdk
-    dotnet-sdk_8
-    dotnet-aspnetcore_8
+    (with dotnetCorePackages; combinePackages [
+      sdk_8_0
+      sdk_9_0
+      sdk_10_0
+    ])
+
+
 
     # Kubernetes & Container Tools
     kubectl
