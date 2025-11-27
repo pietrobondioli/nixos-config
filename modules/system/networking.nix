@@ -12,6 +12,10 @@
 
   networking.hostName = config.myDefaults.system.hostname;
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
+  networking.networkmanager.dns = "none";
+
+  networking.enableIPv6 = false; # Disable IPv6 if not needed.
+  networking.nameservers = [ "1.1.1.1" "8.8.8.8" ];
 
   # NetworkManager tray icon
   programs.nm-applet.enable = true;
