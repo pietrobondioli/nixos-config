@@ -7,6 +7,7 @@
     # AI Assistants
     github-copilot-cli
     claude-code
+    opencode
 
     # Databases & Tools
     dbeaver-bin
