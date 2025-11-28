@@ -43,6 +43,16 @@ fkill() {
   [ -n "$pid" ] && kill -9 "$pid" && echo "Killed $pid"
 }
 
+fkillport() {
+  mylog "Finding and killing process by port" "fkillport.log"
+  local selected_item=$(lsof -i -P -n | grep LISTEN | awk '{split($9, a, ":"); print $1 ":" a[length(a)]}' | sort -u | fzf --exit-0)
+  if [ -n "$selected_item" ]; then
+    local port=$(echo "$selected_item" | awk -F: '{print $NF}')
+    local pid=$(lsof -i :"$port" | awk 'NR==2 {print $2}')
+    [ -n "$pid" ] && kill -9 "$pid" && echo "Killed process $pid on port $port ($selected_item)"
+  fi
+}
+
 # Find and display man page
 fman() {
   mylog "Finding and displaying man page" "fman.log"

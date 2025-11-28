@@ -9,6 +9,7 @@
     fzf
     htop
     btop
+    lsof
     brightnessctl
     wlr-randr
     direnv
