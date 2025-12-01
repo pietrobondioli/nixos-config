@@ -60,7 +60,7 @@ in
       hostname = "host";
       timezone = "America/Sao_Paulo";
       keyboardLayout = "us";
-      keyboardVariant = "altgr-intl";
+      keyboardVariant = "intl";
     };
 
     # Location (for gammastep, etc.)
