@@ -388,6 +388,7 @@ binds {
     Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
     Mod+0 hotkey-overlay-title="Power Menu: rofi" { spawn-sh "$HOME/scripts/rofi-power-menu"; }
     Mod+Y hotkey-overlay-title="Clipboard history: rofi" { spawn-sh "$HOME/scripts/rofi-cliphist"; }
+    Mod+Shift+Y hotkey-overlay-title="Clear clipboard history" { spawn-sh "cliphist wipe"; }
     Mod+P hotkey-overlay-title="Display Profiles: kanshi" { spawn-sh "$HOME/scripts/rofi-kanshi"; }
     Mod+semicolon hotkey-overlay-title="Password Manager: 1password" { spawn-sh "1password --quick-access"; }
     Mod+Backslash hotkey-overlay-title="Dismiss All Notifications" { spawn-sh "makoctl dismiss -a"; }
