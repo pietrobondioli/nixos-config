@@ -27,6 +27,7 @@ ffd() {
   local dir dirs
   local exclude_dirs=(
     "gdrive"
+    "pkg"
     "node_modules"
     ".git"
     "__pycache__"
