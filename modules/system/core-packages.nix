@@ -30,6 +30,7 @@
 
     ## Data Processing & Manipulation
     jq # Lightweight and flexible command-line JSON processor
+    yq # Lightweight and portable command-line YAML processor
 
     ## Graphics & GPU Debugging
     vulkan-tools # Vulkan utilities and debug tools (vulkaninfo, vkcube)
