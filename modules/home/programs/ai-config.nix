@@ -19,6 +19,7 @@ in
     else
       echo "Updating AI config repository..."
       cd "$AI_CONFIG_REPO"
+      ${pkgs.git}/bin/git remote set-url origin "${aiConfigRepoUrl}"
 
       # Only pull if there are no uncommitted changes
       if ${pkgs.git}/bin/git diff-index --quiet HEAD --; then
