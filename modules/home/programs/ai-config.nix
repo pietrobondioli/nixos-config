@@ -12,6 +12,19 @@ in
     # Set GIT_SSH to use nix store ssh
     export GIT_SSH="${pkgs.openssh}/bin/ssh"
 
+    # Check if network is available before attempting git operations
+    if ! ${pkgs.iputils}/bin/ping -c 1 -W 2 github.com >/dev/null 2>&1; then
+      echo "Network unavailable, skipping AI config repository update"
+      # If repo doesn't exist yet, create empty directory structure to allow symlinks
+      if [ ! -d "$AI_CONFIG_REPO" ]; then
+        mkdir -p "$AI_CONFIG_REPO/localcfg/.claude"
+        mkdir -p "$AI_CONFIG_REPO/localcfg/.copilot"
+        mkdir -p "$AI_CONFIG_REPO/localcfg/.gemini"
+        echo "Created placeholder directories. Run 'home-manager switch' when network is available."
+      fi
+      exit 0
+    fi
+
     # Clone repository if it doesn't exist, otherwise pull latest changes
     if [ ! -d "$AI_CONFIG_REPO" ]; then
       mkdir -p "$(dirname "$AI_CONFIG_REPO")"

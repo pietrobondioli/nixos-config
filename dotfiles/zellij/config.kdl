@@ -1,8 +1,6 @@
 // If you'd like to override the default keybindings completely, be sure to change "keybinds" to "keybinds clear-defaults=true"
 keybinds clear-defaults=true {
     scroll {
-        bind "e" { EditScrollback; SwitchToMode "Normal"; }
-        bind "f" { SwitchToMode "EnterSearch"; SearchInput 0; }
         bind "Ctrl c" { ScrollToBottom; SwitchToMode "Normal"; }
         bind "j" "Down" { ScrollDown; }
         bind "k" "Up" { ScrollUp; }
@@ -21,7 +19,7 @@ keybinds clear-defaults=true {
         bind "d" { HalfPageScrollDown; }
         bind "u" { HalfPageScrollUp; }
         bind "n" { Search "down"; }
-        bind "p" { Search "up"; }
+        bind "N" { Search "up"; }
         bind "c" { SearchToggleOption "CaseSensitivity"; }
         bind "w" { SearchToggleOption "Wrap"; }
         bind "o" { SearchToggleOption "WholeWord"; }
@@ -35,10 +33,13 @@ keybinds clear-defaults=true {
     shared_except "locked" {
         bind "Alt g" { SwitchToMode "Locked"; }
         bind "Alt q" { Quit; }
-        bind "Alt n" { NewPane; }
+        bind "Alt 0" { Detach; }
+
+        bind "Alt n" { NewPane "Right"; }
         bind "Alt m" { NewPane "Down"; }
         bind "Alt \\" { NewPane "Right"; }
         bind "Alt x" { CloseFocus; }
+
         bind "Alt t" { NewTab {
             layout "default"
         }; }
@@ -52,15 +53,27 @@ keybinds clear-defaults=true {
         bind "Alt 7" { GoToTab 7; }
         bind "Alt 8" { GoToTab 8; }
         bind "Alt 9" { GoToTab 9; }
-        bind "Alt Left" { Resize "Decrease Left"; }
-        bind "Alt Right" { Resize "Increase Right"; }
-        bind "Alt Up" { Resize "Increase Up"; }
-        bind "Alt Down" { Resize "Decrease Down"; }
+
+        bind "Alt Left" { MoveFocus "Decrease Left"; }
+        bind "Alt Right" { MoveFocus "Increase Right"; }
+        bind "Alt Up" { MoveFocus "Increase Up"; }
+        bind "Alt Down" { MoveFocus "Decrease Down"; }
+        bind "Alt h" { MoveFocus "Left"; }
+        bind "Alt l" { MoveFocus "Right"; }
+        bind "Alt k" { MoveFocus "Up"; }
+        bind "Alt j" { MoveFocus "Down"; }
+
+        bind "Alt Shift h" { MovePane "Left"; }
+        bind "Alt Shift l" { MovePane "Right"; }
+        bind "Alt Shift k" { MovePane "Up"; }
+        bind "Alt Shift j" { MovePane "Down"; }
+
         bind "Alt s" { SwitchToMode "EnterSearch"; SearchInput 0; }
         bind "Alt z" { ToggleFocusFullscreen; }
+
         bind "Alt =" "Alt +" { Resize "Increase"; }
         bind "Alt -" { Resize "Decrease"; }
-        bind "Alt 0" { Detach; }
+
         bind "Alt /" "Alt p" { ToggleFloatingPanes; SwitchToMode "Normal"; }
         bind "Alt ;" { SwitchFocus; }
         bind "Alt y" { EditScrollback; SwitchToMode "Normal"; }
