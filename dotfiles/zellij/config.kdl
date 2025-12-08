@@ -54,10 +54,10 @@ keybinds clear-defaults=true {
         bind "Alt 8" { GoToTab 8; }
         bind "Alt 9" { GoToTab 9; }
 
-        bind "Alt Left" { MoveFocus "Decrease Left"; }
-        bind "Alt Right" { MoveFocus "Increase Right"; }
-        bind "Alt Up" { MoveFocus "Increase Up"; }
-        bind "Alt Down" { MoveFocus "Decrease Down"; }
+        bind "Alt Left" { MoveFocus "Left"; }
+        bind "Alt Right" { MoveFocus "Right"; }
+        bind "Alt Up" { MoveFocus "Up"; }
+        bind "Alt Down" { MoveFocus "Down"; }
         bind "Alt h" { MoveFocus "Left"; }
         bind "Alt l" { MoveFocus "Right"; }
         bind "Alt k" { MoveFocus "Up"; }
@@ -153,7 +153,7 @@ theme "catppuccin-frappe"
 // The name of the default layout to load on startup
 // Default: "default"
 //
-// default_layout "default"
+default_layout "default"
 
 // Choose the mode that zellij uses when starting up.
 // Default: normal
