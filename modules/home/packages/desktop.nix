@@ -32,6 +32,7 @@
     # Document & Image Viewers
     zathura
     swayimg
+    onlyoffice-desktopeditors
 
     # Architecture & Design
     (pkgs.symlinkJoin {
