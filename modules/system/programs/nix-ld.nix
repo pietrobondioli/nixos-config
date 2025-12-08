@@ -5,6 +5,7 @@
   programs.nix-ld.libraries = with pkgs; [
     # Add common libraries that might be needed
     stdenv.cc.cc.lib
+    gcc.cc.lib
     zlib
     # Add other libraries as needed
   ];
