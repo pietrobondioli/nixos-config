@@ -1,0 +1,73 @@
+#!/usr/bin/zsh
+
+# Discover command locations at script start
+DOTNET_CMD=$(command -v dotnet)
+FZF_CMD=$(command -v fzf)
+
+# Validate required commands exist
+if [[ -z "$DOTNET_CMD" ]]; then
+    echo "❌ ERROR: dotnet is not installed or not in PATH." >&2
+    return 1
+fi
+
+if [[ -z "$FZF_CMD" ]]; then
+    echo "❌ ERROR: fzf is not installed or not in PATH." >&2
+    return 1
+fi
+
+use-dotnet() {
+    # Get available SDK versions
+    local versions=$("$DOTNET_CMD" --list-sdks 2>/dev/null | awk '{print $1}')
+
+    if [[ -z "$versions" ]]; then
+        echo "❌ ERROR: No .NET SDKs found." >&2
+        return 1
+    fi
+
+    local selected=""
+
+    # If version param provided, try to match it
+    if [[ -n "$1" ]]; then
+        selected=$(echo "$versions" | grep "^$1" | head -1)
+        if [[ -z "$selected" ]]; then
+            echo "❌ ERROR: No SDK version matching '$1' found." >&2
+            echo "   Available versions:" >&2
+            echo "$versions" | sed 's/^/     /' >&2
+            return 1
+        fi
+    else
+        # Show current version if global.json exists
+        local current=""
+        if [[ -f "global.json" ]]; then
+            current=$(grep -oP '"version"\s*:\s*"\K[^"]+' global.json 2>/dev/null || true)
+        fi
+
+        # Interactive selection with fzf
+        selected=$(echo "$versions" | "$FZF_CMD" \
+            --height=40% \
+            --border \
+            --prompt="Select .NET SDK version: " \
+            --header="Current: ${current:-default ($("$DOTNET_CMD" --version))}" \
+            --preview="echo 'SDK {}: Will create/update global.json in current directory'" \
+            --preview-window=up:2:wrap)
+
+        if [[ -z "$selected" ]]; then
+            echo "No version selected."
+            return 0
+        fi
+    fi
+
+    # Create or update global.json
+    cat > global.json <<EOF
+{
+  "sdk": {
+    "version": "$selected",
+    "rollForward": "latestFeature"
+  }
+}
+EOF
+
+    echo "✓ global.json updated to use .NET SDK $selected"
+    echo "  Verify with: dotnet --version"
+    "$DOTNET_CMD" --version
+}

@@ -98,6 +98,7 @@ in
         "${paths.scripts}/zellij_autostart_config"
         "${paths.scripts}/zellij_tab_name_update"
         "${paths.scripts}/secrets"
+        "${paths.scripts}/use-dotnet"
       )
       for config in $SOURCE_FILES; do
         [[ -f "$config" ]] && source "$config"
