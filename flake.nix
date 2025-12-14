@@ -10,8 +10,9 @@
       url = "github:nix-community/flake-firefox-nightly";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    devenv.url = "github:cachix/devenv";
   };
-  outputs = { self, nixpkgs, home-manager, firefox-nightly, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, firefox-nightly, devenv, ... }@inputs:
     let
       # Username from defaults (defined in modules/shared/defaults.nix)
       username = "pietro";

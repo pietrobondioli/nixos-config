@@ -47,6 +47,8 @@ in
     minikube
     k9s
     lazydocker
+    docker-buildx
+    docker-compose
 
     # AWS Tools
     awscli2
@@ -67,10 +69,13 @@ in
     nixpkgs-fmt
     statix
     deadnix
+    devenv
+    cachix
 
     # Web & Browser Testing
     cypress
     google-chrome
+    chromium
     microsoft-edge
     brave
 
