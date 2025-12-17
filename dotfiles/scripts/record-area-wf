@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# Toggle screen recording with options
-PIDFILE="/tmp/screenrec.pid"
+# Toggle screen recording with wf-recorder (software encoding fallback)
+PIDFILE="/tmp/screenrec-wf.pid"
 
 # Source logging utility
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -56,7 +56,6 @@ else
     fi
 
     # Round dimensions to even numbers (required by libx264)
-    # If odd, subtract 1 to make even
     WIDTH=$((WIDTH - (WIDTH % 2)))
     HEIGHT=$((HEIGHT - (HEIGHT % 2)))
 
@@ -77,26 +76,25 @@ else
     OUTPUT_ARGS=("-o" "$FOCUSED_OUTPUT")
   fi
 
-  # Start recording
+  # Start recording with wf-recorder using software encoding
   OUTPUT_FILE="$HOME/Videos/recording-$(date +%Y%m%d-%H%M%S).mp4"
   log_info "Starting recording: mode=$MODE, audio=$AUDIO, output=$OUTPUT_FILE"
   [ -n "${GEOMETRY_ARGS[*]}" ] && log_debug "Geometry: ${GEOMETRY_ARGS[*]}"
   [ -n "${OUTPUT_ARGS[*]}" ] && log_debug "Output: ${OUTPUT_ARGS[*]}"
 
-  # Redirect wl-screenrec output to log file
   # Use libx264 software encoder to avoid VAAPI/NVIDIA issues
-  wl-screenrec --no-hw --ffmpeg-encoder libx264 "${GEOMETRY_ARGS[@]}" "${OUTPUT_ARGS[@]}" "${AUDIO_ARGS[@]}" -f "$OUTPUT_FILE" >>"$LOG_FILE" 2>&1 &
+  wf-recorder -c libx264 "${GEOMETRY_ARGS[@]}" "${OUTPUT_ARGS[@]}" "${AUDIO_ARGS[@]}" -f "$OUTPUT_FILE" >>"$LOG_FILE" 2>&1 &
   REC_PID=$!
 
-  # Wait briefly to check if wl-screenrec started successfully
+  # Wait briefly to check if wf-recorder started successfully
   sleep 0.5
   if kill -0 "$REC_PID" 2>/dev/null; then
     echo "$REC_PID" >"$PIDFILE"
     log_info "Recording started successfully (PID: $REC_PID)"
-    notify-send "Recording started" "Press Super+Shift+A again to stop"
+    notify-send "Recording started" "Press keybind again to stop"
   else
-    log_error "wl-screenrec failed to start"
-    notify-send "Recording failed" "wl-screenrec failed to start. Check logs: log_tail"
+    log_error "wf-recorder failed to start"
+    notify-send "Recording failed" "wf-recorder failed to start. Check logs: tail /tmp/record-area-wf.log"
     exit 1
   fi
 fi
