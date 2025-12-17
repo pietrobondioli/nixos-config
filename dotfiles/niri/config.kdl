@@ -536,7 +536,7 @@ binds {
     Mod+W { toggle-column-tabbed-display; }
 
     Print { spawn-sh "$HOME/scripts/screenshot-satty"; }
-    Mod+Shift+A { spawn-sh "$HOME/scripts/record-area"; }
+    Mod+Shift+A { spawn-sh "$HOME/scripts/record-area-wf"; }
     Mod+Shift+W { spawn-sh "$HOME/scripts/wallpaper choose"; }
     Mod+Ctrl+Shift+W { spawn-sh "$HOME/scripts/wallpaper"; }
 
