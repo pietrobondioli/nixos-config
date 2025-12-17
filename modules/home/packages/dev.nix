@@ -24,6 +24,7 @@ in
     # Databases & Tools
     dbeaver-bin
     insomnia
+    redisinsight
 
     # Build Tools & Language Servers
     tree-sitter
