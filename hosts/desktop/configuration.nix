@@ -53,6 +53,7 @@
     ../../modules/system/services/ydotool.nix
     ../../modules/system/services/upower.nix
     ../../modules/system/services/rtkit.nix
+    ../../modules/system/services/ollama.nix
   ];
 
   system.stateVersion = "25.11";

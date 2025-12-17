@@ -53,6 +53,7 @@
     ../../modules/system/services/ydotool.nix
     ../../modules/system/services/upower.nix # Important for battery management
     ../../modules/system/services/rtkit.nix
+    ../../modules/system/services/ollama.nix
 
     # Power management
     ../../modules/system/power-management.nix
