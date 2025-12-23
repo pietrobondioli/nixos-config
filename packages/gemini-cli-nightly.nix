@@ -11,16 +11,16 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "gemini-cli-nightly";
-  version = "v0.21.0-nightly.20251213.977248e09";
+  version = "v0.23.0-preview.1";
 
   src = fetchFromGitHub {
     owner = "google-gemini";
     repo = "gemini-cli";
-    rev = "v0.21.0-nightly.20251213.977248e09";
-    hash = "sha256-kWtEDgZNbI4UbAeDdxQ14mL12IzIib/b7yNZIYLN0d8=";
+    rev = "v0.23.0-preview.1";
+    hash = "sha256-phXMnFnAu6/3ZrQXBOKljPa6ElLZmjrFYkRj0roVp6I=";
   };
 
-  npmDepsHash = "sha256-Isa4N5tFhtEiCJbkJ7je56/1lK3sF0AEqNFStDJJwvg=";
+  npmDepsHash = "sha256-Ya3faJrutYK5zxGRfiLEqLT8EHwleDQ55RsriyqOFR8=";
 
   nativeBuildInputs = [
     jq
@@ -55,6 +55,8 @@ buildNpmPackage (finalAttrs: {
     cp -r packages/cli $out/share/gemini-cli/node_modules/@google/gemini-cli
     cp -r packages/core $out/share/gemini-cli/node_modules/@google/gemini-cli-core
     cp -r packages/a2a-server $out/share/gemini-cli/node_modules/@google/gemini-cli-a2a-server
+    # Remove dangling symlinks that point to /build directory
+    find $out -type l -lname '/build/*' -delete
     ln -s $out/share/gemini-cli/node_modules/@google/gemini-cli/dist/index.js $out/bin/gemini
     chmod +x "$out/bin/gemini"
     runHook postInstall
