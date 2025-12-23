@@ -7,7 +7,7 @@
       pkgs.xdg-desktop-portal-gnome
     ];
     config.niri = {
-      default = [ "gtk" ];
+      default = lib.mkForce [ "gnome;gtk" ];
       "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
       "org.freedesktop.impl.portal.ScreenCast" = [ "gnome" ];
     };
