@@ -20,6 +20,7 @@ in
     github-copilot-cli
     claude-code
     opencode
+    gemini-cli
 
     # Databases & Tools
     dbeaver-bin

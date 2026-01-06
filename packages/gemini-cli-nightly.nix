@@ -11,16 +11,19 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "gemini-cli-nightly";
-  version = "v0.23.0-preview.1";
+  version = "v0.24.0-nightly.20260103.30f5c4af4";
 
   src = fetchFromGitHub {
     owner = "google-gemini";
     repo = "gemini-cli";
-    rev = "v0.23.0-preview.1";
-    hash = "sha256-phXMnFnAu6/3ZrQXBOKljPa6ElLZmjrFYkRj0roVp6I=";
+    rev = "v0.24.0-nightly.20260103.30f5c4af4";
+    hash = "sha256-DxNgD+feywjK/PyfvgdaJYHwNNl6++TeXlTOfcgVng4=";
   };
 
-  npmDepsHash = "sha256-Ya3faJrutYK5zxGRfiLEqLT8EHwleDQ55RsriyqOFR8=";
+  npmDepsHash = "sha256-LX6DUKpvXysZ2OIq9PX266zhWWao+pNi9k6DFBCUzaM=";
+
+  makeCacheWritable = true;
+  npmFlags = [ "--ignore-scripts" "--omit=optional" ];
 
   nativeBuildInputs = [
     jq
@@ -38,8 +41,6 @@ buildNpmPackage (finalAttrs: {
   '';
 
   postPatch = ''
-    ${jq}/bin/jq 'del(.optionalDependencies."node-pty")' package.json > package.json.tmp && mv package.json.tmp package.json
-    ${jq}/bin/jq 'del(.optionalDependencies."node-pty")' packages/core/package.json > packages/core/package.json.tmp && mv packages/core/package.json.tmp packages/core/package.json
     sed -i '/disableAutoUpdate: {/,/}/ s/default: false/default: true/' packages/cli/src/config/settingsSchema.ts
   '';
 

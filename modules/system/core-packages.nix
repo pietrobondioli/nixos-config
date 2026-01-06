@@ -37,6 +37,6 @@
 
     ffmpeg # Multimedia framework for handling video, audio, and other multimedia files
 
-    (pkgs.callPackage ../../packages/gemini-cli-nightly.nix { })
+    # (pkgs.callPackage ../../packages/gemini-cli-nightly.nix { })
   ];
 }
