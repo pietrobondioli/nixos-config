@@ -2,6 +2,7 @@
   description = "Pietro's NixOS - Multi-host Configuration";
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";

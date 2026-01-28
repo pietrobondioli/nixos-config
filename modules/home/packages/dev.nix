@@ -15,6 +15,15 @@ in
     # Editors & IDEs
     vscode
     neovim
+    jetbrains.rider
+
+    ## Database Connectivity
+    unixODBC # ODBC driver manager for database connectivity
+
+    libxcrypt
+    pam
+    libxml2
+    stdenv.cc.cc.lib
 
     # AI Assistants
     github-copilot-cli

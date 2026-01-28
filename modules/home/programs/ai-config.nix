@@ -25,6 +25,19 @@ in
       exit 0
     fi
 
+    # Check if SSH authentication to GitHub is working (SSH agent/YubiKey may not be available at boot)
+    if ! ${pkgs.openssh}/bin/ssh -T -o BatchMode=yes -o ConnectTimeout=5 git@github.com 2>&1 | grep -q "successfully authenticated"; then
+      echo "SSH authentication unavailable, skipping AI config repository update"
+      # If repo doesn't exist yet, create empty directory structure to allow symlinks
+      if [ ! -d "$AI_CONFIG_REPO" ]; then
+        mkdir -p "$AI_CONFIG_REPO/localcfg/.claude"
+        mkdir -p "$AI_CONFIG_REPO/localcfg/.copilot"
+        mkdir -p "$AI_CONFIG_REPO/localcfg/.gemini"
+        echo "Created placeholder directories. Run 'home-manager switch' when network is available."
+      fi
+      exit 0
+    fi
+
     # Clone repository if it doesn't exist, otherwise pull latest changes
     if [ ! -d "$AI_CONFIG_REPO" ]; then
       mkdir -p "$(dirname "$AI_CONFIG_REPO")"
