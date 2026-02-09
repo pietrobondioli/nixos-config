@@ -25,6 +25,7 @@
     ../../modules/system/filesystems.nix
     ../../modules/system/nixpkgs.nix
     ../../modules/system/xdg.nix
+    ../../modules/system/zram.nix
 
     # Hardware modules - DESKTOP SPECIFIC
     ../../modules/system/hardware/nvidia.nix # Has NVIDIA GPU
