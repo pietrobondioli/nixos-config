@@ -8,6 +8,7 @@
     net-tools # provides ifconfig, netstat, etc.
     wireguard-tools # WireGuard VPN tools
     protonvpn-gui # ProtonVPN GUI
+    socat
   ];
 
   networking.hostName = config.myDefaults.system.hostname;
