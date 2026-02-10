@@ -25,6 +25,9 @@
   # Enable smartcard daemon for YubiKey
   services.pcscd.enable = true;
 
+  # Add udev rules for U2F devices so user can access them
+  services.udev.packages = [ pkgs.yubikey-personalization ];
+
   # PAM U2F authentication
   security.pam.u2f = {
     enable = true;
