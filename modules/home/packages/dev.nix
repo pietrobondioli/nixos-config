@@ -40,6 +40,7 @@ in
     tree-sitter
     gcc
     gnumake
+    maven
 
     # Programming Languages
     nodejs_24
@@ -86,9 +87,6 @@ in
     # Web & Browser Testing
     cypress
     google-chrome
-    chromium
-    microsoft-edge
-    brave
 
     # Utilities
     imagemagick
