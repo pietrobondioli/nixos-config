@@ -30,6 +30,7 @@
     # NOTE: NO NVIDIA module - using Intel integrated graphics
     ../../modules/system/hardware/intel.nix
     ../../modules/system/hardware/bluetooth.nix
+    ../../modules/system/hardware/diagnostics.nix
 
     # Security modules
     ../../modules/system/security/yubikey.nix
@@ -57,6 +58,7 @@
 
     # Power management
     ../../modules/system/power-management.nix
+    ../../modules/system/services/logind.nix
   ];
 
   system.stateVersion = "25.11";

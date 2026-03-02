@@ -30,6 +30,7 @@
     # Hardware modules - DESKTOP SPECIFIC
     ../../modules/system/hardware/nvidia.nix # Has NVIDIA GPU
     ../../modules/system/hardware/bluetooth.nix
+    ../../modules/system/hardware/diagnostics.nix
 
     # Security modules
     ../../modules/system/security/yubikey.nix
@@ -55,6 +56,7 @@
     ../../modules/system/services/upower.nix
     ../../modules/system/services/rtkit.nix
     ../../modules/system/services/ollama.nix
+    ../../modules/system/services/logind.nix
   ];
 
   system.stateVersion = "25.11";

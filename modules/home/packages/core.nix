@@ -17,9 +17,11 @@
     # System Utilities
     libnotify
     yarn-berry
+    ncdu # interactive disk usage analyzer
+    dua # fast disk usage analyzer (dua i for interactive mode)
 
     # Fun Utilities
-    neofetch
+    fastfetch
     fortune
     cowsay
     lolcat

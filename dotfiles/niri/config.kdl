@@ -162,6 +162,9 @@ workspace "6"
 // spawn-sh-at-startup "systemctl --user start xdg-desktop-portal-wlr.service"
 // spawn-sh-at-startup "$HOME/scripts/xdg-portals";
 
+// Export Wayland env vars to systemd user session so services like swayidle can start
+spawn-at-startup "systemctl" "--user" "import-environment" "WAYLAND_DISPLAY" "WAYLAND_SOCKET"
+
 spawn-at-startup "waybar"
 
 // Delayed autostart apps (workspace assignment handled via window-rules)

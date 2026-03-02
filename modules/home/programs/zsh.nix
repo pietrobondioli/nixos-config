@@ -107,7 +107,7 @@ in
       zellij_tab_name_update
       chpwd_functions+=(zellij_tab_name_update)
       zellij_autostart_config
-      neofetch --ascii "$(fortune | cowsay -W 40)" | lolcat
+      fastfetch --data-raw "$(fortune | cowsay -W 40)" | lolcat
     '';
   };
 

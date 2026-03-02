@@ -7,6 +7,7 @@
     stdenv.cc.cc.lib
     gcc.cc.lib
     zlib
+    util-linux
     # Add other libraries as needed
   ];
 }
