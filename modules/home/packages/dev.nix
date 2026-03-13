@@ -66,6 +66,9 @@ in
     awscli2
     aws-vault
 
+    # Azure Tools
+    azure-cli
+
     # Infrastructure & IaC
     terraform
     terraform-ls
