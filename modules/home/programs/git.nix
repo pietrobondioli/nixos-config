@@ -6,8 +6,8 @@
         name = config.myDefaults.git.userName;
         email = config.myDefaults.git.userEmail;
         signingKey = config.myDefaults.git.signingKey;
-        enableSigning = true;
       };
+      commit.gpgSign = true;
       url."git@github.com:".insteadOf = "https://github.com/";
       gpg.format = "ssh";
       gpg.ssh.program = lib.getExe' pkgs._1password-gui "op-ssh-sign";
