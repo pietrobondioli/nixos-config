@@ -79,6 +79,8 @@ zellij_autostart_config() {
     return
   fi
 
+  load_secrets
+
   if [[ "$choice" == "Create new session" ]] || ! is_valid_session_name "$choice"; then
     mylog "Invalid or no session name provided, creating new session with generated name..." "$log_file"
     local new_session

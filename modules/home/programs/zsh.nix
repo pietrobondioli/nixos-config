@@ -84,7 +84,7 @@ in
         "hlissner/zsh-autopair"
       ];
     };
-    oh-my-zsh = { enable = true; plugins = [ "git" "fzf" ]; };
+    oh-my-zsh = { enable = true; plugins = [ "fzf" ]; };
     initContent = ''
       source ${paths.scripts}/utils
       local -a SOURCE_FILES=(
@@ -98,7 +98,6 @@ in
         "${paths.scripts}/zellij_autostart_config"
         "${paths.scripts}/zellij_tab_name_update"
         "${paths.scripts}/secrets"
-        "${paths.scripts}/use-dotnet"
       )
       for config in $SOURCE_FILES; do
         [[ -f "$config" ]] && source "$config"
@@ -107,7 +106,7 @@ in
       zellij_tab_name_update
       chpwd_functions+=(zellij_tab_name_update)
       zellij_autostart_config
-      fastfetch --data-raw "$(fortune | cowsay -W 40)" | lolcat
+      [[ -z "$ZELLIJ" ]] && fastfetch --data-raw "$(fortune | cowsay -W 40)" | lolcat
     '';
   };
 

@@ -1,5 +1,8 @@
 #!/usr/bin/zsh
 
+# No-op by default; set DEBUG_SHELL=1 to enable
+mylog() { [[ "$DEBUG_SHELL" == "1" ]] && echo "$(date '+%Y-%m-%d %H:%M:%S') - $1" >> "${USER_LOG_DIR:-/tmp}/${2:-shell.log}"; }
+
 # Define the log file name
 log_file_name="utils.log"
 
