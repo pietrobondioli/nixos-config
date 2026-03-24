@@ -127,9 +127,6 @@ in
         medium = 8;
         small = 6;
       };
-      opacity = {
-        terminal = 0.98;
-      };
     };
 
     # Default Applications

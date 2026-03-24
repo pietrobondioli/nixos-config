@@ -175,14 +175,6 @@ lib.types.submodule {
             };
             default = { };
           };
-          opacity = lib.mkOption {
-            type = lib.types.submodule {
-              options = {
-                terminal = lib.mkOption { type = lib.types.float; };
-              };
-            };
-            default = { };
-          };
         };
       };
       default = { };
