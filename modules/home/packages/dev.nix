@@ -16,6 +16,7 @@ in
     vscode
     neovim
     jetbrains.rider
+    jetbrains.idea
 
     ## Database Connectivity
     unixODBC # ODBC driver manager for database connectivity
