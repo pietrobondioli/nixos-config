@@ -6,6 +6,7 @@
 
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
+    auto-optimise-store = true;
 
     # Cachix binary caches
     substituters = [
@@ -14,6 +15,13 @@
     trusted-public-keys = [
       "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
     ];
+  };
+
+  # Automatic garbage collection: delete generations older than 7 days, weekly
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 7d";
   };
 
   # Nix ecosystem tools
