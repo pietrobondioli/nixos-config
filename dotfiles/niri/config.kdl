@@ -52,7 +52,7 @@ input {
     // focus-follows-mouse max-scroll-amount="100%"
 }
 
-output "HDMI-A-1" {
+output "DP-2" {
     // off
 
     // Run `niri msg outputs` while inside a niri instance to list all outputs and their modes.
@@ -69,11 +69,6 @@ output "DP-1" {
     // Will auto-detect best mode if not specified
     // Uncomment to set specific mode:
     // mode "1920x1080@60.000"
-    scale 1.0
-    position x=1920 y=0
-}
-
-output "DP-2" {
     scale 1.0
     position x=1920 y=0
 }
