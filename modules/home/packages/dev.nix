@@ -19,7 +19,7 @@ in
     jetbrains.idea
 
     ## Database Connectivity
-    unixODBC # ODBC driver manager for database connectivity
+    unixodbc # ODBC driver manager for database connectivity
 
     libxcrypt
     pam

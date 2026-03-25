@@ -19,6 +19,7 @@ in
     gtk3.bookmarks = standardBookmarks ++ hostBookmarks;
 
     theme = { name = config.myDefaults.theme.gtk; package = pkgs.gnome-themes-extra; };
+    gtk4.theme = null;
     iconTheme = { name = config.myDefaults.theme.icons; package = pkgs.adwaita-icon-theme; };
     gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
     gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;

@@ -1,5 +1,5 @@
 { config, ... }: {
-  xdg.userDirs = { enable = true; createDirectories = true; };
+  xdg.userDirs = { enable = true; createDirectories = true; setSessionVariables = true; };
 
   xdg.desktopEntries = {
     nvim-kitty = {
