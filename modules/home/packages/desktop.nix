@@ -26,6 +26,7 @@
     teams-for-linux
     mpv
     prismlauncher
+    modrinth-app
 
     # Audio Tools
     pwvucontrol

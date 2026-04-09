@@ -1,7 +1,6 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
     # Terminals
-    alacritty
     foot
 
     # CLI Tools

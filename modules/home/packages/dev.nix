@@ -15,12 +15,12 @@ in
     # Editors & IDEs
     vscode
     neovim
-    jetbrains.rider
-    jetbrains.idea
 
     ## Database Connectivity
     unixodbc # ODBC driver manager for database connectivity
+    mycli # MySQL/MariaDB CLI with auto-completion and syntax highlighting
 
+    openssl
     libxcrypt
     pam
     libxml2
@@ -90,7 +90,6 @@ in
 
     # Web & Browser Testing
     cypress
-    google-chrome
 
     # Utilities
     imagemagick
