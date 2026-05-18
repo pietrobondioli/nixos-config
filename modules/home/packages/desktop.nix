@@ -25,8 +25,8 @@
     vesktop
     teams-for-linux
     mpv
-    prismlauncher
-    modrinth-app
+    # prismlauncher
+    # modrinth-app
 
     # Audio Tools
     pwvucontrol

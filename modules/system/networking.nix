@@ -7,7 +7,7 @@
     iproute2 # provides ip command
     net-tools # provides ifconfig, netstat, etc.
     wireguard-tools # WireGuard VPN tools
-    protonvpn-gui # ProtonVPN GUI
+    proton-vpn # ProtonVPN GUI
     socat
   ];
 

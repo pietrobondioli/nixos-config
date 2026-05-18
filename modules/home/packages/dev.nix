@@ -18,7 +18,7 @@ in
 
     ## Database Connectivity
     unixodbc # ODBC driver manager for database connectivity
-    mycli # MySQL/MariaDB CLI with auto-completion and syntax highlighting
+    # mycli # MySQL/MariaDB CLI with auto-completion and syntax highlighting (disabled: cli-helpers test failure with Python 3.13)
 
     openssl
     libxcrypt
